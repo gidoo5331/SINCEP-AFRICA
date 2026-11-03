@@ -36,6 +36,13 @@
   NAV.forEach(swap);
   swap(CTA);
 
+  // Optional: window.SINCEP_NAV_ENABLED = ['index.html', …] — anything else shows greyed out and can't be clicked
+  var ENABLED = window.SINCEP_NAV_ENABLED || null;
+  function enabled(href) { return !ENABLED || ENABLED.indexOf(href) > -1; }
+  function disabledItem(cls, label, extra) {
+    return '<span class="' + cls + ' is-disabled" aria-disabled="true" title="Coming soon">' + label + (extra || '') + '</span>';
+  }
+
   var LOGOS = {
     funders: [
       { src: SITE + '/wp-content/uploads/2026/11/eu-flag.png', alt: 'European Union', h: 30 },
@@ -114,6 +121,13 @@
     '.sincep-nav .sn-panel .sn-group{display:block;padding:13px 4px 4px;color:#8E9BB3;font:500 12px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;}' +
     '.sincep-nav .sn-panel .sn-cta,.sincep-nav .sn-panel .sn-cta:visited{display:block;text-align:center;margin-top:16px;border:0;color:var(--navy-deep);}' +
     '@media (min-width:1001px){.sincep-nav .sn-panel{display:none!important;}}' +
+    /* Pages that aren't ready yet (see SINCEP_NAV_ENABLED) */
+    '.sincep-nav .is-disabled{opacity:.4;cursor:not-allowed;}' +
+    '.sincep-nav .sn-link.is-disabled:hover{color:var(--muted);}' +
+    '.sincep-nav .sn-cta.is-disabled,.sincep-nav .sn-cta.is-disabled:hover{background:var(--teal);opacity:.35;}' +
+    '.sincep-nav .sn-panel .sn-panel-link{display:block;padding:13px 4px;color:#DCE3EE;font:500 16px/1.3 Inter,system-ui,sans-serif;border-bottom:1px solid rgba(255,255,255,.07);}' +
+    '.sincep-nav .sn-panel .sn-sub .sn-panel-link{padding-left:20px;font-size:15px;}' +
+    '.sincep-nav .sn-panel .sn-cta.is-disabled{display:block;text-align:center;margin-top:16px;color:var(--navy-deep);}' +
     '@media (prefers-reduced-motion:reduce){.sincep-nav *{transition:none!important;}}';
 
   // Fonts used by the header (skipped if the page already loads them)
@@ -151,21 +165,35 @@
   var caret = '<svg class="sn-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
 
   var desktopLinks = NAV.map(function (item, i) {
-    if (!item.children) return '<li><a class="sn-link" href="' + esc(item.href) + '"' + current(item.href) + '>' + esc(item.label) + '</a></li>';
+    if (!item.children) {
+      if (!enabled(item.href)) return '<li>' + disabledItem('sn-link', esc(item.label)) + '</li>';
+      return '<li><a class="sn-link" href="' + esc(item.href) + '"' + current(item.href) + '>' + esc(item.label) + '</a></li>';
+    }
+    if (!item.children.some(function (c) { return enabled(c.href); })) return '<li>' + disabledItem('sn-link', esc(item.label), caret) + '</li>';
     var childCurrent = item.children.some(function (c) { return isCurrent(c.href); });
     return '<li class="sn-dd">' +
       '<button type="button" class="sn-link' + (childCurrent ? ' is-current' : '') + '" aria-expanded="false" aria-controls="sn-menu-' + i + '">' + esc(item.label) + caret + '</button>' +
       '<ul class="sn-menu" id="sn-menu-' + i + '">' + item.children.map(function (c) {
+        if (!enabled(c.href)) return '<li>' + disabledItem('sn-menu-item', esc(c.label)) + '</li>';
         return '<li><a href="' + esc(c.href) + '"' + current(c.href) + '>' + esc(c.label) + '</a></li>';
       }).join('') + '</ul></li>';
   }).join('');
 
+  function mobileLink(item) {
+    if (!enabled(item.href)) return '<li>' + disabledItem('sn-panel-link', esc(item.label)) + '</li>';
+    return '<li><a href="' + esc(item.href) + '"' + current(item.href) + '>' + esc(item.label) + '</a></li>';
+  }
   var mobileLinks = NAV.map(function (item) {
-    if (!item.children) return '<li><a href="' + esc(item.href) + '"' + current(item.href) + '>' + esc(item.label) + '</a></li>';
-    return '<li><span class="sn-group">' + esc(item.label) + '</span><ul class="sn-sub">' + item.children.map(function (c) {
-      return '<li><a href="' + esc(c.href) + '"' + current(c.href) + '>' + esc(c.label) + '</a></li>';
-    }).join('') + '</ul></li>';
+    if (!item.children) return mobileLink(item);
+    return '<li><span class="sn-group">' + esc(item.label) + '</span><ul class="sn-sub">' + item.children.map(mobileLink).join('') + '</ul></li>';
   }).join('');
+
+  var searchHTML = ENABLED
+    ? disabledItem('sn-search', '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="sr-only">Search</span>')
+    : '<a class="sn-search" href="' + SITE + '/?s=" aria-label="Search the site"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>';
+  var ctaHTML = enabled(CTA.href)
+    ? '<a class="sn-cta" href="' + esc(CTA.href) + '">' + esc(CTA.label) + '</a>'
+    : disabledItem('sn-cta', esc(CTA.label));
 
   var header = document.createElement('header');
   header.className = 'sincep-nav';
@@ -186,11 +214,10 @@
     '</div></div>' +
     '<div class="sn-bar"><nav class="sn-wrap" aria-label="Main">' +
       '<ul class="sn-links">' + desktopLinks + '</ul>' +
-      '<a class="sn-search" href="' + SITE + '/?s=" aria-label="Search the site"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>' +
-      '<a class="sn-cta" href="' + esc(CTA.href) + '">' + esc(CTA.label) + '</a>' +
+      searchHTML +
+      ctaHTML +
     '</nav></div>' +
-    '<div class="sn-panel" id="sn-panel"><ul>' + mobileLinks + '</ul>' +
-      '<a class="sn-cta" href="' + esc(CTA.href) + '">' + esc(CTA.label) + '</a></div>';
+    '<div class="sn-panel" id="sn-panel"><ul>' + mobileLinks + '</ul>' + ctaHTML + '</div>';
 
   var slot = document.querySelector('[data-sincep-nav]');
   if (slot) slot.replaceWith(header);

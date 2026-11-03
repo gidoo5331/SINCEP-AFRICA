@@ -32,9 +32,24 @@
     return;
   }
 
+  // Links to preview pages that aren't enabled yet (window.SINCEP_NAV_ENABLED) are greyed out, like in the nav
+  function disableUnreadyLinks() {
+    var enabled = window.SINCEP_NAV_ENABLED;
+    if (!enabled) return;
+    main.querySelectorAll('a[href]').forEach(function (a) {
+      var page = a.getAttribute('href').split('#')[0];
+      if (!/^[a-z-]+\.html$/.test(page) || enabled.indexOf(page) > -1) return;
+      a.removeAttribute('href');
+      a.setAttribute('aria-disabled', 'true');
+      a.title = 'Coming soon';
+      a.style.opacity = '0.4';
+      a.style.cursor = 'not-allowed';
+    });
+  }
+
   // Run <script> tags one after another, as they would run on a normal page
   function runScripts(scripts, i) {
-    if (i >= scripts.length) return;
+    if (i >= scripts.length) { disableUnreadyLinks(); return; }
     var old = scripts[i];
     var s = document.createElement('script');
     for (var a = 0; a < old.attributes.length; a++) s.setAttribute(old.attributes[a].name, old.attributes[a].value);
