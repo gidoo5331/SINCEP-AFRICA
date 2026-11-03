@@ -1,0 +1,66 @@
+<!-- Project Overview — placeholder until this page is redesigned. Replace this whole file with the new design. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  .sincep-soon {
+    --navy: #0B1F3A; --navy-deep: #071527; --teal: #2DD4A7;
+    font-family: Inter, system-ui, sans-serif; color: #fff;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(45,212,167,0.16), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(240,180,41,0.12), transparent 40%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    min-height: 70vh; display: flex; align-items: center;
+    margin-top: calc(-1 * var(--padding-top, 10px));
+    margin-left: calc(-1 * var(--padding-left, 10px));
+    margin-right: calc(-1 * var(--padding-right, 10px));
+  }
+  .sincep-soon *, .sincep-soon *::before, .sincep-soon *::after { box-sizing: border-box; }
+  .sincep-soon .wrap { max-width: 1120px; margin: 0 auto; padding: 88px 28px; width: 100%; }
+  .sincep-soon .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 500 12.5px/1 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--teal); background: rgba(45,212,167,0.1); border: 1px solid rgba(45,212,167,0.35);
+    padding: 8px 14px; border-radius: 999px; margin-bottom: 24px;
+  }
+  .sincep-soon h1 {
+    font-family: 'Space Grotesk', sans-serif !important; font-size: clamp(34px, 5vw, 52px) !important;
+    font-weight: 600; line-height: 1.1 !important; letter-spacing: -0.01em !important;
+    color: #fff; margin: 0 0 16px !important; text-transform: none !important;
+  }
+  .sincep-soon p { font-size: 18px; color: #C2CBDC; max-width: 56ch; margin: 0 0 12px; line-height: 1.6; }
+  .sincep-soon .status {
+    display: inline-flex; align-items: center; gap: 10px; margin: 20px 0 32px;
+    font: 500 13px/1 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #F0B429;
+  }
+  .sincep-soon .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #F0B429; box-shadow: 0 0 0 4px rgba(240,180,41,0.2); }
+  .sincep-soon .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .sincep-soon a.btn, .sincep-soon a.btn:visited {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    font: 600 15px/1.2 Inter, sans-serif; padding: 13px 24px; border-radius: 10px;
+  }
+  .sincep-soon a.btn-primary, .sincep-soon a.btn-primary:visited { background: var(--teal); color: var(--navy-deep); }
+  .sincep-soon a.btn-primary:hover { background: #45E0B8; color: var(--navy-deep); }
+  .sincep-soon a.btn-ghost, .sincep-soon a.btn-ghost:visited { color: #fff; border: 1px solid rgba(255,255,255,0.28); }
+  .sincep-soon a.btn-ghost:hover { border-color: #fff; color: #fff; }
+  .sincep-soon a:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+  @media (max-width: 1024px) { .sincep-soon { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); } }
+  @media (max-width: 600px) {
+    .sincep-soon .wrap { padding: 56px 18px; }
+    .sincep-soon p { font-size: 16.5px; }
+    .sincep-soon .actions { flex-direction: column; }
+    .sincep-soon a.btn { justify-content: center; }
+  }
+</style>
+
+<section class="sincep-soon">
+  <div class="wrap">
+    <span class="eyebrow">● About</span>
+    <h1>Project Overview</h1>
+    <p>The project's aims, funding details and summary.</p>
+    <div class="status">Redesign coming soon</div>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://sincep-africa.org/project-overview/" target="_blank" rel="noopener">View the current page →</a>
+      <a class="btn btn-ghost" href="index.html">Back to home</a>
+    </div>
+  </div>
+</section>

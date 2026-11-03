@@ -1,0 +1,486 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  .sincep-wp{
+    --navy: #0F1F38;
+    /* Teal palette (matches the homepage): bright teal on dark, deep teal for text on light */
+    --accent: #2DD4A7;
+    --accent-soft: #E3F8F1;
+    --accent-ink: #0F766E;
+    --bg: #F6F7F9;
+    --card: #FFFFFF;
+    --ink: #1A2233;
+    --ink-soft: #5A6475;
+    --border: #E3E7ED;
+    --border-strong: #C9D0DB;
+    --tint: #EEF2F8;
+    --radius: 12px;
+    --shadow: 0 1px 2px rgba(15,31,56,0.05), 0 4px 14px rgba(15,31,56,0.05);
+    --max: 960px;
+    --head-font: 'Jost', system-ui, sans-serif;
+    --body-font: 'Inter', system-ui, sans-serif;
+
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body-font);
+    font-size: 17px;
+    line-height: 1.6;
+    position: relative;
+    padding-bottom: 72px;
+    /* Cancel the Elementor container's padding (defaults to 10px) */
+    margin-top: calc(-1 * var(--padding-top, 10px));
+    margin-left: calc(-1 * var(--padding-left, 10px));
+    margin-right: calc(-1 * var(--padding-right, 10px));
+  }
+
+  .sincep-wp *, .sincep-wp *::before, .sincep-wp *::after { box-sizing: border-box; }
+
+  .sincep-wp h1, .sincep-wp h2, .sincep-wp h3 {
+    font-family: var(--head-font) !important;
+    color: var(--navy);
+    margin: 0 !important;
+    padding: 0;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+  }
+  .sincep-wp p { margin: 0; }
+  .sincep-wp a { color: var(--accent-ink); }
+
+  /* Reset theme button styles (Astra / Elementor) */
+  .sincep-wp button {
+    box-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    line-height: 1.3;
+  }
+  .sincep-wp button:focus-visible,
+  .sincep-wp a:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
+
+  .sincep-wp .skip-link{ position:absolute; left:-999px; top:auto; }
+  .sincep-wp .skip-link:focus{
+    left: 12px; top: 12px; background: var(--accent); color: var(--navy);
+    padding: 10px 16px; border-radius: 8px; z-index: 100; font-weight:600;
+  }
+
+  /* ===== Header ===== */
+  .sincep-wp .page-head {
+    background: var(--navy);
+    color: #fff;
+    padding: 56px 24px 52px;
+  }
+  .sincep-wp .head-inner { max-width: var(--max); margin: 0 auto; }
+  .sincep-wp .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .sincep-wp .eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--accent); }
+  .sincep-wp .page-head h1 {
+    color: #fff;
+    font-size: 42px !important;
+    font-weight: 600;
+    line-height: 1.15 !important;
+    margin-bottom: 14px !important;
+  }
+  .sincep-wp .page-head p { font-size: 18px; color: #C5CFDF; max-width: 680px; }
+
+  /* ===== Explainer ===== */
+  .sincep-wp .explainer { max-width: var(--max); margin: 32px auto 0; padding: 0 24px; }
+  .sincep-wp .explainer-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .sincep-wp .explainer-card strong { color: var(--ink); font-weight: 600; }
+
+  /* ===== Search / filter ===== */
+  .sincep-wp .controls { max-width: var(--max); margin: 24px auto 0; padding: 0 24px; }
+  .sincep-wp .search-box {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 12px 16px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .sincep-wp .search-box:focus-within { border-color: var(--accent-ink); box-shadow: 0 0 0 3px rgba(15,118,110,0.18); }
+  .sincep-wp .search-box svg { flex-shrink: 0; color: var(--ink-soft); }
+  .sincep-wp .search-box input,
+  .sincep-wp .search-box input:focus {
+    border: none; outline: none; box-shadow: none;
+    padding: 0; margin: 0; height: auto; min-height: 0;
+    font-size: 16px; font-family: inherit;
+    width: 100%;
+    background: transparent;
+    color: var(--ink);
+    border-radius: 0;
+  }
+  .sincep-wp .search-box input::placeholder { color: var(--ink-soft); opacity: 1; }
+  .sincep-wp .filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+  .sincep-wp .filter-chip {
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .sincep-wp .filter-chip:hover,
+  .sincep-wp .filter-chip:focus { border-color: var(--navy); color: var(--navy); background: var(--card); }
+  .sincep-wp .filter-chip.active,
+  .sincep-wp .filter-chip.active:hover,
+  .sincep-wp .filter-chip.active:focus { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .sincep-wp .result-count { margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
+
+  /* ===== Area list ===== */
+  .sincep-wp .sp-main {
+    max-width: var(--max);
+    margin: 24px auto 0;
+    padding: 0 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .sincep-wp .area-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+    scroll-margin-top: 120px;
+  }
+  .sincep-wp .area-card:hover,
+  .sincep-wp .area-card.open { border-color: var(--border-strong); }
+  .sincep-wp .area-toggle,
+  .sincep-wp .area-toggle:hover,
+  .sincep-wp .area-toggle:focus {
+    width: 100%;
+    display: flex; align-items: center; gap: 18px;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    border-radius: 0;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--ink);
+  }
+  .sincep-wp .area-toggle:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: -3px; }
+  .sincep-wp .area-num {
+    flex-shrink: 0;
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: var(--tint);
+    color: var(--navy);
+    font-family: var(--head-font);
+    font-weight: 600; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .sincep-wp .area-card.open .area-num { background: var(--navy); color: #fff; }
+  .sincep-wp .area-toggle-text { flex: 1; min-width: 0; }
+  .sincep-wp .area-toggle-text h2 { font-size: 20px !important; font-weight: 600; line-height: 1.3 !important; white-space: normal; }
+  .sincep-wp .area-toggle-text .lead-line { margin-top: 4px; font-size: 14.5px; color: var(--ink-soft); }
+  .sincep-wp .area-toggle-text .lead-line strong { color: var(--ink); font-weight: 600; }
+  .sincep-wp .chevron {
+    flex-shrink: 0; width: 22px; height: 22px;
+    color: var(--ink-soft);
+    transition: transform 0.2s ease;
+  }
+  .sincep-wp .area-card.open .chevron { transform: rotate(180deg); color: var(--navy); }
+
+  .sincep-wp .area-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border); }
+  .sincep-wp .area-card.open .area-body { display: block; }
+
+  .sincep-wp .contact-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+    margin: 20px 0 24px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .sincep-wp .contact-row .who { font-size: 15.5px; }
+  .sincep-wp .contact-row .who .name { font-weight: 600; color: var(--ink); }
+  .sincep-wp .contact-row .who .role { color: var(--ink-soft); font-size: 13.5px; }
+  .sincep-wp .email-area {
+    margin-left: auto;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+  }
+  .sincep-wp .email-shown[hidden] { display: none; }
+  .sincep-wp .reveal-btn,
+  .sincep-wp .reveal-btn:focus {
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    color: var(--navy);
+    background: var(--card);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  .sincep-wp .reveal-btn:hover { border-color: var(--navy); background: var(--card); color: var(--navy); }
+  .sincep-wp .email-shown { font-size: 15px; color: var(--accent-ink); text-decoration: underline; word-break: break-all; }
+
+  /* Work packages list */
+  .sincep-wp .phases-label {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .sincep-wp .phase-timeline { display: flex; flex-direction: column; margin-bottom: 20px; }
+  .sincep-wp .phase-item { display: flex; gap: 14px; }
+  .sincep-wp .phase-marker { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+  .sincep-wp .phase-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft);
+    margin-top: 7px;
+  }
+  .sincep-wp .phase-line { flex: 1; width: 2px; background: var(--border); margin: 8px 0 2px; min-height: 18px; }
+  .sincep-wp .phase-item:last-child .phase-line { display: none; }
+  .sincep-wp .phase-content { padding-bottom: 18px; }
+  .sincep-wp .phase-content .phase-title { font-size: 15.5px; color: var(--ink-soft); }
+  .sincep-wp .phase-content .phase-code { font-weight: 700; color: var(--navy); }
+  .sincep-wp .phase-content .phase-desc { font-weight: 400; color: var(--ink); }
+
+  /* Contributors */
+  .sincep-wp details.contrib-toggle { border-top: 1px solid var(--border); padding-top: 16px; }
+  .sincep-wp details.contrib-toggle summary {
+    cursor: pointer; font-weight: 600; color: var(--navy); font-size: 14.5px;
+    list-style: none; display: flex; align-items: center; gap: 8px;
+  }
+  .sincep-wp details.contrib-toggle summary::-webkit-details-marker { display: none; }
+  .sincep-wp details.contrib-toggle summary::before {
+    content: "+";
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    width: 20px; height: 20px; border-radius: 6px;
+    background: var(--accent-soft); color: var(--accent-ink); font-size: 14px;
+  }
+  .sincep-wp details.contrib-toggle[open] summary::before { content: "\2212"; }
+  .sincep-wp .contrib-list { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .sincep-wp .contrib-list span {
+    font-size: 13px; font-weight: 500; padding: 4px 10px; border-radius: 999px;
+    background: var(--bg); border: 1px solid var(--border); color: var(--ink-soft);
+  }
+
+  .sincep-wp .empty-state { text-align: center; padding: 56px 24px; color: var(--ink-soft); background: var(--card); border: 1px dashed var(--border-strong); border-radius: var(--radius); }
+  .sincep-wp .empty-state h3 { color: var(--ink); font-size: 20px !important; margin-bottom: 6px !important; }
+
+  /* Break out of Elementor container padding so the header runs edge to edge */
+  @media (max-width: 1024px) {
+    .sincep-wp { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+  }
+
+  @media (max-width: 560px) {
+    .sincep-wp { font-size: 16px; }
+    .sincep-wp .page-head { padding: 40px 20px 36px; }
+    .sincep-wp .page-head h1 { font-size: 30px !important; }
+    .sincep-wp .page-head p { font-size: 16px; }
+    .sincep-wp .explainer, .sincep-wp .controls, .sincep-wp .sp-main { padding: 0 16px; }
+    .sincep-wp .explainer-card { padding: 16px 18px; font-size: 15px; }
+    .sincep-wp .area-toggle, .sincep-wp .area-toggle:hover, .sincep-wp .area-toggle:focus { padding: 16px; gap: 12px; }
+    .sincep-wp .area-num { width: 36px; height: 36px; font-size: 16px; border-radius: 8px; }
+    .sincep-wp .area-toggle-text h2 { font-size: 17px !important; }
+    .sincep-wp .area-toggle-text .lead-line { font-size: 13.5px; }
+    .sincep-wp .area-body { padding: 0 16px 20px; }
+    .sincep-wp .contact-row { flex-direction: column; align-items: flex-start; }
+    .sincep-wp .email-area { margin-left: 0; }
+    .sincep-wp .phase-content .phase-title { font-size: 15px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sincep-wp * { transition: none !important; }
+  }
+</style>
+
+<div class="sincep-wp" id="sincep-wp">
+  <a href="#sincep-wp-main" class="skip-link">Skip to work packages</a>
+
+  <div class="page-head">
+    <div class="head-inner">
+      <div class="eyebrow">Project structure</div>
+      <h1>Work Packages</h1>
+      <p>The SINCEP-Africa project comprises nine thematic areas. Tap on any area below to see who's leading it, how to reach them, and what happens at each stage.</p>
+    </div>
+  </div>
+
+  <div class="explainer">
+    <div class="explainer-card">
+      <strong>What is a "work package (WP)"?</strong> A work package (WP) is a distinct, manageable unit of work at the lowest level of a project's Work Breakdown Structure
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="search-box">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="sp-search" type="text" aria-label="Search work packages" placeholder="Search by topic or leader, e.g. &quot;training&quot; or &quot;Ghana&quot;">
+    </div>
+    <div class="filter-row">
+      <button type="button" class="filter-chip active" data-filter="all">All areas</button>
+      <button type="button" class="filter-chip" data-filter="open">Show all expanded</button>
+    </div>
+    <div class="result-count" aria-live="polite">Showing 9 of 9 areas</div>
+  </div>
+
+  <div class="sp-main" id="sincep-wp-main"></div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('sincep-wp');
+  if (!root || root.dataset.ready) return;
+  root.dataset.ready = '1';
+
+  var areas = [
+    { num: 1, title: "Scientific Leadership, Partnership", lead: "INDEPTH Network", contact: "Prof. Philip Adongo", email: "adongophilip@yahoo.com",
+      phases: [
+          { title: "Scientific Leadership, Partnership - RP1", code: "WP1" },{ title: "Scientific Leadership, Partnership - RP2", code: "WP2" },{ title: "Scientific Leadership, Partnership - RP3", code: "WP3" }
+          ],
+      contributors: ["UNAV","LSTM","UG","GRAS","KNUST","UOG","UniCal","UCAD","IHI","MAKERERE","INSP-CI","DHRC","CRUN","USTTB","UNIKIN","FM","STRATHMORE","INDEPTH","CTI","PANTHER"] },
+    { num: 2, title: "Site Capacity Assessment and Infrastructure Strengthening", lead: "CRUN", contact: "Dr. Innocent Valea", email: "innocentvalea@crun.bf",
+      phases: [{ title: "Baseline assessment and launch - RP1", code: "WP4" },{ title: "Consolidation and quality improvement - RP2", code: "WP5" },{ title: "Accreditation progress and sustainability - RP3", code: "WP6" }],
+      contributors: ["GRAS","KNUST","UOG","UniCal","UCAD","IHI","MAKERERE","INSP-CI","DHRC","CRUN","USTTB","UNIKIN","FM","STRATHMORE","INDEPTH"] },
+    { num: 3, title: "Epidemic Preparedness, Disease Surveillance and Population Health", lead: "PANTHER", contact: "Dr. Nathalie Strub-Wourgaft", email: "Nstrub-wourgaft@pantherhealth.org",
+      phases: [{ title: "Design and baseline analysis - RP1", code: "WP7" },{ title: "Deployment and integration - RP2", code: "WP8" },{ title: "Operational use and consolidation - RP3", code: "WP9" }],
+      contributors: ["GRAS","KNUST","UOG","UniCal","UCAD","IHI","MAKERERE","INSP-CI","DHRC","CRUN","USTTB","UNIKIN","FM","STRATHMORE","CTI","PANTHER"] },
+    { num: 4, title: "Ethics, Regulatory, and Pharmacovigilance", lead: "MAKERERE", contact: "Dr. Daniel Kajungu", email: "dan.kajungu@gmail.com",
+      phases: [{ title: "Setup - RP1", code: "WP10" },{ title: "Harmonisation and implementation - RP2", code: "WP11" },{ title: "Consolidation and evaluation - RP3", code: "WP12" }],
+      contributors: ["UG","GRAS","KNUST","UOG","UniCal","UCAD","IHI","MAKERERE","INSP-CI","DHRC","CRUN","USTTB","STRATHMORE"] },
+    { num: 5, title: "Clinical Research and Trial Management", lead: "DHRC (NHRC)", contact: "Dr. Patrick Ansah", email: "lonpoa2@gmail.com",
+      phases: [{ title: "Protocol and readiness package development - RP1", code: "WP13" },{ title: "Site activation and implementation readiness - RP2", code: "WP14" },{ title: "Implementation support, analysis and evidence translation - RP3", code: "WP15" }],
+      contributors: ["GRAS","KNUST","UOG","UniCal","UCAD","IHI","MAKERERE","INSP-CI","DHRC","CRUN","USTTB","STRATHMORE"] },
+    { num: 6, title: "Social Impact", lead: "University of Ghana", contact: "Prof. Emmanuel Asampong", email: "easampong@ug.edu.gh",
+      phases: [{ title: "Social research and engagement design - RP1", code: "WP16" },{ title: "Economic and implementation analysis - RP2", code: "WP17" },{ title: "Policy translation, scale-up and closure - RP3", code: "WP18" }],
+      contributors: ["GRAS","KNUST","UOG","UniCal","UCAD","IHI","MAKERERE","INSP-CI","DHRC","CRUN","USTTB","STRATHMORE"] },
+    { num: 7, title: "Data Science, Artificial Intelligence (AI) and Analytics", lead: "CTI-LifeHealth", contact: "Mr. Michael Landau", email: "Michael@ctiafrica.com",
+      phases: [{ title: "System design and development - RP1", code: "WP19" },{ title: "Deployment, training and predictive analytics - RP2", code: "WP20" }],
+      contributors: ["GRAS","KNUST","UOG","UniCal","UCAD","IHI","MAKERERE","INSP-CI","DHRC","CRUN","USTTB","STRATHMORE","CTI"] },
+    { num: 8, title: "Capacity Strengthening and Training", lead: "STRATHMORE", contact: "Dr. Bernhards Ogutu Ragama", email: "ogutu6@gmail.com",
+      phases: [{ title: "Mapping and design - RP1", code: "WP21" },{ title: "Implementation - RP2", code: "WP22" },{ title: "Advanced delivery, mentoring and progression - RP3", code: "WP23" }],
+      contributors: ["UNAV","LSTM","UG","GRAS","KNUST","UOG","UniCal","UCAD","IHI","MAKERERE","INSP-CI","DHRC","CRUN","USTTB","UNIKIN","FM","STRATHMORE","INDEPTH","CTI"] },
+    { num: 9, title: "Project Management and Monitoring", lead: "EDCTP-ASSOC", contact: "Dr. Phindile Ximba", email: null,
+      phases: [{ title: "Project management and monitoring", code: "WP24" },{ title: "Grant Writing Workshops, National Health Research Systems (NHRS) and Technical Site Visits", code: "WP25" }],
+      contributors: ["EDCTP-Assoc"] }
+  ];
+
+  var mainEl = root.querySelector('.sp-main');
+  var searchInput = root.querySelector('.sp-search');
+  var resultCount = root.querySelector('.result-count');
+  var allBtn = root.querySelector('[data-filter="all"]');
+  var expandAllBtn = root.querySelector('[data-filter="open"]');
+  var allExpanded = false;
+
+  function render(list) {
+    mainEl.innerHTML = '';
+    if (list.length === 0) {
+      mainEl.innerHTML = '<div class="empty-state"><h3>No matching work areas</h3><p>Try a different search word.</p></div>';
+      resultCount.textContent = 'Showing 0 of ' + areas.length + ' areas';
+      return;
+    }
+    resultCount.textContent = 'Showing ' + list.length + ' of ' + areas.length + ' areas';
+
+    list.forEach(function (area) {
+      var card = document.createElement('div');
+      card.className = 'area-card';
+      card.id = 'area-' + area.num;
+
+      var phaseHTML = area.phases.map(function (p) {
+        return '<div class="phase-item"><div class="phase-marker"><div class="phase-dot"></div><div class="phase-line"></div></div>' +
+               '<div class="phase-content"><div class="phase-title">' +
+               (p.code ? '<span class="phase-code">' + p.code + '</span> - ' : '') +
+               '<span class="phase-desc">' + p.title + '</span></div></div></div>';
+      }).join('');
+
+      var contribHTML = area.contributors.map(function (c) { return '<span>' + c + '</span>'; }).join('');
+
+      card.innerHTML =
+        '<button type="button" class="area-toggle" aria-expanded="false">' +
+          '<div class="area-num">' + area.num + '</div>' +
+          '<div class="area-toggle-text"><h2>' + area.title + '</h2>' +
+          '<div class="lead-line">Led by <strong>' + area.lead + '</strong></div></div>' +
+          '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '</button>' +
+        '<div class="area-body">' +
+          '<div class="contact-row"><div class="who"><div class="name">' + area.contact + '</div><div class="role">Contact</div></div>' +
+          (area.email ? '<div class="email-area"><a class="email-shown" href="mailto:' + area.email + '" hidden>' + area.email + '</a>' +
+            '<button type="button" class="reveal-btn" aria-expanded="false">Show contact email</button></div>' : '') +
+          '</div>' +
+          (phaseHTML ? '<div class="phases-label">Work packages under this theme</div>' +
+          '<div class="phase-timeline">' + phaseHTML + '</div>' : '') +
+          '<details class="contrib-toggle"><summary>Who\u2019s involved (' + area.contributors.length + ' partner organisations)</summary>' +
+          '<div class="contrib-list">' + contribHTML + '</div></details>' +
+        '</div>';
+
+      var toggleBtn = card.querySelector('.area-toggle');
+      toggleBtn.addEventListener('click', function () {
+        var isOpen = card.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', isOpen);
+      });
+
+      var revealBtn = card.querySelector('.reveal-btn');
+      if (revealBtn) {
+        var emailLink = card.querySelector('.email-shown');
+        revealBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var showing = emailLink.hidden;
+          emailLink.hidden = !showing;
+          revealBtn.textContent = showing ? 'Hide email' : 'Show contact email';
+          revealBtn.setAttribute('aria-expanded', showing);
+        });
+      }
+
+      if (allExpanded) {
+        card.classList.add('open');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+      }
+      mainEl.appendChild(card);
+    });
+  }
+
+  function applySearch() {
+    var q = searchInput.value.trim().toLowerCase();
+    allBtn.classList.toggle('active', !q);
+    if (!q) { render(areas); return; }
+    render(areas.filter(function (a) {
+      return a.title.toLowerCase().indexOf(q) > -1 ||
+             a.lead.toLowerCase().indexOf(q) > -1 ||
+             a.contact.toLowerCase().indexOf(q) > -1 ||
+             a.contributors.some(function (c) { return c.toLowerCase().indexOf(q) > -1; }) ||
+             a.phases.some(function (p) { return (p.code + ' ' + p.title).toLowerCase().indexOf(q) > -1; });
+    }));
+  }
+
+  searchInput.addEventListener('input', applySearch);
+
+  allBtn.addEventListener('click', function () {
+    searchInput.value = '';
+    applySearch();
+  });
+
+  expandAllBtn.addEventListener('click', function () {
+    allExpanded = !allExpanded;
+    expandAllBtn.textContent = allExpanded ? 'Collapse all' : 'Show all expanded';
+    expandAllBtn.classList.toggle('active', allExpanded);
+    applySearch();
+  });
+
+  render(areas);
+
+  // Open the area named in the URL, e.g. /work-packages/#area-3 (linked from the homepage and Consortium Partners)
+  function openFromHash() {
+    var m = /^#area-(\d+)$/.exec(location.hash);
+    var card = m && document.getElementById('area-' + m[1]);
+    if (!card || !root.contains(card)) return;
+    card.classList.add('open');
+    card.querySelector('.area-toggle').setAttribute('aria-expanded', 'true');
+    card.scrollIntoView({ block: 'start' });
+  }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+})();
+</script>
