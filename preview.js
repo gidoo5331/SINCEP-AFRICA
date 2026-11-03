@@ -32,13 +32,16 @@
     return;
   }
 
-  // Links to preview pages that aren't enabled yet (window.SINCEP_NAV_ENABLED) are greyed out, like in the nav
+  // Links to preview pages that aren't enabled yet (window.SINCEP_NAV_ENABLED) go to the fallback page
+  // (window.SINCEP_NAV_FALLBACK), or are greyed out if there is none — same as the nav
   function disableUnreadyLinks() {
     var enabled = window.SINCEP_NAV_ENABLED;
+    var fallback = window.SINCEP_NAV_FALLBACK;
     if (!enabled) return;
     main.querySelectorAll('a[href]').forEach(function (a) {
       var page = a.getAttribute('href').split('#')[0];
       if (!/^[a-z-]+\.html$/.test(page) || enabled.indexOf(page) > -1) return;
+      if (fallback) { a.setAttribute('href', fallback); return; }
       a.removeAttribute('href');
       a.setAttribute('aria-disabled', 'true');
       a.title = 'Coming soon';

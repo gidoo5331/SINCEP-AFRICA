@@ -36,9 +36,17 @@
   NAV.forEach(swap);
   swap(CTA);
 
-  // Optional: window.SINCEP_NAV_ENABLED = ['index.html', …] — anything else shows greyed out and can't be clicked
+  // Optional: window.SINCEP_NAV_ENABLED = ['index.html', …] lists the pages that are ready.
+  // With window.SINCEP_NAV_FALLBACK = 'index.html', links to other pages go there instead (and look normal);
+  // without it, they show greyed out and can't be clicked.
   var ENABLED = window.SINCEP_NAV_ENABLED || null;
-  function enabled(href) { return !ENABLED || ENABLED.indexOf(href) > -1; }
+  var FALLBACK = window.SINCEP_NAV_FALLBACK || null;
+  function enabled(href) { return !ENABLED || ENABLED.indexOf(href.split('?')[0]) > -1; }
+  function redirect(item) {
+    if (item.href && !enabled(item.href)) item.href = FALLBACK + '?soon=' + encodeURIComponent(item.label);
+    if (item.children) item.children.forEach(redirect);
+  }
+  if (ENABLED && FALLBACK) { NAV.forEach(redirect); redirect(CTA); }
   function disabledItem(cls, label, extra) {
     return '<span class="' + cls + ' is-disabled" aria-disabled="true" title="Coming soon">' + label + (extra || '') + '</span>';
   }
@@ -151,6 +159,7 @@
   function norm(p) { return (p || '/').replace(/\/index\.html$/, '/').replace(/\/+$/, '') || '/'; }
   var here = norm(location.pathname);
   function isCurrent(href) {
+    if (/[?&]soon=/.test(href)) return false;   // placeholder link to the fallback page, not the page itself
     try {
       var u = new URL(href, location.href);
       return u.host === location.host && norm(u.pathname) === here;
@@ -188,7 +197,9 @@
     return '<li><span class="sn-group">' + esc(item.label) + '</span><ul class="sn-sub">' + item.children.map(mobileLink).join('') + '</ul></li>';
   }).join('');
 
-  var searchHTML = ENABLED
+  var searchHTML = ENABLED && FALLBACK
+    ? '<a class="sn-search" href="' + esc(FALLBACK) + '?soon=Search" aria-label="Search the site"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>'
+    : ENABLED
     ? disabledItem('sn-search', '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="sr-only">Search</span>')
     : '<a class="sn-search" href="' + SITE + '/?s=" aria-label="Search the site"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>';
   var ctaHTML = enabled(CTA.href)
