@@ -347,6 +347,16 @@
     .sincep-home .insight-grid, .sincep-home .theme-grid { grid-template-columns: 1fr 1fr; }
     .sincep-home .about-grid { grid-template-columns: 1fr; gap: 36px; }
   }
+  .sincep-home a.more-link,
+  .sincep-home a.more-link:visited {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 28px;
+    font-size: 15px; font-weight: 600; color: #fff;
+  }
+  .sincep-home a.more-link span { color: var(--teal); transition: transform 0.15s ease; }
+  .sincep-home a.more-link:hover { color: var(--teal); }
+  .sincep-home a.more-link:hover span { transform: translateX(3px); }
+
   @media (max-width: 800px) { .sincep-home .network-grid { grid-template-columns: 1fr; } }
   @media (max-width: 700px) { .sincep-home .stat-row { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) {
@@ -376,7 +386,7 @@
     <div class="wrap hero-inner">
       <span class="eyebrow">● Horizon Europe · Global Health EDCTP3</span>
       <h1>Fortifying Africa's <em>epidemic&nbsp;readiness</em>, together.</h1>
-      <p class="lede">Strengthening Institutional Networks and Building Capacity for Epidemiological Preparedness in Africa — a five-year initiative connecting research, health, and training institutions across Europe and Sub-Saharan Africa.</p>
+      <p class="lede">Strengthening Institutional Networks and Building Capacity for Epidemiological Preparedness in Africa (SINCEP-Africa) — a multinational HORIZON Europe initiative spanning research, innovation, and capacity building across Europe and Sub-Saharan Africa.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#sincep-network">Explore the network →</a>
         <a class="btn btn-ghost" href="#sincep-about">Read the overview</a>
@@ -429,6 +439,7 @@
           <div class="region-bar-seg eu" style="width:19%"></div>
           <div class="region-bar-seg us" style="width:5%"></div>
         </div>
+        <a class="more-link" data-link="partners" href="/consortium-partners/">See all 21 partners <span aria-hidden="true">→</span></a>
       </div>
       <div data-reveal>
         <div class="orbit-wrap">
