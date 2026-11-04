@@ -92,7 +92,7 @@
             mask-image: linear-gradient(180deg, black, transparent 85%);
     pointer-events: none;
   }
-  .sincep-home .hero-inner { position: relative; }
+  .sincep-home .hero-inner { position: relative; z-index: 1; }
   .sincep-home .eyebrow {
     display: inline-flex;
     align-items: center;
@@ -373,10 +373,58 @@
     .sincep-home .funding { grid-template-columns: 1fr; gap: 20px; padding: 22px; }
   }
 
+  /* ===== Small animations ===== */
+
+  /* Hero: slowly drifting glow */
+  .sincep-home .hero::after {
+    content: ""; position: absolute; inset: -20%; pointer-events: none;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(45,212,167,0.10), transparent 35%),
+      radial-gradient(circle at 75% 25%, rgba(240,180,41,0.08), transparent 30%);
+    animation: sh-drift 22s ease-in-out infinite alternate;
+  }
+  @keyframes sh-drift {
+    from { transform: translate3d(-4%, -2%, 0); }
+    to   { transform: translate3d(4%, 3%, 0); }
+  }
+
+  /* Eyebrow: pulsing "live" dot */
+  .sincep-home .live-dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+  .sincep-home .live-dot::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--teal);
+    animation: sh-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  @keyframes sh-ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
+
+  /* Region bar fills from left to right when revealed */
+  .sincep-home.js-reveal [data-reveal] .region-bar { clip-path: inset(0 100% 0 0 round 999px); transition: clip-path 1.4s cubic-bezier(.22,.61,.36,1) 0.3s; }
+  .sincep-home.js-reveal [data-reveal].in .region-bar { clip-path: inset(0 0 0 0 round 999px); }
+
+  /* Orbit: dots pop in, hub pulses, signals travel along the spokes */
+  .sincep-home .orbit .dot { transform-box: fill-box; transform-origin: center; }
+  .sincep-home .orbit .pulse { fill: none; stroke: var(--teal); stroke-width: 1.5; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .sincep-home .orbit .signal { stroke: var(--teal); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 8 200; stroke-dashoffset: 8; opacity: 0; }
+  .sincep-home .orbit.play .dot { animation: sh-pop 0.5s cubic-bezier(.34,1.56,.64,1) both; }
+  .sincep-home .orbit.play .pulse { animation: sh-hub 3.2s ease-out infinite; }
+  .sincep-home .orbit.play .signal { animation: sh-signal 7s ease-in infinite; }
+  @keyframes sh-pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 0.92; } }
+  @keyframes sh-hub { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.2); opacity: 0; } }
+  @keyframes sh-signal {
+    0%   { stroke-dashoffset: 8; opacity: 0; }
+    3%   { opacity: 0.9; }
+    18%  { stroke-dashoffset: -96; opacity: 0.9; }
+    20%, 100% { stroke-dashoffset: -96; opacity: 0; }
+  }
+
+  /* Thematic area cards: arrow slides in on hover */
+  .sincep-home .theme-card .go { margin-left: auto; color: var(--teal); opacity: 0; transform: translateX(-6px); transition: opacity 0.2s ease, transform 0.2s ease; }
+  .sincep-home a.theme-card:hover .go, .sincep-home a.theme-card:focus-visible .go { opacity: 1; transform: none; }
+
   @media (prefers-reduced-motion: reduce) {
-    .sincep-home * { transition: none !important; }
+    .sincep-home * { transition: none !important; animation: none !important; }
     .sincep-home.js-reveal [data-reveal] { opacity: 1; transform: none; }
     .sincep-home .insight-card:hover { transform: none; }
+    .sincep-home.js-reveal [data-reveal] .region-bar { clip-path: none; }
   }
 </style>
 
@@ -384,7 +432,7 @@
 
   <header class="hero">
     <div class="wrap hero-inner">
-      <span class="eyebrow">● Horizon Europe · Global Health EDCTP3</span>
+      <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Horizon Europe · Global Health EDCTP3</span>
       <h1>Fortifying Africa's <em>epidemic&nbsp;readiness</em>, together.</h1>
       <p class="lede">Strengthening Institutional Networks and Building Capacity for Epidemiological Preparedness in Africa (SINCEP-Africa) — a multinational HORIZON Europe initiative spanning research, innovation, and capacity building across Europe and Sub-Saharan Africa.</p>
       <div class="hero-actions">
@@ -560,7 +608,8 @@
   root.querySelector('.theme-grid').innerHTML = themes.map(function (t, i) {
     var n = i + 1;
     return '<a class="theme-card" data-reveal href="' + LINKS.workPackages + '#area-' + n + '">' +
-      '<div class="n">' + (n < 10 ? '0' : '') + n + '</div><div class="t"><span class="sr-only">Area ' + n + ': </span>' + t + '</div></a>';
+      '<div class="n">' + (n < 10 ? '0' : '') + n + '</div><div class="t"><span class="sr-only">Area ' + n + ': </span>' + t + '</div>' +
+      '<span class="go" aria-hidden="true">→</span></a>';
   }).join('');
 
   var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -615,20 +664,37 @@
     return node;
   }
 
+  var hubR = 34, n = 0;
   groups.forEach(function (group) {
     var sweep = (group.count / total) * (360 - gapDeg * groups.length);
     var step = sweep / Math.max(1, group.count - 1);
     for (var i = 0; i < group.count; i++) {
       var angle = group.count === 1 ? startAngle + sweep / 2 : startAngle + i * step;
       var rad = angle * Math.PI / 180;
-      var x = cx + r * Math.cos(rad), y = cy + r * Math.sin(rad);
+      var cos = Math.cos(rad), sin = Math.sin(rad);
+      var x = cx + r * cos, y = cy + r * sin;
       svg.appendChild(el('line', { x1: cx, y1: cy, x2: x, y2: y, stroke: 'rgba(255,255,255,0.08)', 'stroke-width': 1 }));
-      svg.appendChild(el('circle', { cx: x, cy: y, r: 6, fill: group.hex, opacity: 0.92 }));
+      // A short teal dash that travels from the hub out to this partner, staggered around the ring
+      svg.appendChild(el('line', {
+        'class': 'signal', x1: cx + hubR * cos, y1: cy + hubR * sin, x2: x - 6 * cos, y2: y - 6 * sin,
+        style: 'animation-delay:' + ((n * 2.3) % 7).toFixed(2) + 's'
+      }));
+      svg.appendChild(el('circle', { 'class': 'dot', cx: x, cy: y, r: 6, fill: group.hex, opacity: 0.92, style: 'animation-delay:' + (n * 45) + 'ms' }));
+      n++;
     }
     startAngle += sweep + gapDeg;
   });
 
-  svg.appendChild(el('circle', { cx: cx, cy: cy, r: 34, fill: '#0F2A4A', stroke: 'rgba(45,212,167,0.5)', 'stroke-width': 1.5 }));
+  svg.appendChild(el('circle', { 'class': 'pulse', cx: cx, cy: cy, r: hubR }));
+  svg.appendChild(el('circle', { cx: cx, cy: cy, r: hubR, fill: '#0F2A4A', stroke: 'rgba(45,212,167,0.5)', 'stroke-width': 1.5 }));
+
+  // Start the orbit animations when it scrolls into view
+  if (canObserve && !prefersReduced) {
+    var orbitObserver = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { svg.classList.add('play'); orbitObserver.disconnect(); }
+    }, { threshold: 0.3 });
+    orbitObserver.observe(svg);
+  }
   var label = el('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', fill: '#fff', 'font-size': 11, 'font-family': 'IBM Plex Mono, monospace' });
   label.textContent = 'SINCEP';
   svg.appendChild(label);

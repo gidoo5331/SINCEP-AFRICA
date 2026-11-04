@@ -14,6 +14,7 @@ Redesign of [sincep-africa.org](https://sincep-africa.org), with a shareable pre
 | `sincep-nav.js` | The new header (preview only for now; the live header is built in the Blocksy theme) |
 | `index.html` and the other `*.html` in this folder | Preview pages, one per nav item. They load the matching snippet and add the header — **don't edit these** |
 | `preview.js` | Loads the snippets into the preview pages |
+| `logos/partners/` | Partner logos (`sincep-partner-*.png/svg/jpg`), taken from each partner's official website. For WordPress: upload them all to the Media Library in one go, then set `LOGO_BASE` near the top of the Consortium Partners script to their folder, e.g. `/wp-content/uploads/2026/11/` |
 
 ## Making a change
 

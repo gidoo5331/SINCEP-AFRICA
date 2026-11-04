@@ -1,428 +1,477 @@
-<!-- DESIGN A — based on REDESIGN-NOTES.md: clean institutional directory (table on desktop, cards on mobile) -->
+<!-- SINCEP-Africa — Consortium Partners, in the homepage's design (Space Grotesk, IBM Plex Mono, teal/gold/coral). Elementor HTML-widget snippet. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  .sincep-cpa{
-    --navy: #0F1F38;
-    --navy-2: #172C4D;
-    /* Teal palette (matches the homepage): bright teal on dark, deep teal for text on light */
-    --blue: #0F766E;          /* links and focus on light backgrounds */
-    --blue-soft: #E3F8F1;
-    --accent: #2DD4A7;
-    --accent-soft: #E3F8F1;
-    --accent-ink: #0F766E;
-    --bg: #F6F7F9;
-    --card: #FFFFFF;
-    --ink: #1A2233;
-    --ink-soft: #5A6475;
-    --ink-faint: #8A93A3;
-    --border: #E3E7ED;
-    --border-strong: #C9D0DB;
-    --tint: #EEF2F8;
-    --success: #0F7B5F;
-    --success-soft: #E3F4EE;
-    /* Region colours: text / soft background / dot */
-    --africa: #0F766E;   --africa-soft: #E3F8F1;   --africa-dot: #2DD4A7;
-    --europe: #8A5A00;   --europe-soft: #FEF3D7;   --europe-dot: #F0B429;
-    --na: #B42318;       --na-soft: #FFE8E3;       --na-dot: #FF6F59;
-    --radius: 14px;
-    --shadow: 0 1px 2px rgba(15,31,56,0.04), 0 6px 20px rgba(15,31,56,0.06);
-    --max: 1120px;
-    --sticky-top: 0px;   /* raise this if the site header is sticky */
-    --head-font: 'Jost', system-ui, sans-serif;
-    --body-font: 'Inter', system-ui, sans-serif;
+  .sincep-cp{
+    --navy: #0B1F3A;
+    --navy-deep: #071527;
+    --teal: #2DD4A7;
+    --teal-ink: #0F766E;
+    --gold: #F0B429;
+    --coral: #FF6F59;
+    --paper: #F7F5F0;
+    --ink: #16202E;
+    --ink-soft: #5F6B80;
+    --line: #E4E0D6;
+    --radius: 16px;
+    --head-font: 'Space Grotesk', system-ui, sans-serif;
+    --mono-font: 'IBM Plex Mono', ui-monospace, monospace;
+    /* Region colours: soft background / text on light / dot */
+    --africa-soft: #E6F9F2; --africa-ink: #0F766E; --africa-dot: #2DD4A7;
+    --europe-soft: #FEF3D7; --europe-ink: #8A5A00; --europe-dot: #F0B429;
+    --na-soft: #FFE8E3;     --na-ink: #B42318;     --na-dot: #FF6F59;
 
-    background: var(--bg);
+    background: var(--paper);
     color: var(--ink);
-    font-family: var(--body-font);
+    font-family: 'Inter', system-ui, sans-serif;
     font-size: 17px;
     line-height: 1.6;
     position: relative;
-    padding-bottom: 88px;
     /* Cancel the Elementor container's padding (defaults to 10px) */
     margin-top: calc(-1 * var(--padding-top, 10px));
     margin-left: calc(-1 * var(--padding-left, 10px));
     margin-right: calc(-1 * var(--padding-right, 10px));
   }
 
-  .sincep-cpa *, .sincep-cpa *::before, .sincep-cpa *::after { box-sizing: border-box; }
+  .sincep-cp *, .sincep-cp *::before, .sincep-cp *::after { box-sizing: border-box; }
 
-  .sincep-cpa h1, .sincep-cpa h2, .sincep-cpa h3 {
+  /* Theme heading styles can override ours, hence !important */
+  .sincep-cp h1, .sincep-cp h2, .sincep-cp h3 {
     font-family: var(--head-font) !important;
-    color: var(--navy);
     margin: 0 !important;
     padding: 0;
-    letter-spacing: normal !important;
+    letter-spacing: -0.01em !important;
     text-transform: none !important;
+    color: var(--ink);
   }
-  .sincep-cpa p { margin: 0; }
-  .sincep-cpa a { color: var(--blue); }
-
-  /* Reset theme button / table styles (Astra / Elementor) */
-  .sincep-cpa button { box-shadow: none; text-transform: none; letter-spacing: normal; line-height: 1.3; }
-  .sincep-cpa button:focus-visible,
-  .sincep-cpa a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
-  .sincep-cpa table, .sincep-cpa th, .sincep-cpa td { border: none; margin: 0; background: none; }
-
-  .sincep-cpa .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
-
-  /* ===== Header ===== */
-  .sincep-cpa .page-head { background: var(--navy); color: #fff; padding: 56px 0 48px; }
-  .sincep-cpa .eyebrow {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 14px;
-  }
-  .sincep-cpa .eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--accent); }
-  .sincep-cpa .page-head h1 {
-    color: #fff; font-size: 42px !important; font-weight: 600;
-    line-height: 1.15 !important; margin-bottom: 14px !important;
-  }
-  .sincep-cpa .page-head p { font-size: 18px; color: #C5CFDF; max-width: 720px; }
-  .sincep-cpa .head-stats {
-    display: flex; flex-wrap: wrap; gap: 12px 40px;
-    margin-top: 32px; padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,0.12);
-  }
-  .sincep-cpa .head-stat { display: flex; align-items: baseline; gap: 10px; }
-  .sincep-cpa .head-stat strong { font-family: var(--head-font); font-size: 32px; font-weight: 600; color: #fff; line-height: 1; }
-  .sincep-cpa .head-stat span { font-size: 15px; color: #C5CFDF; }
-
-  /* ===== Sticky toolbar ===== */
-  .sincep-cpa .sentinel { height: 1px; margin-top: 27px; }
-  .sincep-cpa .toolbar-shell {
-    position: sticky; top: var(--sticky-top); z-index: 20;
-    background: rgba(246,247,249,0.92);
-    -webkit-backdrop-filter: saturate(1.4) blur(10px);
-            backdrop-filter: saturate(1.4) blur(10px);
-    transition: box-shadow 0.2s ease, background 0.2s ease;
-  }
-  .sincep-cpa .toolbar-shell.stuck { box-shadow: 0 1px 0 var(--border), 0 8px 20px rgba(15,31,56,0.06); background: rgba(255,255,255,0.95); }
-  .sincep-cpa .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 12px 0; }
-  .sincep-cpa .search-box {
-    position: relative;
-    flex: 1 1 280px; max-width: 360px;
-    display: flex; align-items: center; gap: 10px;
-    background: var(--card); border: 1px solid var(--border-strong); border-radius: 10px;
-    padding: 0 10px 0 14px; height: 44px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  }
-  .sincep-cpa .search-box:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(15,118,110,0.18); }
-  .sincep-cpa .search-box > svg { flex-shrink: 0; color: var(--ink-soft); }
-  .sincep-cpa .search-box input,
-  .sincep-cpa .search-box input:focus {
-    border: none; outline: none; box-shadow: none;
-    padding: 0; margin: 0; height: auto; min-height: 0;
-    font-size: 15.5px; font-family: inherit; width: 100%;
-    background: transparent; color: var(--ink); border-radius: 0;
-  }
-  .sincep-cpa .search-box input::placeholder { color: var(--ink-soft); opacity: 1; }
-  .sincep-cpa .search-box input::-webkit-search-cancel-button { -webkit-appearance: none; }
-  .sincep-cpa .clear-btn,
-  .sincep-cpa .clear-btn:focus {
-    flex-shrink: 0; display: none;
-    width: 26px; height: 26px; padding: 0; border-radius: 50%;
-    border: none; background: var(--tint); color: var(--ink-soft);
-    cursor: pointer; align-items: center; justify-content: center;
-  }
-  .sincep-cpa .clear-btn:hover { background: var(--border); color: var(--ink); }
-  .sincep-cpa .search-box.has-value .clear-btn { display: inline-flex; }
-  .sincep-cpa .sr-only {
+  .sincep-cp p { margin: 0; }
+  .sincep-cp a { color: inherit; text-decoration: none; }
+  .sincep-cp a:focus-visible, .sincep-cp button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+  .sincep-cp button { box-shadow: none; text-transform: none; letter-spacing: normal; line-height: 1.3; }
+  .sincep-cp .sr-only {
     position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
 
-  .sincep-cpa .chips { display: flex; gap: 8px; }
-  .sincep-cpa .chip {
-    flex-shrink: 0;
+  .sincep-cp .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* Reveal on scroll — only hidden once JS has confirmed it can reveal them */
+  .sincep-cp.js-reveal [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .sincep-cp.js-reveal [data-reveal].in { opacity: 1; transform: none; }
+
+  .sincep-cp .section-label {
+    font-family: var(--mono-font);
+    font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--teal-ink); background: var(--africa-soft);
+    display: inline-block; padding: 6px 12px; border-radius: 999px;
+  }
+  .sincep-cp .section-head { max-width: 640px; margin-bottom: 32px; }
+  .sincep-cp .section-head h2 { font-size: 28px !important; font-weight: 600; line-height: 1.2 !important; margin-top: 14px !important; }
+  .sincep-cp .section-head p { color: var(--ink-soft); margin-top: 10px; }
+
+  /* ===== HERO ===== */
+  .sincep-cp .hero {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(45,212,167,0.16), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(240,180,41,0.14), transparent 40%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: #fff;
+    padding: 80px 0 60px;
+  }
+  .sincep-cp .hero::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 26px 26px;
+    -webkit-mask-image: linear-gradient(180deg, black, transparent 85%);
+            mask-image: linear-gradient(180deg, black, transparent 85%);
+  }
+  .sincep-cp .hero .wrap { position: relative; }
+  .sincep-cp .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono-font); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--teal); background: rgba(45,212,167,0.1); border: 1px solid rgba(45,212,167,0.35);
+    padding: 7px 14px; border-radius: 999px; margin-bottom: 24px;
+  }
+  .sincep-cp .live-dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+  .sincep-cp .live-dot::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--teal);
+    animation: cp-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  @keyframes cp-ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
+  .sincep-cp .hero h1 {
+    color: #fff;
+    font-size: clamp(34px, 5vw, 52px) !important; font-weight: 600;
+    line-height: 1.08 !important; max-width: 16ch; margin-bottom: 18px !important;
+  }
+  .sincep-cp .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--teal), #7FE8CC);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sincep-cp .hero .lede { font-size: 18.5px; color: #C2CBDC; max-width: 58ch; margin-bottom: 48px; }
+
+  .sincep-cp .stat-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; overflow: hidden;
+  }
+  .sincep-cp .stat-cell { background: rgba(11,31,58,0.92); padding: 22px 20px; }
+  .sincep-cp .stat-cell .num { font-family: var(--head-font); font-size: 30px; font-weight: 600; color: #fff; line-height: 1.2; }
+  .sincep-cp .stat-cell .lbl { font-family: var(--mono-font); font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #8FA0BE; margin-top: 4px; }
+
+  /* ===== Monogram / logo ===== */
+  .sincep-cp .mono {
+    flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--head-font); font-weight: 700; letter-spacing: 0.02em;
+    overflow: hidden;
+  }
+  .sincep-cp .mono.logo { width: 96px; background: #fff; border: 1px solid var(--line); padding: 6px 8px; }
+  .sincep-cp .mono.logo.on-dark { background: var(--navy); border-color: var(--navy); }
+  .sincep-cp .mono.logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .sincep-cp .r-africa { --soft: var(--africa-soft); --ink-c: var(--africa-ink); --dot: var(--africa-dot); }
+  .sincep-cp .r-europe { --soft: var(--europe-soft); --ink-c: var(--europe-ink); --dot: var(--europe-dot); }
+  .sincep-cp .r-na     { --soft: var(--na-soft);     --ink-c: var(--na-ink);     --dot: var(--na-dot); }
+  .sincep-cp .mono:not(.logo) { background: var(--soft); color: var(--ink-c); }
+
+  .sincep-cp .tag {
+    display: inline-block; font-family: var(--mono-font);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .sincep-cp .tag.coord { background: var(--europe-soft); color: #7A4D00; }
+  .sincep-cp .tag.sci { background: var(--africa-soft); color: var(--teal-ink); }
+
+  .sincep-cp a.leads-link, .sincep-cp a.leads-link:visited {
     display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 600; color: var(--teal-ink);
+  }
+  .sincep-cp a.leads-link span { transition: transform 0.15s ease; }
+  .sincep-cp a.leads-link:hover { text-decoration: underline; }
+  .sincep-cp a.leads-link:hover span { transform: translateX(3px); }
+
+  /* ===== LEADERSHIP ===== */
+  .sincep-cp .leaders { padding: 80px 0 24px; }
+  .sincep-cp .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .sincep-cp .lead-card {
+    position: relative; overflow: hidden;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 30px;
+  }
+  .sincep-cp .lead-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--dot); }
+  .sincep-cp .lead-top { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .sincep-cp .lead-card .mono { width: 64px; height: 64px; font-size: 18px; }
+  .sincep-cp .lead-card .mono.logo { width: 150px; height: 64px; }
+  .sincep-cp .lead-card h3 { font-size: 22px !important; font-weight: 600; line-height: 1.25 !important; }
+  .sincep-cp .lead-card .where { font-size: 14.5px; color: var(--ink-soft); margin-top: 4px; }
+  .sincep-cp .lead-card .desc { font-size: 15.5px; color: var(--ink); margin-bottom: 18px; }
+
+  /* ===== DIRECTORY ===== */
+  .sincep-cp .directory { padding: 56px 0 88px; }
+  .sincep-cp .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 24px; }
+  .sincep-cp .search-box {
+    flex: 1 1 260px; max-width: 360px;
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid #CFC9BC; border-radius: 12px;
+    padding: 0 10px 0 14px; height: 46px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .sincep-cp .search-box:focus-within { border-color: var(--teal-ink); box-shadow: 0 0 0 3px rgba(15,118,110,0.18); }
+  .sincep-cp .search-box > svg { flex-shrink: 0; color: var(--ink-soft); }
+  .sincep-cp .search-box input,
+  .sincep-cp .search-box input:focus {
+    border: none; outline: none; box-shadow: none; padding: 0; margin: 0; height: auto; min-height: 0;
+    font-size: 15.5px; font-family: inherit; width: 100%; background: transparent; color: var(--ink); border-radius: 0;
+  }
+  .sincep-cp .search-box input::placeholder { color: var(--ink-soft); opacity: 1; }
+  .sincep-cp .search-box input::-webkit-search-cancel-button { -webkit-appearance: none; }
+  .sincep-cp .clear-btn,
+  .sincep-cp .clear-btn:focus {
+    flex-shrink: 0; display: none; width: 26px; height: 26px; padding: 0; border-radius: 50%;
+    border: none; background: var(--paper); color: var(--ink-soft); cursor: pointer;
+    align-items: center; justify-content: center;
+  }
+  .sincep-cp .search-box.has-value .clear-btn { display: inline-flex; }
+  .sincep-cp .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sincep-cp .chip,
+  .sincep-cp .chip:focus {
+    display: inline-flex; align-items: center; gap: 7px;
     font-family: inherit; font-size: 14px; font-weight: 500;
-    padding: 0 14px; height: 36px; border-radius: 999px;
-    border: 1px solid var(--border-strong); background: var(--card); color: var(--ink);
+    padding: 0 14px; height: 38px; border-radius: 999px;
+    border: 1px solid #CFC9BC; background: #fff; color: var(--ink);
     cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
-  .sincep-cpa .chip .dot { width: 8px; height: 8px; border-radius: 50%; }
-  .sincep-cpa .chip .n { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
-  .sincep-cpa .chip:hover,
-  .sincep-cpa .chip:focus { border-color: var(--navy); color: var(--navy); background: var(--card); }
-  .sincep-cpa .chip.active,
-  .sincep-cpa .chip.active:hover,
-  .sincep-cpa .chip.active:focus { background: var(--navy); border-color: var(--navy); color: #fff; }
-  .sincep-cpa .chip.active .n { color: #A9B6CB; }
-  .sincep-cpa .result-count { margin-left: auto; font-size: 14px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
-  .sincep-cpa .result-count strong { color: var(--ink); font-weight: 600; }
+  .sincep-cp .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
+  .sincep-cp .chip .n { color: var(--ink-soft); font-family: var(--mono-font); font-size: 12.5px; }
+  .sincep-cp .chip:hover { border-color: var(--navy); color: var(--navy); background: #fff; }
+  .sincep-cp .chip.active,
+  .sincep-cp .chip.active:hover { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .sincep-cp .chip.active .n { color: #A8B2C7; }
+  .sincep-cp .result-count { margin-left: auto; font-family: var(--mono-font); font-size: 13px; color: var(--ink-soft); }
+  .sincep-cp .result-count strong { color: var(--ink); font-weight: 600; }
 
-  /* ===== Directory table ===== */
-  .sincep-cpa .table-card {
-    margin-top: 8px;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+  /* Directory table (stacks into cards on phones) */
+  .sincep-cp table, .sincep-cp th, .sincep-cp td { border: none; margin: 0; background: none; }
+  .sincep-cp .table-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .sincep-cp table.dir { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .sincep-cp .dir th {
+    text-align: left; padding: 0 20px; height: 48px; white-space: nowrap;
+    font-family: var(--mono-font); font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-soft); background: #FBFAF7; border-bottom: 1px solid var(--line);
   }
-  .sincep-cpa table.dir { width: 100%; border-collapse: collapse; font-size: 15px; }
-  .sincep-cpa .dir th {
-    text-align: left; padding: 0 20px; height: 46px;
-    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink-soft); background: #FAFBFC;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-  }
-  .sincep-cpa .dir th.col-partner { width: 46%; }
-  .sincep-cpa .sort-btn,
-  .sincep-cpa .sort-btn:focus {
+  .sincep-cp .dir th.col-partner { width: 38%; }
+  .sincep-cp .sort-btn,
+  .sincep-cp .sort-btn:focus {
     display: inline-flex; align-items: center; gap: 6px;
     font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
     background: none; border: none; padding: 0; cursor: pointer;
   }
-  .sincep-cpa .sort-btn:hover { color: var(--navy); background: none; }
-  .sincep-cpa .sort-btn svg { opacity: 0.35; transition: transform 0.15s ease, opacity 0.15s ease; }
-  .sincep-cpa th[aria-sort="ascending"] .sort-btn,
-  .sincep-cpa th[aria-sort="descending"] .sort-btn { color: var(--navy); }
-  .sincep-cpa th[aria-sort="ascending"] .sort-btn svg { opacity: 1; }
-  .sincep-cpa th[aria-sort="descending"] .sort-btn svg { opacity: 1; transform: rotate(180deg); }
-
-  .sincep-cpa .dir td { padding: 16px 20px; vertical-align: middle; border-top: 1px solid var(--border); color: var(--ink); background: transparent; }
-  /* Keep keyboard-focused links clear of the sticky toolbar */
-  .sincep-cpa .dir a, .sincep-cpa .dir button, .sincep-cpa .roles { scroll-margin-top: calc(var(--sticky-top) + 90px); }
-  .sincep-cpa .dir tbody tr:first-child td { border-top: none; }
-  .sincep-cpa .dir tbody tr { position: relative; transition: background 0.15s ease; }
-  .sincep-cpa .dir tbody tr:hover { background: #FAFBFD; }
-  .sincep-cpa .dir tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
-  .sincep-cpa .dir tbody tr.fade-in { animation: cpa-fade 0.3s ease both; }
-  @keyframes cpa-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-
-  .sincep-cpa .partner { display: flex; align-items: center; gap: 14px; }
-  .sincep-cpa .mono {
-    flex-shrink: 0;
-    width: 44px; height: 44px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--head-font); font-weight: 600; letter-spacing: 0.02em;
-    overflow: hidden;
+  .sincep-cp .sort-btn:hover { color: var(--navy); background: none; }
+  .sincep-cp .sort-btn svg { opacity: 0.35; transition: transform 0.15s ease, opacity 0.15s ease; }
+  .sincep-cp th[aria-sort] .sort-btn { color: var(--navy); }
+  .sincep-cp th[aria-sort="ascending"] .sort-btn svg { opacity: 1; }
+  .sincep-cp th[aria-sort="descending"] .sort-btn svg { opacity: 1; transform: rotate(180deg); }
+  .sincep-cp .dir td { padding: 16px 20px; vertical-align: middle; border-top: 1px solid var(--line); color: var(--ink); background: transparent; }
+  .sincep-cp .dir tbody tr:first-child td { border-top: none; }
+  .sincep-cp .dir tbody tr { transition: background 0.15s ease; }
+  .sincep-cp .dir tbody tr:hover { background: #FBFAF7; }
+  .sincep-cp .dir tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--dot); }
+  .sincep-cp .dir tbody tr.fade-in { animation: cp-fade 0.35s ease both; }
+  @keyframes cp-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .sincep-cp .dir a, .sincep-cp .dir button { scroll-margin-top: 120px; }
+  .sincep-cp .dir a.leads-link { display: inline; line-height: 1.45; }   /* arrow stays next to the text when it wraps */
+  .sincep-cp .dir a.leads-link span { display: inline-block; }
+  .sincep-cp .partner { display: flex; align-items: center; gap: 14px; }
+  .sincep-cp .dir .mono { width: 44px; height: 44px; border-radius: 10px; }
+  .sincep-cp .dir .mono.logo { width: 88px; height: 48px; }
+  .sincep-cp .p-name { font-weight: 600; color: var(--ink); line-height: 1.4; }
+  .sincep-cp .acr { font-family: var(--mono-font); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-soft); margin-top: 2px; }
+  .sincep-cp .cont { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .sincep-cp .cont-pill {
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+    font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+    background: var(--soft); color: var(--ink-c);
   }
-  .sincep-cpa .mono.logo { background: #fff; border: 1px solid var(--border); padding: 4px; }
-  .sincep-cpa .mono.logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
-  .sincep-cpa .mono.r-africa { background: var(--africa-soft); color: var(--africa); }
-  .sincep-cpa .mono.r-europe { background: var(--europe-soft); color: var(--europe); }
-  .sincep-cpa .mono.r-na { background: var(--na-soft); color: var(--na); }
-  .sincep-cpa .p-name { font-weight: 600; color: var(--navy); line-height: 1.4; }
-  .sincep-cpa .p-short { font-size: 13px; color: var(--ink-soft); margin-top: 1px; letter-spacing: 0.02em; }
-  .sincep-cpa .country { display: flex; flex-direction: column; }
-  .sincep-cpa .region { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-soft); }
-  .sincep-cpa .region::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-  .sincep-cpa .region.r-africa::before { background: var(--africa-dot); }
-  .sincep-cpa .region.r-europe::before { background: var(--europe-dot); }
-  .sincep-cpa .region.r-na::before { background: var(--na-dot); }
-  .sincep-cpa mark { background: #FFE9A8; color: inherit; border-radius: 3px; padding: 0 1px; }
+  .sincep-cp .cont-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--dot); }
+  .sincep-cp .cont small { font-size: 12.5px; color: var(--ink-soft); padding-left: 2px; }
+  .sincep-cp .muted { color: var(--ink-soft); }
+  .sincep-cp mark { background: #FFE9A8; color: inherit; border-radius: 3px; padding: 0 1px; }
 
-  .sincep-cpa .tag {
-    display: inline-block; font-size: 12px; font-weight: 600;
-    padding: 3px 10px; border-radius: 999px; background: var(--tint); color: var(--ink-soft);
-    white-space: nowrap;
+  .sincep-cp .dir td.empty { text-align: center; padding: 56px 20px; color: var(--ink-soft); }
+  .sincep-cp .empty h3 { font-size: 19px !important; margin-bottom: 6px !important; }
+  .sincep-cp .empty button,
+  .sincep-cp .empty button:focus {
+    margin-top: 16px; font-family: inherit; font-size: 14px; font-weight: 600;
+    padding: 9px 16px; border-radius: 10px; border: 1px solid #CFC9BC; background: #fff; color: var(--navy); cursor: pointer;
   }
-  .sincep-cpa .tag.coord { background: var(--europe-soft); color: #7A4D00; }
-  .sincep-cpa .tag.sci { background: var(--accent-soft); color: var(--accent-ink); }
-  .sincep-cpa .leads-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 14px; font-weight: 500; line-height: 1.35;
-    color: var(--blue); text-decoration: none;
-  }
-  .sincep-cpa .leads-link .arr { transition: transform 0.15s ease; }
-  .sincep-cpa .leads-link:hover { text-decoration: underline; }
-  .sincep-cpa .leads-link:hover .arr { transform: translateX(3px); }
-  .sincep-cpa .muted { color: var(--ink-soft); }
 
-  .sincep-cpa .dir td.empty { padding: 56px 20px; text-align: center; color: var(--ink-soft); }
-  .sincep-cpa .empty h3 { font-size: 19px !important; color: var(--ink); margin-bottom: 6px !important; }
-  .sincep-cpa .empty button,
-  .sincep-cpa .empty button:focus {
-    margin-top: 16px;
-    font-family: inherit; font-size: 14px; font-weight: 600;
-    padding: 9px 16px; border-radius: 8px;
-    border: 1px solid var(--border-strong); background: var(--card); color: var(--navy); cursor: pointer;
+  /* ===== WHERE WE ARE ===== */
+  .sincep-cp .regions-band { background: var(--navy-deep); color: #fff; padding: 84px 0; }
+  .sincep-cp .regions-band .section-label { background: rgba(45,212,167,0.12); color: var(--teal); }
+  .sincep-cp .regions-band h2 { color: #fff; }
+  .sincep-cp .regions-band .section-head p { color: #A8B2C7; }
+  .sincep-cp .regions { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 18px; }
+  .sincep-cp .region-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius); padding: 24px;
   }
-  .sincep-cpa .empty button:hover { border-color: var(--navy); background: var(--card); color: var(--navy); }
+  .sincep-cp .region-card h3 { color: #fff; font-size: 19px !important; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .sincep-cp .region-card h3::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--dot); }
+  .sincep-cp .region-card .count { font-family: var(--mono-font); font-size: 12.5px; color: #8FA0BE; margin-top: 6px; letter-spacing: 0.03em; }
+  .sincep-cp .subregions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 22px; margin-top: 18px; }
+  .sincep-cp .subregion-name { font-family: var(--mono-font); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0BE; margin-bottom: 8px; }
+  .sincep-cp .country-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sincep-cp .region-card > .country-list { margin-top: 18px; }
+  .sincep-cp .country-btn,
+  .sincep-cp .country-btn:focus {
+    font-family: inherit; font-size: 13.5px; font-weight: 500;
+    padding: 5px 11px; border-radius: 999px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); color: #DCE3EE;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .sincep-cp .country-btn:hover { border-color: var(--teal); background: rgba(45,212,167,0.1); color: #fff; }
+  .sincep-cp .country-btn .n { font-family: var(--mono-font); font-size: 12px; color: var(--teal); margin-left: 4px; }
 
-  /* ===== Roles explainer ===== */
-  .sincep-cpa .roles {
-    margin-top: 32px;
-    display: grid; grid-template-columns: auto 1fr; gap: 0 18px;
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 24px 26px;
-  }
-  .sincep-cpa .roles-icon {
-    width: 40px; height: 40px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--tint); color: var(--navy);
-  }
-  .sincep-cpa .roles h2 { font-size: 18px !important; font-weight: 600; margin-bottom: 12px !important; line-height: 40px !important; }
-  .sincep-cpa .roles dl { margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 28px; }
-  .sincep-cpa .roles dt { margin: 0 0 6px; }
-  .sincep-cpa .roles dd { margin: 0; font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
+  .sincep-cp .tag.ben { background: #EEF0F3; color: var(--ink-soft); }
 
-  /* Break out of Elementor container padding so the header runs edge to edge */
+  /* ===== Responsive ===== */
   @media (max-width: 1024px) {
-    .sincep-cpa { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+    .sincep-cp { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+    .sincep-cp .regions { grid-template-columns: 1fr 1fr; }
+    .sincep-cp .regions .region-card:first-child { grid-column: 1 / -1; }
   }
-
-  /* Table becomes stacked cards on small screens */
   @media (max-width: 760px) {
-    .sincep-cpa .table-card { background: none; border: none; box-shadow: none; overflow: visible; }
-    /* Headers stay for screen readers (rows carry ARIA roles); sort buttons are taken out of the tab order in JS */
-    .sincep-cpa .dir thead {
-      position: absolute; width: 1px; height: 1px; overflow: hidden;
-      clip: rect(0 0 0 0); white-space: nowrap;
-    }
-    .sincep-cpa .dir, .sincep-cpa .dir tbody { display: block; width: 100%; }
-    .sincep-cpa .dir tr {
+    .sincep-cp .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .sincep-cp .lead-grid { grid-template-columns: 1fr; }
+    /* Table becomes stacked cards; headers stay for screen readers (rows carry ARIA roles) */
+    .sincep-cp .table-card { background: none; border: none; border-radius: 0; overflow: visible; }
+    .sincep-cp .dir thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .sincep-cp .dir, .sincep-cp .dir tbody { display: block; width: 100%; }
+    .sincep-cp .dir tr {
       display: grid; grid-template-columns: 1fr auto; gap: 10px 12px; align-items: center;
-      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-      box-shadow: var(--shadow); padding: 16px; margin-bottom: 10px;
+      background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 16px; margin-bottom: 10px;
     }
-    .sincep-cpa .dir tbody tr:hover { background: var(--card); }
-    .sincep-cpa .dir tbody tr:hover td:first-child { box-shadow: none; }
-    .sincep-cpa .dir td { display: block; border: none; padding: 0; }
-    .sincep-cpa .dir td.c-partner { grid-column: 1 / -1; }
-    .sincep-cpa .dir td.c-country { grid-column: 1; }
-    .sincep-cpa .dir td.c-role { grid-column: 2; grid-row: 2; justify-self: end; }
-    .sincep-cpa .dir td.c-leads,
-    .sincep-cpa .dir tbody tr:first-child td.c-leads { grid-column: 1 / -1; padding-top: 10px; border-top: 1px solid var(--border); }
-    .sincep-cpa .dir td.c-leads.is-empty { display: none; }
-    .sincep-cpa .country { flex-direction: row; align-items: center; gap: 10px; font-size: 14.5px; }
-    .sincep-cpa .roles dl { grid-template-columns: 1fr; }
+    .sincep-cp .dir tbody tr:hover { background: #fff; }
+    .sincep-cp .dir tbody tr:hover td:first-child { box-shadow: none; }
+    .sincep-cp .dir td { display: block; border: none; padding: 0; }
+    .sincep-cp .dir tr { grid-template-columns: auto 1fr auto; }
+    .sincep-cp .dir td.c-partner { grid-column: 1 / -1; }
+    .sincep-cp .dir td.c-country { grid-column: 1; grid-row: 2; font-size: 14.5px; }
+    .sincep-cp .dir td.c-continent { grid-column: 2; grid-row: 2; }
+    .sincep-cp .cont small { display: none; }
+    .sincep-cp .dir td.c-role { grid-column: 3; grid-row: 2; justify-self: end; }
+    .sincep-cp .dir td.c-leads,
+    .sincep-cp .dir tbody tr:first-child td.c-leads { grid-column: 1 / -1; padding-top: 10px; border-top: 1px dashed var(--line); }
+    .sincep-cp .dir td.c-leads.is-empty { display: none; }
+    .sincep-cp .dir td.empty { background: #fff; border: 1px dashed #CFC9BC; border-radius: var(--radius); }
   }
-
-  @media (max-width: 640px) {
-    .sincep-cpa { font-size: 16px; }
-    .sincep-cpa .wrap { padding: 0 16px; }
-    .sincep-cpa .page-head { padding: 40px 0 32px; }
-    .sincep-cpa .page-head h1 { font-size: 30px !important; }
-    .sincep-cpa .page-head p { font-size: 16px; }
-    .sincep-cpa .head-stats { gap: 12px 24px; margin-top: 24px; padding-top: 20px; }
-    .sincep-cpa .head-stat strong { font-size: 26px; }
-    .sincep-cpa .head-stat span { font-size: 14px; }
-    /* On phones the toolbar scrolls away: pinned it would take a third of a landscape screen */
-    .sincep-cpa .sentinel { margin-top: 15px; }
-    .sincep-cpa .toolbar-shell { position: static; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
-    .sincep-cpa .toolbar-shell.stuck { box-shadow: none; background: none; }
-    .sincep-cpa .dir a, .sincep-cpa .dir button, .sincep-cpa .roles { scroll-margin-top: var(--sticky-top); }
-    .sincep-cpa .toolbar { gap: 10px; padding: 10px 0; }
-    .sincep-cpa .search-box { max-width: none; flex-basis: 100%; }
-    .sincep-cpa .chips {
-      flex: 0 0 calc(100% + 32px); overflow-x: auto; scrollbar-width: none;
-      margin: 0 -16px; padding: 0 16px;
-      -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
-              mask-image: linear-gradient(90deg, #000 85%, transparent);
-    }
-    .sincep-cpa .chips::-webkit-scrollbar { display: none; }
-    .sincep-cpa .result-count { margin-left: 0; font-size: 13.5px; }
-    .sincep-cpa .roles { grid-template-columns: 1fr; padding: 20px; }
-    .sincep-cpa .roles-icon { display: none; }
-    .sincep-cpa .roles h2 { line-height: 1.3 !important; }
+  @media (max-width: 600px) {
+    .sincep-cp .wrap { padding: 0 18px; }
+    .sincep-cp .hero { padding: 52px 0 40px; }
+    .sincep-cp .hero .lede { font-size: 16.5px; margin-bottom: 32px; }
+    .sincep-cp .leaders { padding-top: 56px; }
+    .sincep-cp .lead-card { padding: 22px; }
+    .sincep-cp .section-head h2 { font-size: 24px !important; }
+    .sincep-cp .search-box { max-width: none; flex-basis: 100%; }
+    .sincep-cp .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; flex: 0 0 calc(100% + 36px); margin: 0 -18px; padding: 0 18px; }
+    .sincep-cp .chips::-webkit-scrollbar { display: none; }
+    .sincep-cp .chip { flex-shrink: 0; }
+    .sincep-cp .result-count { margin-left: 0; }
+    .sincep-cp .regions-band { padding: 56px 0; }
+    .sincep-cp .regions, .sincep-cp .subregions { grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sincep-cpa * { transition: none !important; animation: none !important; }
+    .sincep-cp * { transition: none !important; animation: none !important; }
+    .sincep-cp.js-reveal [data-reveal] { opacity: 1; transform: none; }
   }
 </style>
 
-<div class="sincep-cpa" id="sincep-cpa">
-  <div class="page-head">
+<div class="sincep-cp" id="sincep-cp">
+
+  <header class="hero">
     <div class="wrap">
-      <div class="eyebrow">Our consortium</div>
-      <h1>Consortium Partners</h1>
-      <p>Universities, research institutes and health networks across Africa, Europe and North America, working together to strengthen epidemic preparedness and clinical research capacity in sub-Saharan Africa.</p>
-      <div class="head-stats">
-        <div class="head-stat"><strong data-stat="partners">21</strong><span>partners</span></div>
-        <div class="head-stat"><strong data-stat="countries">17</strong><span>countries</span></div>
-        <div class="head-stat"><strong data-stat="africa">16</strong><span>in Africa</span></div>
+      <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Our consortium</span>
+      <h1>Consortium <em>Partners</em></h1>
+      <p class="lede">Universities, research institutes and health networks across Africa, Europe and North America, working together to strengthen epidemic preparedness and clinical research capacity in sub-Saharan Africa.</p>
+      <div class="stat-row">
+        <div class="stat-cell"><div class="num" data-stat="partners">21</div><div class="lbl">Partners</div></div>
+        <div class="stat-cell"><div class="num" data-stat="countries">17</div><div class="lbl">Countries</div></div>
+        <div class="stat-cell"><div class="num" data-stat="africa">16</div><div class="lbl">African partners</div></div>
+        <div class="stat-cell"><div class="num" data-stat="leads">9</div><div class="lbl">Work-area leads</div></div>
       </div>
     </div>
-  </div>
+  </header>
 
-  <div class="sentinel" aria-hidden="true"></div>
-  <div class="toolbar-shell">
+  <section class="leaders">
     <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="section-label">Leadership</span>
+        <h2>Leading the consortium</h2>
+        <p>Two partners steer SINCEP-Africa: one runs the project day to day, the other sets its scientific direction.</p>
+      </div>
+      <div class="lead-grid"></div>
+    </div>
+  </section>
+
+  <section class="directory" id="sincep-cp-all">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="section-label">All partners</span>
+        <h2>21 institutions, one network</h2>
+        <p>Search by name or country, filter by region, or sort by partner, country or continent. Partners that lead one of the nine work areas link straight to it.</p>
+      </div>
       <div class="toolbar">
         <label class="search-box" role="search">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input class="cp-search" type="search" aria-label="Search partners" placeholder="Search by name or country" autocomplete="off">
-          <button type="button" class="clear-btn" aria-label="Clear search"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+          <button type="button" class="clear-btn" aria-label="Clear search"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         </label>
         <div class="chips" role="group" aria-label="Filter partners"></div>
         <div class="result-count" aria-live="polite"></div>
       </div>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="table-card">
-      <table class="dir" role="table" aria-label="Consortium partners">
-        <thead role="rowgroup">
-          <tr role="row">
-            <th role="columnheader" scope="col" class="col-partner" data-sort="name"><button type="button" class="sort-btn">Partner <svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
-            <th role="columnheader" scope="col" data-sort="country"><button type="button" class="sort-btn">Country <svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
-            <th role="columnheader" scope="col">Role</th>
-            <th role="columnheader" scope="col">Leads</th>
-          </tr>
-        </thead>
-        <tbody role="rowgroup"></tbody>
-      </table>
-    </div>
-
-    <div class="roles">
-      <div class="roles-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></div>
-      <div>
-        <h2>What do the roles mean?</h2>
-        <dl>
-          <div><dt><span class="tag coord">Coordinator</span></dt><dd>Manages the project on behalf of the consortium and is the main contact with the funder, Global Health EDCTP3.</dd></div>
-          <div><dt><span class="tag sci">Scientific lead</span></dt><dd>Sets the project's scientific direction and brings together the network of African research sites.</dd></div>
-          <div><dt><span class="tag">Beneficiary</span></dt><dd>A partner organisation that receives funding to carry out project work. Some beneficiaries also lead one of the nine work areas.</dd></div>
-        </dl>
+      <div class="table-card">
+        <table class="dir" role="table" aria-label="Consortium partners">
+          <thead role="rowgroup">
+            <tr role="row">
+              <th role="columnheader" scope="col" class="col-partner" data-sort="name"><button type="button" class="sort-btn">Partner <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
+              <th role="columnheader" scope="col" data-sort="country"><button type="button" class="sort-btn">Country <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
+              <th role="columnheader" scope="col" data-sort="region"><button type="button" class="sort-btn">Continent <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
+              <th role="columnheader" scope="col">Role</th>
+              <th role="columnheader" scope="col">Leads</th>
+            </tr>
+          </thead>
+          <tbody role="rowgroup"></tbody>
+        </table>
       </div>
     </div>
-  </div>
+  </section>
+
+  <section class="regions-band">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="section-label">Where we work</span>
+        <h2>Partners across three continents</h2>
+        <p>Select a country to see the partners based there.</p>
+      </div>
+      <div class="regions"></div>
+    </div>
+  </section>
+
 </div>
 
 <script>
 (function () {
-  var root = document.getElementById('sincep-cpa');
+  var root = document.getElementById('sincep-cp');
   if (!root || root.dataset.ready) return;
   root.dataset.ready = '1';
 
   var WP_URL = '/work-packages/';
 
-  // logo: optional image URL from the WordPress Media Library ("" = coloured monogram).
+  // Folder the partner logo files live in. Preview: "logos/partners/". In WordPress, upload all the
+  // sincep-partner-*.png/svg/jpg files to the Media Library in one go and set this to their folder,
+  // e.g. "/wp-content/uploads/2026/11/".
+  var LOGO_BASE = 'logos/partners/';
+
+  // logo: file name in LOGO_BASE ("" = coloured monogram); logoDark: white logo, shown on navy. sub: African sub-region.
   var partners = [
-    { name: "EDCTP Association", short: "EDCTP-Assoc", country: "Netherlands", region: "Europe", role: "coordinator", leads: [9], logo: "" },
-    { name: "INDEPTH Network", short: "INDEPTH", country: "Ghana", region: "Africa", role: "scientific", leads: [1], logo: "" },
-    { name: "University of Navarra", short: "UNAV", country: "Spain", region: "Europe", logo: "" },
-    { name: "Liverpool School of Tropical Medicine", short: "LSTM", country: "United Kingdom", region: "Europe", logo: "" },
-    { name: "Pandemic Preparedness Platform for Health and Emerging Infections Response", short: "PANTHER", country: "France", region: "Europe", leads: [3], logo: "" },
-    { name: "University of Ghana", short: "UG", country: "Ghana", region: "Africa", leads: [6], logo: "" },
-    { name: "Kwame Nkrumah University of Science and Technology", short: "KNUST", country: "Ghana", region: "Africa", logo: "" },
-    { name: "Ghana Health Service", short: "DHRC", country: "Ghana", region: "Africa", leads: [5], logo: "" },
-    { name: "Groupe de Recherche Action en Santé", short: "GRAS", country: "Burkina Faso", region: "Africa", logo: "" },
-    { name: "Centre National de Recherche Scientifique et Technologique — IRSS", short: "CRUN", country: "Burkina Faso", region: "Africa", leads: [2], logo: "" },
-    { name: "University of Calabar", short: "UniCal", mono: "UCal", country: "Nigeria", region: "Africa", logo: "" },
-    { name: "Université Cheikh Anta Diop", short: "UCAD", country: "Senegal", region: "Africa", logo: "" },
-    { name: "Université des Sciences, des Techniques et des Technologies de Bamako", short: "USTTB", country: "Mali", region: "Africa", logo: "" },
-    { name: "Institut National de Santé Publique", short: "INSP-CI", country: "Côte d'Ivoire", region: "Africa", logo: "" },
-    { name: "University of Gondar", short: "UOG", country: "Ethiopia", region: "Africa", logo: "" },
-    { name: "Ifakara Health Institute", short: "IHI", country: "Tanzania", region: "Africa", logo: "" },
-    { name: "Makerere University", short: "MAKERERE", country: "Uganda", region: "Africa", leads: [4], logo: "" },
-    { name: "Strathmore University", short: "STRATHMORE", country: "Kenya", region: "Africa", leads: [8], logo: "" },
-    { name: "Université de Kinshasa", short: "UNIKIN", mono: "UNIK", country: "DR Congo", region: "Africa", logo: "" },
-    { name: "Fundação Manhiça", short: "FM", country: "Mozambique", region: "Africa", logo: "" },
-    { name: "CTI Africa LLC — CTI-LifeHealth", short: "CTI", country: "USA / Uganda", region: "North America", leads: [7], logo: "" }
+    { name: "EDCTP Association", short: "EDCTP-Assoc", country: "Netherlands", region: "Europe", role: "coordinator", leads: [9], logo: "sincep-partner-edctp-assoc.svg" },
+    { name: "INDEPTH Network", short: "INDEPTH", country: "Ghana", region: "Africa", sub: "West Africa", role: "scientific", leads: [1], logo: "sincep-partner-indepth.png" },
+    { name: "University of Navarra", short: "UNAV", country: "Spain", region: "Europe", logo: "sincep-partner-unav.svg" },
+    { name: "Liverpool School of Tropical Medicine", short: "LSTM", country: "United Kingdom", region: "Europe", logo: "sincep-partner-lstm.svg", logoDark: true },
+    { name: "Pandemic Preparedness Platform for Health and Emerging Infections Response", short: "PANTHER", country: "France", region: "Europe", leads: [3], logo: "sincep-partner-panther.svg" },
+    { name: "University of Ghana", short: "UG", country: "Ghana", region: "Africa", sub: "West Africa", leads: [6], logo: "sincep-partner-ug.svg" },
+    { name: "Kwame Nkrumah University of Science and Technology", short: "KNUST", country: "Ghana", region: "Africa", sub: "West Africa", logo: "sincep-partner-knust.png" },
+    { name: "Ghana Health Service", short: "DHRC", country: "Ghana", region: "Africa", sub: "West Africa", leads: [5], logo: "sincep-partner-ghs.png" },
+    { name: "Groupe de Recherche Action en Santé", short: "GRAS", country: "Burkina Faso", region: "Africa", sub: "West Africa", logo: "sincep-partner-gras.png" },
+    { name: "Centre National de Recherche Scientifique et Technologique — IRSS", short: "CRUN", country: "Burkina Faso", region: "Africa", sub: "West Africa", leads: [2], logo: "sincep-partner-crun.png" },
+    { name: "University of Calabar", short: "UniCal", mono: "UCal", country: "Nigeria", region: "Africa", sub: "West Africa", logo: "" },
+    { name: "Université Cheikh Anta Diop", short: "UCAD", country: "Senegal", region: "Africa", sub: "West Africa", logo: "sincep-partner-ucad.jpg" },
+    { name: "Université des Sciences, des Techniques et des Technologies de Bamako", short: "USTTB", country: "Mali", region: "Africa", sub: "West Africa", logo: "sincep-partner-usttb.png" },
+    { name: "Institut National de Santé Publique", short: "INSP-CI", country: "Côte d'Ivoire", region: "Africa", sub: "West Africa", logo: "sincep-partner-insp-ci.jpg" },
+    { name: "University of Gondar", short: "UOG", country: "Ethiopia", region: "Africa", sub: "East Africa", logo: "sincep-partner-uog.png" },
+    { name: "Ifakara Health Institute", short: "IHI", country: "Tanzania", region: "Africa", sub: "East Africa", logo: "sincep-partner-ihi.png" },
+    { name: "Makerere University", short: "MAKERERE", country: "Uganda", region: "Africa", sub: "East Africa", leads: [4], logo: "sincep-partner-makerere.png", logoDark: true },
+    { name: "Strathmore University", short: "STRATHMORE", country: "Kenya", region: "Africa", sub: "East Africa", leads: [8], logo: "sincep-partner-strathmore.png" },
+    { name: "Université de Kinshasa", short: "UNIKIN", mono: "UNIK", country: "DR Congo", region: "Africa", sub: "Central Africa", logo: "sincep-partner-unikin.png" },
+    { name: "Fundação Manhiça", short: "FM", country: "Mozambique", region: "Africa", sub: "Southern Africa", logo: "sincep-partner-fm.png" },
+    { name: "CTI Africa LLC — CTI-LifeHealth", short: "CTI", country: "USA / Uganda", region: "North America", leads: [7], logo: "sincep-partner-cti.png" }
   ];
-  partners.forEach(function (p, i) { p.order = i; });
 
   var areaNames = {
     1: "Scientific Leadership", 2: "Site Capacity", 3: "Epidemic Preparedness",
     4: "Ethics & Regulatory", 5: "Clinical Research", 6: "Social Impact",
     7: "Data Science & AI", 8: "Capacity Strengthening", 9: "Project Management"
   };
+  var leadInfo = {
+    coordinator: { label: "Coordinator", cls: "coord", desc: "Manages the project on behalf of the consortium and is the main contact with the funder, Global Health EDCTP3." },
+    scientific: { label: "Scientific lead", cls: "sci", desc: "Sets the project's scientific direction and brings together the network of African research and surveillance sites." }
+  };
   var regionClass = { "Africa": "r-africa", "Europe": "r-europe", "North America": "r-na" };
-  var regionDot = { "Africa": "var(--africa-dot)", "Europe": "var(--europe-dot)", "North America": "var(--na-dot)" };
+  var regionOrder = ["Africa", "Europe", "North America"];
+  var subOrder = ["West Africa", "East Africa", "Central Africa", "Southern Africa"];
 
   var filters = [
     { id: 'all', label: 'All', test: function () { return true; } },
@@ -432,72 +481,81 @@
     { id: 'leads', label: 'Area leads', test: function (p) { return !!p.leads; } }
   ];
 
-  var tbody = root.querySelector('tbody');
+  var tbody = root.querySelector('.dir tbody');
+  var sort = { key: null, dir: 1 };
   var chipsEl = root.querySelector('.chips');
   var searchBox = root.querySelector('.search-box');
   var searchInput = root.querySelector('.cp-search');
-  var clearBtn = root.querySelector('.clear-btn');
   var resultCount = root.querySelector('.result-count');
   var active = filters[0];
-  var sort = { key: null, dir: 1 };
-  var motionOK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canObserve = 'IntersectionObserver' in window;
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
-
-  // Lower-case and strip accents/curly quotes so "universite" finds "Université" and "d’Ivoire" finds "d'Ivoire".
-  // Keeps the string length the same, so match positions line up with the original text.
+  // Lower-case and strip accents/curly quotes so "universite" finds "Université" (length is preserved)
   function fold(s) {
     return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’‘]/g, "'").toLowerCase();
   }
-
-  // Escape text and wrap the search match in <mark>
   function hl(text, q) {
     if (!q) return esc(text);
     var i = fold(text).indexOf(q);
     if (i < 0) return esc(text);
     return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
   }
-
   function monogram(p) {
-    if (p.logo) return '<div class="mono logo"><img src="' + esc(p.logo) + '" alt="" loading="lazy"></div>';
+    if (p.logo) return '<div class="mono logo' + (p.logoDark ? ' on-dark' : '') + '"><img src="' + esc(/^(https?:)?\/\//.test(p.logo) || p.logo.charAt(0) === '/' ? p.logo : LOGO_BASE + p.logo) + '" alt="" loading="lazy"></div>';
     var t = p.mono || p.short.split('-')[0];
     if (t.length > 5) t = t.slice(0, 3);
-    var size = t.length <= 2 ? 16 : t.length <= 4 ? 13 : 11;
-    return '<div class="mono ' + regionClass[p.region] + '" aria-hidden="true" style="font-size:' + size + 'px">' + esc(t) + '</div>';
+    var size = t.length <= 2 ? 18 : t.length <= 4 ? 14 : 12;
+    return '<div class="mono" aria-hidden="true" style="font-size:' + size + 'px">' + esc(t) + '</div>';
+  }
+  function leadsHTML(p) {
+    return (p.leads || []).map(function (n) {
+      return '<a class="leads-link" href="' + WP_URL + '#area-' + n + '">Leads Area ' + n + ': ' + areaNames[n] + ' <span aria-hidden="true">→</span></a>';
+    }).join('');
+  }
+  function roleTag(p) {
+    return p.role ? '<span class="tag ' + leadInfo[p.role].cls + '">' + leadInfo[p.role].label + '</span>' : '';
   }
 
-  // Header stats, computed so they never drift from the data
+  // Header stats, computed from the data
+  var countries = {};
+  partners.forEach(function (p) { p.country.split(' / ').forEach(function (c) { countries[c] = 1; }); });
   var stats = {
     partners: partners.length,
-    countries: partners.reduce(function (set, p) {
-      p.country.split(' / ').forEach(function (c) { set[c] = 1; });
-      return set;
-    }, {}),
+    countries: Object.keys(countries).length,
     africa: partners.filter(function (p) { return p.region === 'Africa'; }).length,
-    areas: partners.reduce(function (n, p) { return n + (p.leads ? p.leads.length : 0); }, 0)
+    leads: partners.reduce(function (n, p) { return n + (p.leads ? p.leads.length : 0); }, 0)
   };
-  // "USA / Uganda" counts the USA as a country; Uganda is already counted via Makerere
-  stats.countries = Object.keys(stats.countries).length;
   root.querySelectorAll('[data-stat]').forEach(function (el) { el.textContent = stats[el.dataset.stat]; });
+
+  // Leadership cards
+  root.querySelector('.lead-grid').innerHTML = partners.filter(function (p) { return p.role; }).map(function (p) {
+    return '<article class="lead-card ' + regionClass[p.region] + '" data-reveal>' +
+      '<div class="lead-top">' + monogram(p) + '<div>' + roleTag(p) + '</div></div>' +
+      '<h3>' + esc(p.name) + '</h3>' +
+      '<div class="where">' + esc(p.short) + ' · ' + esc(p.country) + '</div>' +
+      '<p class="desc" style="margin-top:14px">' + leadInfo[p.role].desc + '</p>' +
+      leadsHTML(p) + '</article>';
+  }).join('');
 
   // Filter chips
   filters.forEach(function (f) {
     var count = partners.filter(f.test).length;
     var b = document.createElement('button');
     b.type = 'button';
-    b.className = 'chip' + (f === active ? ' active' : '');
+    b.className = 'chip' + (regionClass[f.id] ? ' ' + regionClass[f.id] : '') + (f === active ? ' active' : '');
     b.setAttribute('aria-pressed', f === active);
     b.setAttribute('aria-label', f.label + ', ' + count + (count === 1 ? ' partner' : ' partners'));
-    b.innerHTML = (regionDot[f.id] ? '<span class="dot" style="background:' + regionDot[f.id] + '"></span>' : '') +
-      f.label + '<span class="n">' + count + '</span>';
+    b.innerHTML = (regionClass[f.id] ? '<span class="dot"></span>' : '') + f.label + '<span class="n">' + count + '</span>';
     b.addEventListener('click', function () { setFilter(f); });
     chipsEl.appendChild(b);
   });
-
   function setFilter(f) {
     active = f;
     chipsEl.querySelectorAll('.chip').forEach(function (c, i) {
@@ -508,13 +566,13 @@
     render();
   }
 
-  // Sortable headers
+  // Sortable headers: ascending → descending → back to the default order
   root.querySelectorAll('th[data-sort]').forEach(function (th) {
     th.querySelector('.sort-btn').addEventListener('click', function () {
       var key = th.dataset.sort;
-      if (sort.key !== key) { sort = { key: key, dir: 1 }; }
-      else if (sort.dir === 1) { sort.dir = -1; }
-      else { sort = { key: null, dir: 1 }; }   // third click restores the default order
+      if (sort.key !== key) sort = { key: key, dir: 1 };
+      else if (sort.dir === 1) sort.dir = -1;
+      else sort = { key: null, dir: 1 };
       root.querySelectorAll('th[data-sort]').forEach(function (h) {
         if (h.dataset.sort === sort.key) h.setAttribute('aria-sort', sort.dir === 1 ? 'ascending' : 'descending');
         else h.removeAttribute('aria-sort');
@@ -523,71 +581,12 @@
     });
   });
 
-  function render(animateRows) {
-    var q = fold(searchInput.value.trim());
-    searchBox.classList.toggle('has-value', !!searchInput.value);
-
-    var list = partners.filter(active.test).filter(function (p) {
-      return !q || [p.name, p.short, p.country, p.region].some(function (f) { return fold(f).indexOf(q) > -1; });
-    });
-    if (sort.key) {
-      list.sort(function (a, b) {
-        return a[sort.key].localeCompare(b[sort.key]) * sort.dir || a.name.localeCompare(b.name);
-      });
-    }
-
-    resultCount.innerHTML = '<strong>' + list.length + '</strong> of ' + partners.length + ' partners';
-
-    if (!list.length) {
-      tbody.innerHTML = '<tr role="row"><td role="cell" colspan="4" class="empty"><h3>No partners match</h3>' +
-        '<p>Try a different name or country, or clear the filters.</p>' +
-        '<button type="button" class="reset-btn">Clear filters</button></td></tr>';
-      tbody.querySelector('.reset-btn').addEventListener('click', resetAll);
-      return;
-    }
-
-    tbody.innerHTML = list.map(function (p, i) {
-      var role = p.role === 'coordinator' ? '<span class="tag coord">Coordinator</span>'
-        : p.role === 'scientific' ? '<span class="tag sci">Scientific lead</span>'
-        : '<span class="tag">Beneficiary</span>';
-      var leads = (p.leads || []).map(function (n) {
-        return '<a class="leads-link" href="' + WP_URL + '#area-' + n + '">Area ' + n + ': ' + areaNames[n] +
-          '<span class="arr" aria-hidden="true">&rarr;</span></a>';
-      }).join('<br>');
-      return '<tr role="row"' + (animateRows && motionOK ? ' class="fade-in" style="animation-delay:' + Math.min(i, 12) * 18 + 'ms"' : '') + '>' +
-        '<td role="cell" class="c-partner"><div class="partner">' + monogram(p) +
-          '<div><div class="p-name">' + hl(p.name, q) + '</div><div class="p-short">' + hl(p.short, q) + '</div></div></div></td>' +
-        '<td role="cell" class="c-country"><div class="country"><span>' + hl(p.country, q) + '</span><span class="region ' + regionClass[p.region] + '">' + hl(p.region, q) + '</span></div></td>' +
-        '<td role="cell" class="c-role">' + role + '</td>' +
-        '<td role="cell" class="c-leads' + (leads ? '">' + leads : ' is-empty"><span aria-hidden="true" class="muted">—</span><span class="sr-only">None</span>') + '</td>' +
-        '</tr>';
-    }).join('');
-  }
-
-  function resetAll() {
-    searchInput.value = '';
-    setFilter(filters[0]);
-    searchInput.focus();
-  }
-
-  searchInput.addEventListener('input', function () { render(); });
-  clearBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    searchInput.value = '';
-    render();
-    searchInput.focus();
-  });
-  searchInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { searchInput.value = ''; render(); }
-  });
-
-  // On the card layout the column headers are visually hidden, so keep their sort buttons out of the tab order
+  // On phones the headers are hidden, so keep their sort buttons out of the tab order
   var sortBtns = root.querySelectorAll('.sort-btn');
   var cardsMQ = window.matchMedia ? window.matchMedia('(max-width: 760px)') : null;
   function syncSortFocus() {
     sortBtns.forEach(function (b) {
-      if (cardsMQ && cardsMQ.matches) b.setAttribute('tabindex', '-1');
-      else b.removeAttribute('tabindex');
+      if (cardsMQ && cardsMQ.matches) b.setAttribute('tabindex', '-1'); else b.removeAttribute('tabindex');
     });
   }
   if (cardsMQ) {
@@ -596,13 +595,92 @@
     else if (cardsMQ.addListener) cardsMQ.addListener(syncSortFocus);
   }
 
-  // Shadow on the toolbar once it sticks (the sentinel sits directly above it)
-  var shell = root.querySelector('.toolbar-shell');
-  if ('IntersectionObserver' in window) {
-    var stickyTop = parseInt(getComputedStyle(root).getPropertyValue('--sticky-top'), 10) || 0;
-    new IntersectionObserver(function (entries) {
-      shell.classList.toggle('stuck', !entries[0].isIntersecting && entries[0].boundingClientRect.top < stickyTop);
-    }, { rootMargin: (-stickyTop) + 'px 0px 0px 0px' }).observe(root.querySelector('.sentinel'));
+  // Partner table
+  function render(animate) {
+    var q = fold(searchInput.value.trim());
+    searchBox.classList.toggle('has-value', !!searchInput.value);
+    var list = partners.filter(active.test).filter(function (p) {
+      return !q || [p.name, p.short, p.country, p.region, p.sub || ''].some(function (f) { return fold(f).indexOf(q) > -1; });
+    });
+    if (sort.key) {
+      list.sort(function (a, b) { return a[sort.key].localeCompare(b[sort.key]) * sort.dir || a.name.localeCompare(b.name); });
+    }
+    resultCount.innerHTML = '<strong>' + list.length + '</strong> of ' + partners.length + ' partners';
+
+    if (!list.length) {
+      tbody.innerHTML = '<tr role="row"><td role="cell" colspan="5" class="empty"><h3>No partners match</h3>' +
+        '<p>Try a different name or country, or clear the filters.</p>' +
+        '<button type="button" class="reset-btn">Clear filters</button></td></tr>';
+      tbody.querySelector('.reset-btn').addEventListener('click', function () {
+        searchInput.value = ''; setFilter(filters[0]); searchInput.focus();
+      });
+      return;
+    }
+
+    var anim = animate && !prefersReduced;
+    tbody.innerHTML = list.map(function (p, i) {
+      var leads = (p.leads || []).map(function (n) {
+        return '<a class="leads-link" href="' + WP_URL + '#area-' + n + '">Area ' + n + ': ' + areaNames[n] + ' <span aria-hidden="true">→</span></a>';
+      }).join('<br>');
+      return '<tr role="row" class="' + regionClass[p.region] + (anim ? ' fade-in' : '') + '"' + (anim ? ' style="animation-delay:' + Math.min(i, 12) * 25 + 'ms"' : '') + '>' +
+        '<td role="cell" class="c-partner"><div class="partner">' + monogram(p) +
+          '<div><div class="p-name">' + hl(p.name, q) + '</div><div class="acr">' + hl(p.short, q) + '</div></div></div></td>' +
+        '<td role="cell" class="c-country">' + hl(p.country, q) + '</td>' +
+        '<td role="cell" class="c-continent"><div class="cont"><span class="cont-pill">' + hl(p.region, q) + '</span>' +
+          (p.sub ? '<small>' + hl(p.sub, q) + '</small>' : '') + '</div></td>' +
+        '<td role="cell" class="c-role">' + (roleTag(p) || '<span class="tag ben">Beneficiary</span>') + '</td>' +
+        '<td role="cell" class="c-leads' + (leads ? '">' + leads : ' is-empty"><span class="muted" aria-hidden="true">—</span><span class="sr-only">None</span>') + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+  searchInput.addEventListener('input', function () { render(); });
+  searchInput.addEventListener('keydown', function (e) { if (e.key === 'Escape') { searchInput.value = ''; render(); } });
+  root.querySelector('.clear-btn').addEventListener('click', function (e) {
+    e.preventDefault(); searchInput.value = ''; render(); searchInput.focus();
+  });
+
+  // Where we work
+  function countryCounts(list) {
+    var counts = {}, order = [];
+    list.forEach(function (p) {
+      if (!counts[p.country]) { counts[p.country] = 0; order.push(p.country); }
+      counts[p.country]++;
+    });
+    return order.map(function (c) { return { country: c, n: counts[c] }; });
+  }
+  function countryButtons(list) {
+    return '<div class="country-list">' + countryCounts(list).map(function (c) {
+      return '<button type="button" class="country-btn" data-country="' + esc(c.country) + '">' + esc(c.country) +
+        (c.n > 1 ? '<span class="n">' + c.n + '</span>' : '') + '</button>';
+    }).join('') + '</div>';
+  }
+  root.querySelector('.regions').innerHTML = regionOrder.map(function (r) {
+    var inRegion = partners.filter(function (p) { return p.region === r; });
+    var nC = countryCounts(inRegion).length;
+    var body = r === 'Africa'
+      ? '<div class="subregions">' + subOrder.map(function (s) {
+          return '<div><div class="subregion-name">' + s + '</div>' + countryButtons(inRegion.filter(function (p) { return p.sub === s; })) + '</div>';
+        }).join('') + '</div>'
+      : countryButtons(inRegion);
+    return '<div class="region-card ' + regionClass[r] + '" data-reveal><h3>' + r + '</h3>' +
+      '<div class="count">' + inRegion.length + (inRegion.length === 1 ? ' partner' : ' partners') + ' · ' + nC + (nC === 1 ? ' country' : ' countries') + '</div>' +
+      body + '</div>';
+  }).join('');
+  root.querySelector('.regions').addEventListener('click', function (e) {
+    var btn = e.target.closest('.country-btn');
+    if (!btn) return;
+    searchInput.value = btn.dataset.country;
+    setFilter(filters[0]);
+    root.querySelector('#sincep-cp-all').scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+  });
+
+  // Reveal on scroll (content stays visible if the browser can't do this)
+  if (canObserve && !prefersReduced) {
+    root.classList.add('js-reveal');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    root.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
   }
 
   render(true);
