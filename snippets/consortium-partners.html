@@ -216,11 +216,13 @@
   .sincep-cp .table-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
   .sincep-cp table.dir { width: 100%; border-collapse: collapse; font-size: 15px; }
   .sincep-cp .dir th {
-    text-align: left; padding: 0 20px; height: 48px; white-space: nowrap;
+    text-align: left; padding: 0 18px; height: 46px; white-space: nowrap;
     font-family: var(--mono-font); font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--ink-soft); background: #FBFAF7; border-bottom: 1px solid var(--line);
   }
-  .sincep-cp .dir th.col-partner { width: 38%; }
+  .sincep-cp .dir th.col-partner { width: auto; }
+  .sincep-cp .dir td.c-country, .sincep-cp .dir td.c-continent, .sincep-cp .dir td.c-role, .sincep-cp .dir td.c-leads { white-space: nowrap; }
+  .sincep-cp .dir td.c-country { color: var(--ink); }
   .sincep-cp .sort-btn,
   .sincep-cp .sort-btn:focus {
     display: inline-flex; align-items: center; gap: 6px;
@@ -232,7 +234,7 @@
   .sincep-cp th[aria-sort] .sort-btn { color: var(--navy); }
   .sincep-cp th[aria-sort="ascending"] .sort-btn svg { opacity: 1; }
   .sincep-cp th[aria-sort="descending"] .sort-btn svg { opacity: 1; transform: rotate(180deg); }
-  .sincep-cp .dir td { padding: 16px 20px; vertical-align: middle; border-top: 1px solid var(--line); color: var(--ink); background: transparent; }
+  .sincep-cp .dir td { padding: 14px 18px; vertical-align: middle; border-top: 1px solid var(--line); color: var(--ink); background: transparent; }
   .sincep-cp .dir tbody tr:first-child td { border-top: none; }
   .sincep-cp .dir tbody tr { transition: background 0.15s ease; }
   .sincep-cp .dir tbody tr:hover { background: #FBFAF7; }
@@ -240,21 +242,24 @@
   .sincep-cp .dir tbody tr.fade-in { animation: cp-fade 0.35s ease both; }
   @keyframes cp-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
   .sincep-cp .dir a, .sincep-cp .dir button { scroll-margin-top: 120px; }
-  .sincep-cp .dir a.leads-link { display: inline; line-height: 1.45; }   /* arrow stays next to the text when it wraps */
-  .sincep-cp .dir a.leads-link span { display: inline-block; }
   .sincep-cp .partner { display: flex; align-items: center; gap: 14px; }
   .sincep-cp .dir .mono { width: 44px; height: 44px; border-radius: 10px; }
-  .sincep-cp .dir .mono.logo { width: 88px; height: 48px; }
+  .sincep-cp .dir .mono { width: 40px; height: 40px; }
+  .sincep-cp .dir .mono.logo { width: 72px; height: 40px; padding: 4px 6px; }
   .sincep-cp .p-name { font-weight: 600; color: var(--ink); line-height: 1.4; }
   .sincep-cp .acr { font-family: var(--mono-font); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-soft); margin-top: 2px; }
   .sincep-cp .cont { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
-  .sincep-cp .cont-pill {
-    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
-    font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
-    background: var(--soft); color: var(--ink-c);
-  }
-  .sincep-cp .cont-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--dot); }
-  .sincep-cp .cont small { font-size: 12.5px; color: var(--ink-soft); padding-left: 2px; }
+  .sincep-cp .cont-pill { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font-size: 14.5px; color: var(--ink); }
+  .sincep-cp .cont-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); flex-shrink: 0; }
+  .sincep-cp .cont { gap: 1px; }
+  .sincep-cp .cont small { font-size: 12.5px; color: var(--ink-soft); padding-left: 16px; }
+  .sincep-cp .role-plain { font-size: 14px; color: var(--ink-soft); }
+  /* Leads: "Area N →" with the area name underneath */
+  .sincep-cp .dir a.leads-link { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 1px; line-height: 1.3; }
+  .sincep-cp .dir a.leads-link .area-no { font-weight: 600; color: var(--teal-ink); }
+  .sincep-cp .dir a.leads-link .area-name { font-size: 12.5px; font-weight: 400; color: var(--ink-soft); }
+  .sincep-cp .dir a.leads-link:hover { text-decoration: none; }
+  .sincep-cp .dir a.leads-link:hover .area-no { text-decoration: underline; }
   .sincep-cp .muted { color: var(--ink-soft); }
   .sincep-cp mark { background: #FFE9A8; color: inherit; border-radius: 3px; padding: 0 1px; }
 
@@ -620,15 +625,16 @@
     var anim = animate && !prefersReduced;
     tbody.innerHTML = list.map(function (p, i) {
       var leads = (p.leads || []).map(function (n) {
-        return '<a class="leads-link" href="' + WP_URL + '#area-' + n + '">Area ' + n + ': ' + areaNames[n] + ' <span aria-hidden="true">→</span></a>';
-      }).join('<br>');
+        return '<a class="leads-link" href="' + WP_URL + '#area-' + n + '"><span class="area-no">Area ' + n + ' <span aria-hidden="true">→</span></span>' +
+          '<span class="area-name">' + areaNames[n] + '</span></a>';
+      }).join('');
       return '<tr role="row" class="' + regionClass[p.region] + (anim ? ' fade-in' : '') + '"' + (anim ? ' style="animation-delay:' + Math.min(i, 12) * 25 + 'ms"' : '') + '>' +
         '<td role="cell" class="c-partner"><div class="partner">' + monogram(p) +
           '<div><div class="p-name">' + hl(p.name, q) + '</div><div class="acr">' + hl(p.short, q) + '</div></div></div></td>' +
         '<td role="cell" class="c-country">' + hl(p.country, q) + '</td>' +
         '<td role="cell" class="c-continent"><div class="cont"><span class="cont-pill">' + hl(p.region, q) + '</span>' +
           (p.sub ? '<small>' + hl(p.sub, q) + '</small>' : '') + '</div></td>' +
-        '<td role="cell" class="c-role">' + (roleTag(p) || '<span class="tag ben">Beneficiary</span>') + '</td>' +
+        '<td role="cell" class="c-role">' + (roleTag(p) || '<span class="role-plain">Beneficiary</span>') + '</td>' +
         '<td role="cell" class="c-leads' + (leads ? '">' + leads : ' is-empty"><span class="muted" aria-hidden="true">—</span><span class="sr-only">None</span>') + '</td>' +
         '</tr>';
     }).join('');
