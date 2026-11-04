@@ -452,7 +452,7 @@
     { name: "Ghana Health Service", short: "DHRC", country: "Ghana", region: "Africa", sub: "West Africa", leads: [5], logo: "sincep-partner-ghs.png" },
     { name: "Groupe de Recherche Action en Santé", short: "GRAS", country: "Burkina Faso", region: "Africa", sub: "West Africa", logo: "sincep-partner-gras.png" },
     { name: "Centre National de Recherche Scientifique et Technologique — IRSS", short: "CRUN", country: "Burkina Faso", region: "Africa", sub: "West Africa", leads: [2], logo: "sincep-partner-crun.png" },
-    { name: "University of Calabar", short: "UniCal", mono: "UCal", country: "Nigeria", region: "Africa", sub: "West Africa", logo: "" },
+    { name: "University of Calabar", short: "UniCal", mono: "UCal", country: "Nigeria", region: "Africa", sub: "West Africa", logo: "sincep-partner-unical.png" },
     { name: "Université Cheikh Anta Diop", short: "UCAD", country: "Senegal", region: "Africa", sub: "West Africa", logo: "sincep-partner-ucad.jpg" },
     { name: "Université des Sciences, des Techniques et des Technologies de Bamako", short: "USTTB", country: "Mali", region: "Africa", sub: "West Africa", logo: "sincep-partner-usttb.png" },
     { name: "Institut National de Santé Publique", short: "INSP-CI", country: "Côte d'Ivoire", region: "Africa", sub: "West Africa", logo: "sincep-partner-insp-ci.jpg" },
@@ -513,9 +513,12 @@
     return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
   }
   function monogram(p) {
-    if (p.logo) return '<div class="mono logo' + (p.logoDark ? ' on-dark' : '') + '"><img src="' + esc(/^(https?:)?\/\//.test(p.logo) || p.logo.charAt(0) === '/' ? p.logo : LOGO_BASE + p.logo) + '" alt="" loading="lazy"></div>';
     var t = p.mono || p.short.split('-')[0];
     if (t.length > 5) t = t.slice(0, 3);
+    // If a logo file is missing, fall back to the monogram instead of showing a broken image
+    if (p.logo) return '<div class="mono logo' + (p.logoDark ? ' on-dark' : '') + '" data-fb="' + esc(t) + '"><img src="' +
+      esc(/^(https?:)?\/\//.test(p.logo) || p.logo.charAt(0) === '/' ? p.logo : LOGO_BASE + p.logo) +
+      '" alt="" loading="lazy" onerror="var b=this.parentNode;b.className=\'mono\';b.style.fontSize=\'13px\';b.textContent=b.getAttribute(\'data-fb\');"></div>';
     var size = t.length <= 2 ? 18 : t.length <= 4 ? 14 : 12;
     return '<div class="mono" aria-hidden="true" style="font-size:' + size + 'px">' + esc(t) + '</div>';
   }
