@@ -106,6 +106,13 @@
 
   .sincep-news .list { list-style: none; margin: 0; padding: 0; }
   .sincep-news .item { margin: 0; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .sincep-news .item article { display: grid; grid-template-columns: 240px 1fr; gap: 24px; align-items: start; }
+  .sincep-news .item article.no-img { grid-template-columns: 1fr; }
+  .sincep-news .thumb { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg); border: 1px solid var(--line); }
+  .sincep-news .thumb img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .sincep-news .thumb.is-logo img { object-fit: contain; padding: 18px 24px; }
+  .sincep-news .thumb:hover img { transform: scale(1.03); }
+  .sincep-news .thumb.is-logo:hover img { transform: none; }
   .sincep-news .labels { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
   .sincep-news .label {
     display: inline-block; padding: 3px 8px; font-size: 12px; font-weight: 700; line-height: 1.4;
@@ -162,8 +169,10 @@
     .sincep-news .page-head .lede { font-size: 16px; }
     .sincep-news .item h2 { font-size: 18px !important; }
     .sincep-news .meta { flex-direction: column; gap: 4px; }
+    .sincep-news .item article { grid-template-columns: 1fr; gap: 14px; }
   }
-  @media (prefers-reduced-motion: reduce) { .sincep-news * { animation: none !important; } }
+  @media (max-width: 900px) and (min-width: 601px) { .sincep-news .item article { grid-template-columns: 200px 1fr; gap: 20px; } }
+  @media (prefers-reduced-motion: reduce) { .sincep-news * { animation: none !important; transition: none !important; } }
 </style>
 
 <div class="sincep-news" id="sincep-news">
@@ -299,13 +308,37 @@
 
   function load() {
     return Promise.all([
-      fetch(API + 'posts?per_page=100&categories_exclude=' + EXCLUDE.join(',') + '&_fields=id,date,link,title,excerpt,categories').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }),
+      fetch(API + 'posts?per_page=100&categories_exclude=' + EXCLUDE.join(',') + '&_fields=id,date,link,title,excerpt,categories,featured_media').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (posts) {
+          // Featured images, fetched in one request
+          var ids = posts.map(function (p) { return p.featured_media; }).filter(Boolean);
+          if (!ids.length) return [posts, {}];
+          return fetch(API + 'media?per_page=100&include=' + ids.join(',') + '&_fields=id,source_url,alt_text,mime_type,media_details.sizes')
+            .then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+            .then(function (media) {
+              var byId = {};
+              media.forEach(function (m) { byId[m.id] = m; });
+              return [posts, byId];
+            });
+        }),
       fetch(API + 'categories?per_page=100&_fields=id,name').then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
     ]);
   }
 
+  // A mid-sized version of an image (falls back to the original)
+  function imageFor(m) {
+    if (!m) return null;
+    var sizes = (m.media_details && m.media_details.sizes) || {};
+    var pick = sizes.medium_large || sizes.large || sizes.medium || null;
+    return {
+      src: pick ? pick.source_url : m.source_url,
+      alt: m.alt_text || '',
+      logo: /logo/i.test(m.source_url) || m.mime_type === 'image/svg+xml'   // show logos whole, photos cropped to fill
+    };
+  }
+
   load().then(function (res) {
-    var posts = res[0], catNames = {};
+    var posts = res[0][0], media = res[0][1], catNames = {};
     res[1].forEach(function (c) { catNames[c.id] = textOf(c.name); });
     var now = new Date();
     items = posts.map(function (p) {
@@ -319,7 +352,7 @@
       return {
         title: ev.title, link: p.link, published: published, when: ev.when, start: ev.start, end: ev.end,
         status: ev.end ? (ev.end >= now ? 'Upcoming' : 'Past') : null,
-        types: types, summary: summary
+        types: types, summary: summary, image: imageFor(media[p.featured_media])
       };
     });
     buildFilters();
@@ -401,7 +434,11 @@
     listEl.innerHTML = list.slice(0, shown).map(function (it) {
       var labels = (it.status ? '<span class="label ' + it.status.toLowerCase() + '">' + it.status + '</span>' : '') +
         it.types.map(function (t) { return '<span class="label type">' + esc(t) + '</span>'; }).join('');
-      return '<li class="item"><article>' +
+      var img = it.image
+        ? '<a class="thumb' + (it.image.logo ? ' is-logo' : '') + '" href="' + esc(it.link) + '" tabindex="-1" aria-hidden="true">' +
+            '<img src="' + esc(it.image.src) + '" alt="" loading="lazy" onerror="this.parentNode.parentNode.classList.add(\'no-img\');this.parentNode.remove();"></a>'
+        : '';
+      return '<li class="item"><article' + (img ? '' : ' class="no-img"') + '>' + img + '<div class="body">' +
         '<div class="labels">' + labels + '</div>' +
         '<h2><a href="' + esc(it.link) + '">' + hl(it.title, q) + '</a></h2>' +
         '<dl class="meta">' +
@@ -410,7 +447,7 @@
         '</dl>' +
         (it.summary ? '<p class="summary">' + hl(it.summary, q) + '</p>' : '') +
         '<a class="more" href="' + esc(it.link) + '">Read more<span class="sr-only">: ' + esc(it.title) + '</span></a>' +
-        '</article></li>';
+        '</div></article></li>';
     }).join('');
     moreBtn.hidden = list.length <= shown;
   }
