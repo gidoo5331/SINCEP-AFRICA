@@ -1,66 +1,418 @@
-<!-- News &amp; Events — placeholder until this page is redesigned. Replace this whole file with the new design. -->
+<!-- SINCEP-Africa — News & Events. Simple style modelled on the European Commission's Funding & Tenders portal
+     (Europa Component Library look: white, EU blue, labels, filter panel + results list). Elementor HTML-widget snippet.
+     Posts are loaded live from WordPress, so new posts appear automatically. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  .sincep-soon {
-    --navy: #0B1F3A; --navy-deep: #071527; --teal: #2DD4A7;
-    font-family: Inter, system-ui, sans-serif; color: #fff;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(45,212,167,0.16), transparent 45%),
-      radial-gradient(circle at 85% 10%, rgba(240,180,41,0.12), transparent 40%),
-      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
-    min-height: 70vh; display: flex; align-items: center;
+  .sincep-news{
+    --blue: #004494;        /* EU blue */
+    --blue-dark: #003776;
+    --blue-soft: #E6EEF7;
+    --yellow: #FFD617;
+    --ink: #1A1A1A;
+    --ink-soft: #515560;
+    --line: #D9DCE1;
+    --bg: #F5F6F8;
+    --green: #2E7D32; --green-soft: #E5F2E6;
+    --grey-soft: #ECEEF1;
+
+    background: #fff;
+    color: var(--ink);
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    position: relative;
+    /* Cancel the Elementor container's padding (defaults to 10px) */
     margin-top: calc(-1 * var(--padding-top, 10px));
     margin-left: calc(-1 * var(--padding-left, 10px));
     margin-right: calc(-1 * var(--padding-right, 10px));
   }
-  .sincep-soon *, .sincep-soon *::before, .sincep-soon *::after { box-sizing: border-box; }
-  .sincep-soon .wrap { max-width: 1120px; margin: 0 auto; padding: 88px 28px; width: 100%; }
-  .sincep-soon .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font: 500 12.5px/1 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--teal); background: rgba(45,212,167,0.1); border: 1px solid rgba(45,212,167,0.35);
-    padding: 8px 14px; border-radius: 999px; margin-bottom: 24px;
+  .sincep-news *, .sincep-news *::before, .sincep-news *::after { box-sizing: border-box; }
+  /* Theme heading styles can override ours, hence !important */
+  .sincep-news h1, .sincep-news h2, .sincep-news h3 {
+    font-family: 'Inter', Arial, Helvetica, sans-serif !important;
+    color: var(--ink); margin: 0 !important; padding: 0;
+    letter-spacing: normal !important; text-transform: none !important;
   }
-  .sincep-soon h1 {
-    font-family: 'Space Grotesk', sans-serif !important; font-size: clamp(34px, 5vw, 52px) !important;
-    font-weight: 600; line-height: 1.1 !important; letter-spacing: -0.01em !important;
-    color: #fff; margin: 0 0 16px !important; text-transform: none !important;
+  .sincep-news p { margin: 0; }
+  .sincep-news a { color: var(--blue); }
+  .sincep-news a:focus-visible, .sincep-news button:focus-visible, .sincep-news input:focus-visible, .sincep-news select:focus-visible {
+    outline: 3px solid var(--yellow); outline-offset: 2px;
   }
-  .sincep-soon p { font-size: 18px; color: #C2CBDC; max-width: 56ch; margin: 0 0 12px; line-height: 1.6; }
-  .sincep-soon .status {
-    display: inline-flex; align-items: center; gap: 10px; margin: 20px 0 32px;
-    font: 500 13px/1 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #F0B429;
+  .sincep-news button { box-shadow: none; text-transform: none; letter-spacing: normal; }
+  .sincep-news .sr-only {
+    position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
-  .sincep-soon .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #F0B429; box-shadow: 0 0 0 4px rgba(240,180,41,0.2); }
-  .sincep-soon .actions { display: flex; flex-wrap: wrap; gap: 14px; }
-  .sincep-soon a.btn, .sincep-soon a.btn:visited {
-    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-    font: 600 15px/1.2 Inter, sans-serif; padding: 13px 24px; border-radius: 10px;
+  .sincep-news .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== Page header ===== */
+  .sincep-news .page-head { background: var(--bg); border-bottom: 1px solid var(--line); padding: 20px 0 36px; }
+  .sincep-news .crumbs { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0 0 22px; padding: 0; font-size: 14px; color: var(--ink-soft); }
+  .sincep-news .crumbs li { display: flex; align-items: center; gap: 6px; margin: 0; }
+  .sincep-news .crumbs li + li::before { content: "›"; color: #8A909A; }
+  .sincep-news .crumbs a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+  .sincep-news .page-head h1 { font-size: 36px !important; font-weight: 700; line-height: 1.2 !important; }
+  .sincep-news .page-head .lede { margin-top: 10px; max-width: 70ch; font-size: 17px; color: var(--ink-soft); }
+  .sincep-news .page-head .accent { display: block; width: 48px; height: 4px; background: var(--yellow); margin-top: 18px; }
+
+  /* ===== Layout ===== */
+  .sincep-news .layout { display: grid; grid-template-columns: 290px 1fr; gap: 40px; padding: 36px 0 72px; align-items: start; }
+
+  /* ===== Side panel ===== */
+  .sincep-news .side { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 16px; }
+  .sincep-news .box { border: 1px solid var(--line); background: #fff; }
+  .sincep-news .box-head { padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--bg); font-size: 15px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .sincep-news .box-body { padding: 16px; }
+  .sincep-news .next-event { border-left: 4px solid var(--blue); }
+  .sincep-news .next-event .when { font-size: 13px; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.04em; }
+  .sincep-news .next-event a { display: block; margin-top: 6px; font-weight: 600; line-height: 1.4; text-decoration: none; }
+  .sincep-news .next-event a:hover { text-decoration: underline; }
+  .sincep-news .next-event .count { margin-top: 8px; font-size: 14px; color: var(--ink-soft); }
+
+  .sincep-news .field + .field { margin-top: 20px; }
+  .sincep-news .field-label, .sincep-news legend { display: block; font-size: 14px; font-weight: 700; margin: 0 0 8px; padding: 0; }
+  .sincep-news fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .sincep-news .search { display: flex; border: 1px solid #8A909A; background: #fff; }
+  .sincep-news .search:focus-within { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .sincep-news .search input,
+  .sincep-news .search input:focus {
+    flex: 1; min-width: 0; border: 0; outline: none; box-shadow: none; margin: 0;
+    padding: 9px 10px; height: auto; font: inherit; font-size: 15px; color: var(--ink); background: transparent; border-radius: 0;
   }
-  .sincep-soon a.btn-primary, .sincep-soon a.btn-primary:visited { background: var(--teal); color: var(--navy-deep); }
-  .sincep-soon a.btn-primary:hover { background: #45E0B8; color: var(--navy-deep); }
-  .sincep-soon a.btn-ghost, .sincep-soon a.btn-ghost:visited { color: #fff; border: 1px solid rgba(255,255,255,0.28); }
-  .sincep-soon a.btn-ghost:hover { border-color: #fff; color: #fff; }
-  .sincep-soon a:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
-  @media (max-width: 1024px) { .sincep-soon { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); } }
+  .sincep-news .search input::placeholder { color: #6B7280; opacity: 1; }
+  .sincep-news .search span { display: flex; align-items: center; padding: 0 10px; color: #fff; background: var(--blue); }
+  .sincep-news .check { display: flex; align-items: center; gap: 10px; padding: 5px 0; font-size: 15px; cursor: pointer; }
+  .sincep-news .check input { width: 18px; height: 18px; margin: 0; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
+  .sincep-news .check .n { margin-left: auto; font-size: 13px; color: var(--ink-soft); }
+  .sincep-news select,
+  .sincep-news select:focus {
+    width: 100%; font: inherit; font-size: 15px; color: var(--ink);
+    padding: 8px 10px; border: 1px solid #8A909A; border-radius: 0; background: #fff; height: auto;
+  }
+  .sincep-news .clear,
+  .sincep-news .clear:focus {
+    margin-top: 20px; padding: 0; border: 0; background: none; cursor: pointer;
+    font: inherit; font-size: 15px; color: var(--blue); text-decoration: underline; text-underline-offset: 2px;
+  }
+  .sincep-news .clear:hover { color: var(--blue-dark); background: none; }
+
+  /* ===== Results ===== */
+  .sincep-news .results-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+  .sincep-news .results-bar .count { font-size: 15px; }
+  .sincep-news .results-bar .count strong { font-size: 20px; }
+  .sincep-news .sort { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-soft); }
+  .sincep-news .sort select { width: auto; }
+
+  .sincep-news .list { list-style: none; margin: 0; padding: 0; }
+  .sincep-news .item { margin: 0; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .sincep-news .labels { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .sincep-news .label {
+    display: inline-block; padding: 3px 8px; font-size: 12px; font-weight: 700; line-height: 1.4;
+    text-transform: uppercase; letter-spacing: 0.04em; border-radius: 2px;
+  }
+  .sincep-news .label.upcoming { background: var(--blue); color: #fff; }
+  .sincep-news .label.past { background: var(--grey-soft); color: var(--ink-soft); }
+  .sincep-news .label.type { background: var(--blue-soft); color: var(--blue-dark); }
+  .sincep-news .item h2 { font-size: 20px !important; font-weight: 700; line-height: 1.35 !important; }
+  .sincep-news .item h2 a { color: var(--blue); text-decoration: none; }
+  .sincep-news .item h2 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .sincep-news .meta { display: flex; flex-wrap: wrap; gap: 6px 28px; margin: 12px 0 0; padding: 0; }
+  .sincep-news .meta div { display: flex; gap: 6px; font-size: 14px; }
+  .sincep-news .meta dt { font-weight: 600; color: var(--ink-soft); margin: 0; }
+  .sincep-news .meta dt::after { content: ":"; }
+  .sincep-news .meta dd { margin: 0; color: var(--ink); }
+  .sincep-news .summary { margin-top: 12px; color: var(--ink-soft); max-width: 75ch; }
+  .sincep-news .more { display: inline-block; margin-top: 12px; font-size: 15px; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+  .sincep-news mark { background: #FFF2A8; color: inherit; padding: 0 1px; }
+
+  .sincep-news .notice { padding: 40px 24px; text-align: center; color: var(--ink-soft); border-bottom: 1px solid var(--line); }
+  .sincep-news .notice strong { display: block; color: var(--ink); font-size: 17px; margin-bottom: 4px; }
+  .sincep-news .skeleton { height: 120px; margin: 20px 0; background: linear-gradient(90deg, var(--bg), #fff, var(--bg)); background-size: 200% 100%; animation: sn-shimmer 1.4s linear infinite; }
+  @keyframes sn-shimmer { to { background-position: -200% 0; } }
+  .sincep-news .load-more,
+  .sincep-news .load-more:focus {
+    display: block; margin: 28px auto 0; padding: 10px 22px; cursor: pointer;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--blue); background: #fff; border: 2px solid var(--blue); border-radius: 0;
+  }
+  .sincep-news .load-more:hover { background: var(--blue); color: #fff; }
+
+  /* Filters collapse on small screens */
+  .sincep-news .filters-toggle { display: none; }
+
+  @media (max-width: 1024px) {
+    .sincep-news { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+  }
+  @media (max-width: 900px) {
+    .sincep-news .layout { grid-template-columns: 1fr; gap: 24px; padding-top: 24px; }
+    .sincep-news .side { position: static; }
+    .sincep-news .filters-toggle,
+    .sincep-news .filters-toggle:focus {
+      display: flex; justify-content: space-between; align-items: center; width: 100%;
+      padding: 12px 16px; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink);
+      background: var(--bg); border: 1px solid var(--line); border-radius: 0; cursor: pointer;
+    }
+    .sincep-news .filters-box { display: none; }
+    .sincep-news .filters-box.open { display: block; border-top: 0; }
+    .sincep-news .filters-box .box-head { display: none; }
+  }
   @media (max-width: 600px) {
-    .sincep-soon .wrap { padding: 56px 18px; }
-    .sincep-soon p { font-size: 16.5px; }
-    .sincep-soon .actions { flex-direction: column; }
-    .sincep-soon a.btn { justify-content: center; }
+    .sincep-news .wrap { padding: 0 18px; }
+    .sincep-news .page-head h1 { font-size: 28px !important; }
+    .sincep-news .page-head .lede { font-size: 16px; }
+    .sincep-news .item h2 { font-size: 18px !important; }
+    .sincep-news .meta { flex-direction: column; gap: 4px; }
   }
+  @media (prefers-reduced-motion: reduce) { .sincep-news * { animation: none !important; } }
 </style>
 
-<section class="sincep-soon">
-  <div class="wrap">
-    <span class="eyebrow">● Latest</span>
-    <h1>News &amp; Events</h1>
-    <p>Updates, meetings and upcoming events from the consortium.</p>
-    <div class="status">Redesign coming soon</div>
-    <div class="actions">
-      <a class="btn btn-primary" href="https://sincep-africa.org/news-events/" target="_blank" rel="noopener">View the current page →</a>
-      <a class="btn btn-ghost" href="index.html">Back to home</a>
+<div class="sincep-news" id="sincep-news">
+  <div class="page-head">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb">
+        <ol class="crumbs">
+          <li><a href="/">Home</a></li>
+          <li aria-current="page">News &amp; Events</li>
+        </ol>
+      </nav>
+      <h1>News &amp; Events</h1>
+      <p class="lede">Updates from the SINCEP-Africa consortium: meetings, site visits, training workshops, publications and upcoming events across our partner institutions.</p>
+      <span class="accent" aria-hidden="true"></span>
     </div>
   </div>
-</section>
+
+  <div class="wrap layout">
+    <aside class="side" aria-label="Filters">
+      <div class="box next-event" hidden>
+        <div class="box-body">
+          <div class="when">Next event</div>
+          <a href="#"></a>
+          <div class="count"></div>
+        </div>
+      </div>
+
+      <button type="button" class="filters-toggle" aria-expanded="false" aria-controls="sn-filters">Filters <span aria-hidden="true">+</span></button>
+      <div class="box filters-box" id="sn-filters">
+        <div class="box-head">Filter results</div>
+        <div class="box-body">
+          <div class="field">
+            <label class="field-label" for="sn-q">Search</label>
+            <div class="search">
+              <input id="sn-q" type="search" placeholder="Keyword" autocomplete="off">
+              <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend>Status</legend>
+            <div class="status-options"></div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Type</legend>
+            <div class="type-options"></div>
+          </fieldset>
+          <div class="field">
+            <label class="field-label" for="sn-year">Year</label>
+            <select id="sn-year"><option value="">All years</option></select>
+          </div>
+          <button type="button" class="clear">Clear all filters</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="results" aria-label="News and events">
+      <div class="results-bar">
+        <div class="count" aria-live="polite">Loading…</div>
+        <label class="sort">Sort by
+          <select id="sn-sort">
+            <option value="new">Newest first</option>
+            <option value="old">Oldest first</option>
+          </select>
+        </label>
+      </div>
+      <ul class="list">
+        <li class="skeleton" aria-hidden="true"></li><li class="skeleton" aria-hidden="true"></li><li class="skeleton" aria-hidden="true"></li>
+      </ul>
+      <button type="button" class="load-more" hidden>Show more</button>
+    </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('sincep-news');
+  if (!root || root.dataset.ready) return;
+  root.dataset.ready = '1';
+
+  var API = '/wp-json/wp/v2/';
+  // Categories that belong to Tools & Documents, not News & Events
+  var EXCLUDE = [11, 12, 13, 14, 15];
+  var PAGE_SIZE = 10;
+
+  var listEl = root.querySelector('.list');
+  var countEl = root.querySelector('.results-bar .count');
+  var qEl = root.querySelector('#sn-q');
+  var yearEl = root.querySelector('#sn-year');
+  var sortEl = root.querySelector('#sn-sort');
+  var moreBtn = root.querySelector('.load-more');
+  var items = [], shown = PAGE_SIZE;
+  var state = { status: {}, type: {} };
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  // Text of a bit of WordPress HTML (DOMParser makes an inert document, so nothing in it runs)
+  function textOf(html) {
+    return (new DOMParser().parseFromString(html || '', 'text/html').body.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+  function fold(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  function hl(text, q) {
+    if (!q) return esc(text);
+    var i = fold(text).indexOf(q);
+    if (i < 0) return esc(text);
+    return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+  }
+  function fmtDate(d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
+
+  // Event dates are written at the end of titles, e.g. "… – (2nd -4th Sep. 2026)" or "… – (Nov. 30th – Dec. 3rd)".
+  // Pull them out so the title reads cleanly and the item can be marked Upcoming or Past.
+  var MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  function parseEvent(title, published) {
+    var m = /\s*[–—-]\s*\(([^()]*\d[^()]*)\)\s*$/.exec(title);
+    if (!m) return { title: title };
+    var raw = m[1].trim(), clean = title.slice(0, m.index).trim();
+    var months = [], days = [], year = (/\b(20\d\d)\b/.exec(raw) || [])[1];
+    raw.replace(/\b([A-Za-z]{3})[a-z]*\.?/g, function (w, mo) {
+      var i = MONTHS.indexOf(mo.toLowerCase()); if (i > -1) months.push(i); return w;
+    });
+    raw.replace(/\b(\d{1,2})(?:st|nd|rd|th)?\b/g, function (w, d) { if (+d >= 1 && +d <= 31) days.push(+d); return w; });
+    var out = { title: clean, when: raw.replace(/\s*-\s*/g, '–').replace(/\s*–\s*/g, ' – ') };
+    if (months.length && days.length) {
+      var y = year ? +year : published.getFullYear();
+      out.start = new Date(y, months[0], days[0]);
+      out.end = new Date(y, months[months.length - 1], days[days.length - 1], 23, 59);
+      if (out.end < out.start) out.end.setFullYear(y + 1);   // e.g. Dec. 30th – Jan. 2nd
+    }
+    return out;
+  }
+
+  function load() {
+    return Promise.all([
+      fetch(API + 'posts?per_page=100&categories_exclude=' + EXCLUDE.join(',') + '&_fields=id,date,link,title,excerpt,categories').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }),
+      fetch(API + 'categories?per_page=100&_fields=id,name').then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+    ]);
+  }
+
+  load().then(function (res) {
+    var posts = res[0], catNames = {};
+    res[1].forEach(function (c) { catNames[c.id] = textOf(c.name); });
+    var now = new Date();
+    items = posts.map(function (p) {
+      var published = new Date(p.date);
+      var ev = parseEvent(textOf(p.title && p.title.rendered), published);
+      var types = (p.categories || []).filter(function (id) { return EXCLUDE.indexOf(id) < 0 && catNames[id] && id !== 1; })
+        .map(function (id) { return catNames[id]; });
+      if (!types.length) types = ['News'];
+      var summary = textOf(p.excerpt && p.excerpt.rendered).replace(/\s*(\[…\]|\[&hellip;\]|…)\s*$/, '');
+      if (summary.length > 220) summary = summary.slice(0, 217).replace(/\s+\S*$/, '') + '…';
+      return {
+        title: ev.title, link: p.link, published: published, when: ev.when, start: ev.start, end: ev.end,
+        status: ev.end ? (ev.end >= now ? 'Upcoming' : 'Past') : null,
+        types: types, summary: summary
+      };
+    });
+    buildFilters();
+    showNextEvent();
+    render();
+  }).catch(function () {
+    listEl.innerHTML = '<li class="notice"><strong>News could not be loaded</strong>Please try again later, or <a href="/news-events/">visit the News &amp; Events page</a>.</li>';
+    countEl.textContent = '';
+  });
+
+  // ----- Filters -----
+  function optionHTML(group, value, count) {
+    return '<label class="check"><input type="checkbox" data-group="' + group + '" value="' + esc(value) + '"> ' + esc(value) +
+      '<span class="n">' + count + '</span></label>';
+  }
+  function countBy(fn) {
+    var c = {}; items.forEach(function (it) { [].concat(fn(it) || []).forEach(function (v) { c[v] = (c[v] || 0) + 1; }); }); return c;
+  }
+  function buildFilters() {
+    var st = countBy(function (it) { return it.status; });
+    root.querySelector('.status-options').innerHTML = ['Upcoming', 'Past'].filter(function (s) { return st[s]; })
+      .map(function (s) { return optionHTML('status', s, st[s]); }).join('') || '<p style="font-size:14px;color:var(--ink-soft)">No dated events yet</p>';
+    var ty = countBy(function (it) { return it.types; });
+    root.querySelector('.type-options').innerHTML = Object.keys(ty).sort().map(function (t) { return optionHTML('type', t, ty[t]); }).join('');
+    var years = Object.keys(countBy(function (it) { return String(it.published.getFullYear()); })).sort().reverse();
+    years.forEach(function (y) { var o = document.createElement('option'); o.value = y; o.textContent = y; yearEl.appendChild(o); });
+
+    root.querySelectorAll('input[data-group]').forEach(function (cb) {
+      cb.addEventListener('change', function () { state[cb.dataset.group][cb.value] = cb.checked; shown = PAGE_SIZE; render(); });
+    });
+  }
+  function showNextEvent() {
+    var next = items.filter(function (it) { return it.status === 'Upcoming'; }).sort(function (a, b) { return a.start - b.start; })[0];
+    if (!next) return;
+    var box = root.querySelector('.next-event');
+    var a = box.querySelector('a');
+    a.href = next.link; a.textContent = next.title;
+    var days = Math.ceil((next.start - new Date()) / 86400000);
+    box.querySelector('.count').textContent = next.when + (days > 0 ? ' · in ' + days + (days === 1 ? ' day' : ' days') : ' · happening now');
+    box.hidden = false;
+  }
+
+  qEl.addEventListener('input', function () { shown = PAGE_SIZE; render(); });
+  yearEl.addEventListener('change', function () { shown = PAGE_SIZE; render(); });
+  sortEl.addEventListener('change', render);
+  moreBtn.addEventListener('click', function () { shown += PAGE_SIZE; render(); });
+  root.querySelector('.clear').addEventListener('click', function () {
+    qEl.value = ''; yearEl.value = ''; state = { status: {}, type: {} };
+    root.querySelectorAll('input[data-group]').forEach(function (cb) { cb.checked = false; });
+    shown = PAGE_SIZE; render();
+  });
+  var toggle = root.querySelector('.filters-toggle');
+  toggle.addEventListener('click', function () {
+    var box = root.querySelector('.filters-box'), open = !box.classList.contains('open');
+    box.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    toggle.querySelector('span').textContent = open ? '−' : '+';
+  });
+
+  function picked(group) { return Object.keys(state[group]).filter(function (k) { return state[group][k]; }); }
+
+  // ----- Results -----
+  function render() {
+    var q = fold(qEl.value.trim()), year = yearEl.value;
+    var st = picked('status'), ty = picked('type');
+    var list = items.filter(function (it) {
+      if (st.length && st.indexOf(it.status) < 0) return false;
+      if (ty.length && !it.types.some(function (t) { return ty.indexOf(t) > -1; })) return false;
+      if (year && String(it.published.getFullYear()) !== year) return false;
+      return !q || fold(it.title + ' ' + it.summary + ' ' + (it.when || '')).indexOf(q) > -1;
+    }).sort(function (a, b) { return sortEl.value === 'old' ? a.published - b.published : b.published - a.published; });
+
+    countEl.innerHTML = '<strong>' + list.length + '</strong> ' + (list.length === 1 ? 'result' : 'results');
+    if (!list.length) {
+      listEl.innerHTML = '<li class="notice"><strong>No results</strong>Try another keyword, or clear the filters.</li>';
+      moreBtn.hidden = true;
+      return;
+    }
+    listEl.innerHTML = list.slice(0, shown).map(function (it) {
+      var labels = (it.status ? '<span class="label ' + it.status.toLowerCase() + '">' + it.status + '</span>' : '') +
+        it.types.map(function (t) { return '<span class="label type">' + esc(t) + '</span>'; }).join('');
+      return '<li class="item"><article>' +
+        '<div class="labels">' + labels + '</div>' +
+        '<h2><a href="' + esc(it.link) + '">' + hl(it.title, q) + '</a></h2>' +
+        '<dl class="meta">' +
+          (it.when ? '<div><dt>Event date</dt><dd>' + hl(it.when, q) + '</dd></div>' : '') +
+          '<div><dt>Published</dt><dd><time datetime="' + it.published.toISOString().slice(0, 10) + '">' + fmtDate(it.published) + '</time></dd></div>' +
+        '</dl>' +
+        (it.summary ? '<p class="summary">' + hl(it.summary, q) + '</p>' : '') +
+        '<a class="more" href="' + esc(it.link) + '">Read more<span class="sr-only">: ' + esc(it.title) + '</span></a>' +
+        '</article></li>';
+    }).join('');
+    moreBtn.hidden = list.length <= shown;
+  }
+})();
+</script>

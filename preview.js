@@ -78,6 +78,10 @@
       Object.keys(SNIPPET_LINKS).forEach(function (path) {
         html = html.replace(new RegExp('(["\'])' + path.replace(/\//g, '\\/'), 'g'), '$1' + SNIPPET_LINKS[path]);
       });
+      // Links to the site root go to the preview homepage
+      html = html.replace(/href="\/"/g, 'href="index.html"');
+      // WordPress data (posts etc.) comes from the live site
+      html = html.replace(/(["'])\/wp-json\//g, '$1' + LIVE + '/wp-json/');
       main.innerHTML = html;
       runScripts([].slice.call(main.querySelectorAll('script')), 0);
     })
