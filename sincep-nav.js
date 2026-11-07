@@ -1,5 +1,6 @@
 /*
- * SINCEP-Africa site header (August-draft style): logo strip + dark nav.
+ * SINCEP-Africa site header, in the simple style of the EU Funding & Tenders portal:
+ * white logo strip (project logo left, funder logos right) + white menu bar with blue links.
  *
  * Usage: put <div data-sincep-nav></div> where the header should appear, then load this file:
  *   <script src="sincep-nav.js"></script>
@@ -51,6 +52,9 @@
     return '<span class="' + cls + ' is-disabled" aria-disabled="true" title="Coming soon">' + label + (extra || '') + '</span>';
   }
 
+  // Project logo (a trimmed copy of the SINCEP-Africa logo). In WordPress, point this at the uploaded file.
+  var BRAND_LOGO = 'logos/sincep-africa-logo.png';
+
   var LOGOS = {
     funders: [
       { src: SITE + '/wp-content/uploads/2026/11/eu-flag.png', alt: 'European Union', h: 30 },
@@ -60,55 +64,54 @@
   };
 
   var css = '' +
-    '.sincep-nav{--navy:#0B1F3A;--navy-deep:#071527;--teal:#2DD4A7;--line:#E4E0D6;--muted:#B9C2D4;' +
-      'font-family:Inter,system-ui,sans-serif;position:relative;z-index:100;}' +
+    '.sincep-nav{--blue:#004494;--blue-dark:#003776;--blue-soft:#E6EEF7;--yellow:#FFD617;--ink:#1A1A1A;--soft:#515560;--line:#D9DCE1;' +
+      'font-family:Inter,Arial,Helvetica,sans-serif;position:relative;z-index:100;background:#fff;}' +
     '.sincep-nav *,.sincep-nav *::before,.sincep-nav *::after{box-sizing:border-box;}' +
     '.sincep-nav a{text-decoration:none;}' +
-    '.sincep-nav .sn-wrap{max-width:1360px;margin:0 auto;padding:0 32px;display:flex;align-items:center;}' +
+    '.sincep-nav .sn-wrap{max-width:1280px;margin:0 auto;padding:0 28px;display:flex;align-items:center;}' +
     '.sincep-nav .sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}' +
+    '.sincep-nav a:focus-visible,.sincep-nav button:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}' +
 
-    /* Top strip: brand on the left, funder / scientific-lead logos on the right */
-    '.sincep-nav .sn-top{background:#fff;border-bottom:1px solid var(--line);}' +
-    '.sincep-nav .sn-top .sn-wrap{min-height:84px;gap:24px;justify-content:space-between;}' +
-    '.sincep-nav .sn-brand,.sincep-nav .sn-brand:visited{display:flex;flex-direction:column;gap:4px;color:var(--navy);}' +
-    '.sincep-nav .sn-name{display:flex;align-items:center;gap:10px;font:700 24px/1 "Space Grotesk",system-ui,sans-serif;letter-spacing:-.01em;white-space:nowrap;}' +
-    '.sincep-nav .sn-name .dot{width:10px;height:10px;border-radius:50%;background:var(--teal);}' +
-    '.sincep-nav .sn-tag{font:400 12.5px/1.35 Inter,system-ui,sans-serif;color:#5F6B80;padding-left:20px;}' +
-    '.sincep-nav .sn-partners{display:flex;align-items:center;gap:20px;}' +
-    '.sincep-nav .sn-lbl{font:500 11.5px/1 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#5F6B80;}' +
+    /* Top strip: project logo on the left, funder / scientific-lead logos on the right */
+    '.sincep-nav .sn-top .sn-wrap{min-height:96px;gap:24px;justify-content:space-between;padding-top:12px;padding-bottom:12px;}' +
+    '.sincep-nav .sn-brand{display:block;flex-shrink:0;}' +
+    '.sincep-nav .sn-brand img{display:block;height:64px;width:auto;max-width:none;}' +
+    '.sincep-nav .sn-partners{display:flex;align-items:center;gap:18px;}' +
+    '.sincep-nav .sn-lbl{font:600 11.5px/1.2 Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);}' +
     '.sincep-nav .sn-partners img{display:block;width:auto;max-width:none;}' +
-    '.sincep-nav .sn-sep{width:1px;height:30px;background:var(--line);}' +
+    '.sincep-nav .sn-sep{width:1px;height:32px;background:var(--line);}' +
 
-    /* Dark bar: navigation only */
-    '.sincep-nav .sn-bar{background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);}' +
-    '.sincep-nav .sn-bar .sn-wrap{height:60px;gap:28px;}' +
-    '.sincep-nav .sn-links{display:flex;align-items:center;gap:28px;margin:0 auto 0 0;padding:0;list-style:none;}' +
-    '.sincep-nav .sn-links>li{position:relative;margin:0;}' +
-    '.sincep-nav .sn-link,.sincep-nav .sn-link:visited{display:inline-flex;align-items:center;gap:4px;position:relative;' +
-      'padding:20px 0;color:var(--muted);font:500 15px/1.2 Inter,system-ui,sans-serif;background:none;border:0;cursor:pointer;transition:color .15s ease;}' +
-    '.sincep-nav .sn-link:hover,.sincep-nav .sn-link:focus-visible{color:#fff;}' +
-    '.sincep-nav .sn-link[aria-current="page"],.sincep-nav .sn-link.is-current{color:#fff;}' +
-    '.sincep-nav .sn-link[aria-current="page"]::after,.sincep-nav .sn-link.is-current::after{content:"";position:absolute;left:0;right:0;bottom:12px;height:2px;border-radius:2px;background:var(--teal);}' +
+    /* Menu bar: white, blue links, blue bar under the current page */
+    '.sincep-nav .sn-bar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.04);}' +
+    '.sincep-nav .sn-bar .sn-wrap{height:56px;gap:24px;}' +
+    '.sincep-nav .sn-links{display:flex;align-items:stretch;gap:4px;height:100%;margin:0 auto 0 -14px;padding:0;list-style:none;}' +
+    '.sincep-nav .sn-links>li{position:relative;margin:0;display:flex;}' +
+    '.sincep-nav .sn-link,.sincep-nav .sn-link:visited{display:inline-flex;align-items:center;gap:6px;position:relative;' +
+      'padding:0 14px;color:var(--blue);font:600 15px/1.2 Inter,Arial,sans-serif;background:none;border:0;border-radius:0;cursor:pointer;transition:background .15s ease;}' +
+    '.sincep-nav .sn-link:hover{background:var(--blue-soft);color:var(--blue-dark);}' +
+    '.sincep-nav .sn-link[aria-current="page"],.sincep-nav .sn-link.is-current{color:var(--ink);}' +
+    '.sincep-nav .sn-link[aria-current="page"]::after,.sincep-nav .sn-link.is-current::after{content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:4px;background:var(--blue);}' +
     '.sincep-nav .sn-caret{transition:transform .2s ease;}' +
     '.sincep-nav .sn-dd.open .sn-caret{transform:rotate(180deg);}' +
-    '.sincep-nav .sn-menu{position:absolute;top:100%;left:-16px;min-width:220px;margin:0;padding:8px;list-style:none;' +
-      'background:#fff;border-radius:12px;box-shadow:0 14px 40px rgba(7,21,39,.25);' +
-      'opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .15s ease,transform .15s ease,visibility .15s;}' +
+    '.sincep-nav .sn-dd.open>.sn-link{background:var(--blue-soft);}' +
+    '.sincep-nav .sn-menu{position:absolute;top:100%;left:0;min-width:230px;margin:0;padding:6px 0;list-style:none;' +
+      'background:#fff;border:1px solid var(--line);box-shadow:0 8px 20px rgba(0,0,0,.10);' +
+      'opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .15s ease,transform .15s ease,visibility .15s;}' +
     '.sincep-nav .sn-dd.open .sn-menu{opacity:1;visibility:visible;transform:none;}' +
-    '.sincep-nav .sn-menu a,.sincep-nav .sn-menu a:visited{display:block;padding:10px 12px;border-radius:8px;color:#16202E;font:500 15px/1.3 Inter,system-ui,sans-serif;}' +
-    '.sincep-nav .sn-menu a:hover,.sincep-nav .sn-menu a:focus-visible{background:#E6F9F2;color:#0F766E;}' +
-    '.sincep-nav .sn-menu a[aria-current="page"]{color:#0F766E;font-weight:600;}' +
-    '.sincep-nav .sn-search,.sincep-nav .sn-search:visited{color:var(--muted);display:inline-flex;padding:8px;margin:0 -8px;border-radius:8px;}' +
-    '.sincep-nav .sn-search:hover{color:#fff;}' +
-    '.sincep-nav .sn-cta,.sincep-nav .sn-cta:visited{background:var(--teal);color:var(--navy-deep);font:600 14px/1 Inter,system-ui,sans-serif;padding:12px 18px;border-radius:999px;white-space:nowrap;transition:background .15s ease;}' +
-    '.sincep-nav .sn-cta:hover{background:#45E0B8;color:var(--navy-deep);}' +
-    '.sincep-nav a:focus-visible,.sincep-nav button:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px;}' +
-    '.sincep-nav .sn-toggle{display:none;background:var(--navy);border:0;border-radius:10px;' +
+    '.sincep-nav .sn-menu a,.sincep-nav .sn-menu a:visited{display:block;padding:10px 16px;color:var(--blue);font:500 15px/1.3 Inter,Arial,sans-serif;}' +
+    '.sincep-nav .sn-menu a:hover{background:var(--blue-soft);text-decoration:underline;}' +
+    '.sincep-nav .sn-menu a[aria-current="page"]{color:var(--ink);font-weight:700;box-shadow:inset 4px 0 0 var(--blue);}' +
+    '.sincep-nav .sn-search,.sincep-nav .sn-search:visited{color:var(--blue);display:inline-flex;align-items:center;gap:6px;padding:8px;font:600 15px Inter,Arial,sans-serif;}' +
+    '.sincep-nav .sn-search:hover{text-decoration:underline;}' +
+    '.sincep-nav .sn-cta,.sincep-nav .sn-cta:visited{background:var(--blue);color:#fff;font:600 15px/1 Inter,Arial,sans-serif;padding:12px 18px;border-radius:0;white-space:nowrap;transition:background .15s ease;}' +
+    '.sincep-nav .sn-cta:hover{background:var(--blue-dark);color:#fff;}' +
+    '.sincep-nav .sn-toggle{display:none;background:var(--blue);border:0;border-radius:0;' +
       'width:44px;height:44px;color:#fff;cursor:pointer;align-items:center;justify-content:center;padding:0;flex-shrink:0;}' +
 
-    /* Tablet and phone: brand + menu button on top, logos on a second line, dark bar replaced by the menu panel */
+    /* Tablet and phone: logo + menu button on top, partner logos on a second line, menu in a panel */
     '@media (max-width:1000px){' +
-      '.sincep-nav .sn-top .sn-wrap{flex-wrap:wrap;padding-top:14px;padding-bottom:12px;gap:12px;}' +
+      '.sincep-nav .sn-top .sn-wrap{flex-wrap:wrap;min-height:0;gap:12px;}' +
+      '.sincep-nav .sn-brand img{height:52px;}' +
       '.sincep-nav .sn-toggle{display:inline-flex;}' +
       '.sincep-nav .sn-partners{order:3;width:100%;justify-content:center;gap:16px;padding-top:12px;border-top:1px solid var(--line);}' +
       '.sincep-nav .sn-lbl{display:none;}' +
@@ -117,32 +120,30 @@
     '}' +
     '@media (max-width:480px){' +
       '.sincep-nav .sn-wrap{padding:0 18px;}' +
-      '.sincep-nav .sn-name{font-size:21px;}' +
-      '.sincep-nav .sn-tag{display:none;}' +
+      '.sincep-nav .sn-brand img{height:44px;}' +
       '.sincep-nav .sn-partners img{transform:scale(.85);}' +
     '}' +
-    '.sincep-nav .sn-panel{display:none;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);padding:8px 18px 20px;}' +
+    '.sincep-nav .sn-panel{display:none;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:4px 18px 20px;}' +
     '.sincep-nav .sn-panel ul{list-style:none;margin:0;padding:0;}' +
-    '.sincep-nav .sn-panel a,.sincep-nav .sn-panel a:visited{display:block;padding:13px 4px;color:#DCE3EE;font:500 16px/1.3 Inter,system-ui,sans-serif;border-bottom:1px solid rgba(255,255,255,.07);}' +
-    '.sincep-nav .sn-panel a[aria-current="page"]{color:var(--teal);}' +
-    '.sincep-nav .sn-panel .sn-sub a{padding-left:20px;color:var(--muted);font-size:15px;}' +
-    '.sincep-nav .sn-panel .sn-group{display:block;padding:13px 4px 4px;color:#8E9BB3;font:500 12px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;}' +
-    '.sincep-nav .sn-panel .sn-cta,.sincep-nav .sn-panel .sn-cta:visited{display:block;text-align:center;margin-top:16px;border:0;color:var(--navy-deep);}' +
+    '.sincep-nav .sn-panel a,.sincep-nav .sn-panel a:visited{display:block;padding:13px 4px;color:var(--blue);font:600 16px/1.3 Inter,Arial,sans-serif;border-bottom:1px solid var(--line);}' +
+    '.sincep-nav .sn-panel a[aria-current="page"]{color:var(--ink);box-shadow:inset 4px 0 0 var(--blue);padding-left:14px;}' +
+    '.sincep-nav .sn-panel .sn-sub a{padding-left:20px;font-weight:500;font-size:15px;}' +
+    '.sincep-nav .sn-panel .sn-group{display:block;padding:14px 4px 4px;color:var(--soft);font:600 12px/1 Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;}' +
+    '.sincep-nav .sn-panel .sn-cta,.sincep-nav .sn-panel .sn-cta:visited{display:block;text-align:center;margin-top:16px;border:0;color:#fff;}' +
     '@media (min-width:1001px){.sincep-nav .sn-panel{display:none!important;}}' +
-    /* Pages that aren't ready yet (see SINCEP_NAV_ENABLED) */
-    '.sincep-nav .is-disabled{opacity:.4;cursor:not-allowed;}' +
-    '.sincep-nav .sn-link.is-disabled:hover{color:var(--muted);}' +
-    '.sincep-nav .sn-cta.is-disabled,.sincep-nav .sn-cta.is-disabled:hover{background:var(--teal);opacity:.35;}' +
-    '.sincep-nav .sn-panel .sn-panel-link{display:block;padding:13px 4px;color:#DCE3EE;font:500 16px/1.3 Inter,system-ui,sans-serif;border-bottom:1px solid rgba(255,255,255,.07);}' +
+    /* Pages that aren't ready yet (see SINCEP_NAV_ENABLED without a fallback) */
+    '.sincep-nav .is-disabled{opacity:.45;cursor:not-allowed;}' +
+    '.sincep-nav .sn-link.is-disabled:hover{background:none;}' +
+    '.sincep-nav .sn-panel .sn-panel-link{display:block;padding:13px 4px;color:var(--soft);font:600 16px/1.3 Inter,Arial,sans-serif;border-bottom:1px solid var(--line);}' +
     '.sincep-nav .sn-panel .sn-sub .sn-panel-link{padding-left:20px;font-size:15px;}' +
-    '.sincep-nav .sn-panel .sn-cta.is-disabled{display:block;text-align:center;margin-top:16px;color:var(--navy-deep);}' +
+    '.sincep-nav .sn-panel .sn-cta.is-disabled{display:block;text-align:center;margin-top:16px;}' +
     '@media (prefers-reduced-motion:reduce){.sincep-nav *{transition:none!important;}}';
 
-  // Fonts used by the header (skipped if the page already loads them)
-  if (!document.querySelector('link[href*="Space+Grotesk"]')) {
+  // Font used by the header (skipped if the page already loads Inter)
+  if (!document.querySelector('link[href*="family=Inter"]')) {
     var fonts = document.createElement('link');
     fonts.rel = 'stylesheet';
-    fonts.href = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap';
+    fonts.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
     document.head.appendChild(fonts);
   }
   var style = document.createElement('style');
@@ -198,10 +199,10 @@
   }).join('');
 
   var searchHTML = ENABLED && FALLBACK
-    ? '<a class="sn-search" href="' + esc(FALLBACK) + '?soon=Search" aria-label="Search the site"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>'
+    ? '<a class="sn-search" href="' + esc(FALLBACK) + '?soon=Search" aria-label="Search the site"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span aria-hidden="true">Search</span></a>'
     : ENABLED
     ? disabledItem('sn-search', '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="sr-only">Search</span>')
-    : '<a class="sn-search" href="' + SITE + '/?s=" aria-label="Search the site"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>';
+    : '<a class="sn-search" href="' + SITE + '/?s=" aria-label="Search the site"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span aria-hidden="true">Search</span></a>';
   var ctaHTML = enabled(CTA.href)
     ? '<a class="sn-cta" href="' + esc(CTA.href) + '">' + esc(CTA.label) + '</a>'
     : disabledItem('sn-cta', esc(CTA.label));
@@ -211,8 +212,7 @@
   header.innerHTML =
     '<div class="sn-top"><div class="sn-wrap">' +
       '<a class="sn-brand" href="' + esc(PREVIEW_LINKS[SITE + '/'] || SITE + '/') + '">' +
-        '<span class="sn-name"><span class="dot" aria-hidden="true"></span>SINCEP-Africa</span>' +
-        '<span class="sn-tag">Connecting Institutions, United in Preparedness, Fortifying Africa’s Health Future</span>' +
+        '<img src="' + esc(BRAND_LOGO) + '" alt="SINCEP-Africa home">' +
       '</a>' +
       '<div class="sn-partners">' +
         '<span class="sn-lbl">Funded by</span>' + LOGOS.funders.map(function (l) { return img(l); }).join('') +
