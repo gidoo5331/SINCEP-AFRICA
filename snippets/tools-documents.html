@@ -1,66 +1,258 @@
-<!-- Tools &amp; Documents — placeholder until this page is redesigned. Replace this whole file with the new design. -->
+<!-- SINCEP-Africa — Tools & Documents (Resources). Simple style modelled on the European Commission's Funding & Tenders portal,
+     using the wording from the current Tools & Documents page. Elementor HTML-widget snippet.
+     Items load live from WordPress posts in the Tools & Documents categories, so new posts appear automatically. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  .sincep-soon {
-    --navy: #0B1F3A; --navy-deep: #071527; --teal: #2DD4A7;
-    font-family: Inter, system-ui, sans-serif; color: #fff;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(45,212,167,0.16), transparent 45%),
-      radial-gradient(circle at 85% 10%, rgba(240,180,41,0.12), transparent 40%),
-      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
-    min-height: 70vh; display: flex; align-items: center;
+  .sincep-docs{
+    --blue: #004494;
+    --blue-dark: #003776;
+    --blue-soft: #E6EEF7;
+    --yellow: #FFD617;
+    --ink: #1A1A1A;
+    --ink-soft: #515560;
+    --line: #D9DCE1;
+    --bg: #F5F6F8;
+
+    background: #fff;
+    color: var(--ink);
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    position: relative;
+    /* Cancel the Elementor container's padding (defaults to 10px) */
     margin-top: calc(-1 * var(--padding-top, 10px));
     margin-left: calc(-1 * var(--padding-left, 10px));
     margin-right: calc(-1 * var(--padding-right, 10px));
   }
-  .sincep-soon *, .sincep-soon *::before, .sincep-soon *::after { box-sizing: border-box; }
-  .sincep-soon .wrap { max-width: 1120px; margin: 0 auto; padding: 88px 28px; width: 100%; }
-  .sincep-soon .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font: 500 12.5px/1 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--teal); background: rgba(45,212,167,0.1); border: 1px solid rgba(45,212,167,0.35);
-    padding: 8px 14px; border-radius: 999px; margin-bottom: 24px;
+  .sincep-docs *, .sincep-docs *::before, .sincep-docs *::after { box-sizing: border-box; }
+  /* Theme heading styles can override ours, hence !important */
+  .sincep-docs h1, .sincep-docs h2, .sincep-docs h3 {
+    font-family: 'Inter', Arial, Helvetica, sans-serif !important;
+    color: var(--ink); margin: 0 !important; padding: 0;
+    letter-spacing: normal !important; text-transform: none !important;
   }
-  .sincep-soon h1 {
-    font-family: 'Space Grotesk', sans-serif !important; font-size: clamp(34px, 5vw, 52px) !important;
-    font-weight: 600; line-height: 1.1 !important; letter-spacing: -0.01em !important;
-    color: #fff; margin: 0 0 16px !important; text-transform: none !important;
+  .sincep-docs p { margin: 0; }
+  .sincep-docs a { color: var(--blue); }
+  .sincep-docs a:focus-visible, .sincep-docs button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .sincep-docs button { box-shadow: none; text-transform: none; letter-spacing: normal; }
+  .sincep-docs .sr-only {
+    position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
-  .sincep-soon p { font-size: 18px; color: #C2CBDC; max-width: 56ch; margin: 0 0 12px; line-height: 1.6; }
-  .sincep-soon .status {
-    display: inline-flex; align-items: center; gap: 10px; margin: 20px 0 32px;
-    font: 500 13px/1 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #F0B429;
+  .sincep-docs .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== Page header ===== */
+  .sincep-docs .page-head { background: var(--bg); border-bottom: 1px solid var(--line); padding: 20px 0 36px; }
+  .sincep-docs .crumbs { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0 0 22px; padding: 0; font-size: 14px; color: var(--ink-soft); }
+  .sincep-docs .crumbs li { display: flex; align-items: center; gap: 6px; margin: 0; }
+  .sincep-docs .crumbs li + li::before { content: "›"; color: #8A909A; }
+  .sincep-docs .crumbs a { text-decoration: underline; text-underline-offset: 2px; }
+  .sincep-docs .kicker { font-size: 14px; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; }
+  .sincep-docs .page-head h1 { margin-top: 8px !important; font-size: 36px !important; font-weight: 700; line-height: 1.2 !important; }
+  .sincep-docs .page-head .lede { margin-top: 12px; max-width: 75ch; font-size: 17px; color: var(--ink-soft); }
+  .sincep-docs .page-head .accent { display: block; width: 48px; height: 4px; background: var(--yellow); margin-top: 18px; }
+
+  /* ===== Tabs + search ===== */
+  .sincep-docs .main { padding: 32px 0 80px; }
+  .sincep-docs .tabs-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 24px; border-bottom: 2px solid var(--ink); }
+  .sincep-docs .tabs { display: flex; flex-wrap: wrap; gap: 0; margin: 0; padding: 0; list-style: none; }
+  .sincep-docs .tabs li { margin: 0; }
+  .sincep-docs .tab,
+  .sincep-docs .tab:focus {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; margin-bottom: -2px;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--blue); cursor: pointer;
+    background: none; border: 0; border-bottom: 4px solid transparent; border-radius: 0;
   }
-  .sincep-soon .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #F0B429; box-shadow: 0 0 0 4px rgba(240,180,41,0.2); }
-  .sincep-soon .actions { display: flex; flex-wrap: wrap; gap: 14px; }
-  .sincep-soon a.btn, .sincep-soon a.btn:visited {
-    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-    font: 600 15px/1.2 Inter, sans-serif; padding: 13px 24px; border-radius: 10px;
+  .sincep-docs .tab:hover { background: var(--blue-soft); color: var(--blue-dark); }
+  .sincep-docs .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--blue); }
+  .sincep-docs .tab .n { padding: 0 7px; font-size: 12px; font-weight: 700; line-height: 20px; border-radius: 10px; background: #ECEEF1; color: var(--ink-soft); }
+  .sincep-docs .tab[aria-selected="true"] .n { background: var(--blue); color: #fff; }
+  .sincep-docs .search { display: flex; flex: 0 1 300px; margin-bottom: 10px; border: 1px solid #8A909A; background: #fff; }
+  .sincep-docs .search:focus-within { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .sincep-docs .search input,
+  .sincep-docs .search input:focus {
+    flex: 1; min-width: 0; border: 0; outline: none; box-shadow: none; margin: 0;
+    padding: 8px 10px; height: auto; font: inherit; font-size: 15px; color: var(--ink); background: transparent; border-radius: 0;
   }
-  .sincep-soon a.btn-primary, .sincep-soon a.btn-primary:visited { background: var(--teal); color: var(--navy-deep); }
-  .sincep-soon a.btn-primary:hover { background: #45E0B8; color: var(--navy-deep); }
-  .sincep-soon a.btn-ghost, .sincep-soon a.btn-ghost:visited { color: #fff; border: 1px solid rgba(255,255,255,0.28); }
-  .sincep-soon a.btn-ghost:hover { border-color: #fff; color: #fff; }
-  .sincep-soon a:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
-  @media (max-width: 1024px) { .sincep-soon { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); } }
+  .sincep-docs .search input::placeholder { color: #6B7280; opacity: 1; }
+  .sincep-docs .search span { display: flex; align-items: center; padding: 0 10px; color: #fff; background: var(--blue); }
+  .sincep-docs .count { padding: 14px 0 4px; font-size: 15px; color: var(--ink-soft); }
+  .sincep-docs .count strong { color: var(--ink); }
+
+  /* ===== Document list ===== */
+  .sincep-docs .docs { list-style: none; margin: 0; padding: 0; }
+  .sincep-docs .doc { margin: 0; display: grid; grid-template-columns: 48px 1fr auto; gap: 18px; align-items: start; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .sincep-docs .doc .icon { width: 48px; height: 56px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; position: relative;
+    background: var(--blue-soft); color: var(--blue); clip-path: polygon(0 0, 70% 0, 100% 22%, 100% 100%, 0 100%); }
+  .sincep-docs .doc .icon b { font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+  .sincep-docs .label { display: inline-block; margin-bottom: 6px; padding: 2px 8px; font-size: 12px; font-weight: 700; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 2px; background: var(--blue-soft); color: var(--blue-dark); }
+  .sincep-docs .doc h2 { font-size: 18px !important; font-weight: 700; line-height: 1.4 !important; }
+  .sincep-docs .doc h2 a { text-decoration: none; }
+  .sincep-docs .doc h2 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .sincep-docs .doc .meta { margin-top: 4px; font-size: 14px; color: var(--ink-soft); }
+  .sincep-docs .doc .meta strong { color: var(--ink); font-weight: 600; }
+  .sincep-docs .doc .summary { margin-top: 8px; color: var(--ink-soft); max-width: 75ch; }
+  .sincep-docs a.open, .sincep-docs a.open:visited {
+    display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; white-space: nowrap;
+    font-size: 15px; font-weight: 600; text-decoration: none; color: var(--blue); border: 2px solid var(--blue);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .sincep-docs a.open:hover { background: var(--blue); color: #fff; }
+  .sincep-docs mark { background: #FFF2A8; color: inherit; padding: 0 1px; }
+  .sincep-docs .notice { padding: 48px 20px; text-align: center; color: var(--ink-soft); border-bottom: 1px solid var(--line); list-style: none; }
+  .sincep-docs .notice strong { display: block; color: var(--ink); font-size: 17px; margin-bottom: 4px; }
+  .sincep-docs .skeleton { height: 92px; margin: 16px 0; list-style: none; background: linear-gradient(90deg, var(--bg), #fff, var(--bg)); background-size: 200% 100%; animation: sd-shimmer 1.4s linear infinite; }
+  @keyframes sd-shimmer { to { background-position: -200% 0; } }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1024px) {
+    .sincep-docs { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+  }
+  @media (max-width: 760px) {
+    .sincep-docs .tabs-row { flex-direction: column-reverse; align-items: stretch; }
+    .sincep-docs .search { flex: none; width: 100%; margin: 0 0 6px; }
+    .sincep-docs .tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .sincep-docs .tabs::-webkit-scrollbar { display: none; }
+    .sincep-docs .tab { white-space: nowrap; }
+    .sincep-docs .doc { grid-template-columns: 40px 1fr; gap: 14px; }
+    .sincep-docs .doc .icon { width: 40px; height: 48px; }
+    .sincep-docs .doc .action { grid-column: 2; }
+  }
   @media (max-width: 600px) {
-    .sincep-soon .wrap { padding: 56px 18px; }
-    .sincep-soon p { font-size: 16.5px; }
-    .sincep-soon .actions { flex-direction: column; }
-    .sincep-soon a.btn { justify-content: center; }
+    .sincep-docs .wrap { padding: 0 18px; }
+    .sincep-docs .page-head h1 { font-size: 28px !important; }
+    .sincep-docs .page-head .lede { font-size: 16px; }
   }
+  @media (prefers-reduced-motion: reduce) { .sincep-docs * { animation: none !important; transition: none !important; } }
 </style>
 
-<section class="sincep-soon">
-  <div class="wrap">
-    <span class="eyebrow">● Resources</span>
-    <h1>Tools &amp; Documents</h1>
-    <p>Reports, publications, tools and other resources.</p>
-    <div class="status">Redesign coming soon</div>
-    <div class="actions">
-      <a class="btn btn-primary" href="https://sincep-africa.org/tools-documents/" target="_blank" rel="noopener">View the current page →</a>
-      <a class="btn btn-ghost" href="index.html">Back to home</a>
+<div class="sincep-docs" id="sincep-docs">
+  <div class="page-head">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb">
+        <ol class="crumbs">
+          <li><a href="/">Home</a></li>
+          <li aria-current="page">Tools &amp; Documents</li>
+        </ol>
+      </nav>
+      <div class="kicker">Resources &amp; Knowledge</div>
+      <h1>Tools &amp; Documents</h1>
+      <p class="lede">Access a collection of tools, reports, publications, guides, and other resources developed to support knowledge sharing, informed decision-making, research, and effective action across Africa.</p>
+      <span class="accent" aria-hidden="true"></span>
     </div>
   </div>
-</section>
+
+  <div class="wrap main">
+    <div class="tabs-row">
+      <ul class="tabs" role="tablist" aria-label="Document type"></ul>
+      <label class="search">
+        <span class="sr-only">Search documents</span>
+        <input type="search" class="docs-q" placeholder="Search" autocomplete="off">
+        <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      </label>
+    </div>
+    <div class="count" aria-live="polite"></div>
+    <ul class="docs" role="tabpanel">
+      <li class="skeleton" aria-hidden="true"></li><li class="skeleton" aria-hidden="true"></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('sincep-docs');
+  if (!root || root.dataset.ready) return;
+  root.dataset.ready = '1';
+
+  var API = '/wp-json/wp/v2/';
+  // WordPress categories: "Tools & Documents" (11) and its sub-categories, shown as tabs in this order
+  var PARENT = 11;
+  var TABS = [
+    { id: 12, label: 'Reports', one: 'Report' },
+    { id: 13, label: 'Publications', one: 'Publication' },
+    { id: 14, label: 'Tools', one: 'Tool' },
+    { id: 15, label: 'Resources', one: 'Resource' }
+  ];
+
+  var listEl = root.querySelector('.docs');
+  var tabsEl = root.querySelector('.tabs');
+  var countEl = root.querySelector('.count');
+  var qEl = root.querySelector('.docs-q');
+  var items = [], activeTab = 'all';
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function textOf(html) { return (new DOMParser().parseFromString(html || '', 'text/html').body.textContent || '').replace(/\s+/g, ' ').trim(); }
+  function fold(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  function hl(text, q) {
+    if (!q) return esc(text);
+    var i = fold(text).indexOf(q);
+    if (i < 0) return esc(text);
+    return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+  }
+
+  fetch(API + 'posts?per_page=100&categories=' + [PARENT].concat(TABS.map(function (t) { return t.id; })).join(',') + '&_fields=id,date,link,title,excerpt,categories')
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (posts) {
+      items = posts.map(function (p) {
+        var tab = TABS.filter(function (t) { return (p.categories || []).indexOf(t.id) > -1; })[0];
+        var summary = textOf(p.excerpt && p.excerpt.rendered).replace(/\s*(\[…\]|…)\s*$/, '');
+        if (summary.length > 220) summary = summary.slice(0, 217).replace(/\s+\S*$/, '') + '…';
+        return { title: textOf(p.title && p.title.rendered), link: p.link, date: new Date(p.date), tab: tab ? tab.id : null, type: tab ? tab.one : 'Document', summary: summary };
+      }).sort(function (a, b) { return b.date - a.date; });
+      buildTabs();
+      render();
+    })
+    .catch(function () {
+      tabsEl.innerHTML = '';
+      listEl.innerHTML = '<li class="notice"><strong>Documents could not be loaded</strong>Please try again later.</li>';
+    });
+
+  function buildTabs() {
+    var all = [{ id: 'all', label: 'All' }].concat(TABS);
+    tabsEl.innerHTML = all.map(function (t) {
+      var n = t.id === 'all' ? items.length : items.filter(function (it) { return it.tab === t.id; }).length;
+      return '<li role="presentation"><button type="button" class="tab" role="tab" data-tab="' + t.id + '" aria-selected="' + (t.id === activeTab) + '">' +
+        esc(t.label) + '<span class="n">' + n + '</span></button></li>';
+    }).join('');
+  }
+  tabsEl.addEventListener('click', function (e) {
+    var b = e.target.closest('.tab');
+    if (!b) return;
+    activeTab = b.dataset.tab === 'all' ? 'all' : +b.dataset.tab;
+    tabsEl.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', t === b); });
+    render();
+  });
+  qEl.addEventListener('input', render);
+
+  function render() {
+    var q = fold(qEl.value.trim());
+    var list = items.filter(function (it) {
+      if (activeTab !== 'all' && it.tab !== activeTab) return false;
+      return !q || fold(it.title + ' ' + it.summary + ' ' + it.type).indexOf(q) > -1;
+    });
+    var tab = TABS.filter(function (t) { return t.id === activeTab; })[0];
+    countEl.innerHTML = '<strong>' + list.length + '</strong> ' + (list.length === 1 ? 'item' : 'items');
+    if (!list.length) {
+      listEl.innerHTML = '<li class="notice"><strong>' + (q ? 'No results' : 'No ' + (tab ? tab.label.toLowerCase() : 'documents') + ' yet') + '</strong>' +
+        (q ? 'Try another keyword.' : 'Please check back soon.') + '</li>';
+      return;
+    }
+    listEl.innerHTML = list.map(function (it) {
+      return '<li class="doc">' +
+        '<span class="icon" aria-hidden="true"><b>' + esc(it.type.slice(0, 3).toUpperCase()) + '</b></span>' +
+        '<div><span class="label">' + esc(it.type) + '</span>' +
+          '<h2><a href="' + esc(it.link) + '">' + hl(it.title, q) + '</a></h2>' +
+          '<p class="meta"><strong>Published:</strong> ' + it.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) + '</p>' +
+          (it.summary ? '<p class="summary">' + hl(it.summary, q) + '</p>' : '') +
+        '</div>' +
+        '<div class="action"><a class="open" href="' + esc(it.link) + '">Read More<span class="sr-only">: ' + esc(it.title) + '</span></a></div>' +
+        '</li>';
+    }).join('');
+  }
+})();
+</script>
