@@ -1,66 +1,546 @@
-<!-- Governance — placeholder until this page is redesigned. Replace this whole file with the new design. -->
+<!-- SINCEP-Africa — Governance. Simple style modelled on the European Commission's Funding & Tenders portal,
+     using the wording from the current Governance page. Elementor HTML-widget snippet. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  .sincep-soon {
-    --navy: #0B1F3A; --navy-deep: #071527; --teal: #2DD4A7;
-    font-family: Inter, system-ui, sans-serif; color: #fff;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(45,212,167,0.16), transparent 45%),
-      radial-gradient(circle at 85% 10%, rgba(240,180,41,0.12), transparent 40%),
-      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
-    min-height: 70vh; display: flex; align-items: center;
+  .sincep-gov{
+    --blue: #004494;
+    --blue-dark: #003776;
+    --blue-soft: #E6EEF7;
+    --yellow: #FFD617;
+    --yellow-soft: #FFF8D6;
+    --green: #2E7D32;
+    --green-soft: #E7F3E8;
+    --ink: #1A1A1A;
+    --ink-soft: #515560;
+    --line: #D9DCE1;
+    --bg: #F5F6F8;
+
+    background: #fff;
+    color: var(--ink);
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    position: relative;
+    /* Cancel the Elementor container's padding (defaults to 10px) */
     margin-top: calc(-1 * var(--padding-top, 10px));
     margin-left: calc(-1 * var(--padding-left, 10px));
     margin-right: calc(-1 * var(--padding-right, 10px));
   }
-  .sincep-soon *, .sincep-soon *::before, .sincep-soon *::after { box-sizing: border-box; }
-  .sincep-soon .wrap { max-width: 1120px; margin: 0 auto; padding: 88px 28px; width: 100%; }
-  .sincep-soon .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font: 500 12.5px/1 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--teal); background: rgba(45,212,167,0.1); border: 1px solid rgba(45,212,167,0.35);
-    padding: 8px 14px; border-radius: 999px; margin-bottom: 24px;
+  .sincep-gov *, .sincep-gov *::before, .sincep-gov *::after { box-sizing: border-box; }
+  /* Theme heading styles can override ours, hence !important */
+  .sincep-gov h1, .sincep-gov h2, .sincep-gov h3, .sincep-gov h4 {
+    font-family: 'Inter', Arial, Helvetica, sans-serif !important;
+    color: var(--ink); margin: 0 !important; padding: 0;
+    letter-spacing: normal !important; text-transform: none !important;
   }
-  .sincep-soon h1 {
-    font-family: 'Space Grotesk', sans-serif !important; font-size: clamp(34px, 5vw, 52px) !important;
-    font-weight: 600; line-height: 1.1 !important; letter-spacing: -0.01em !important;
-    color: #fff; margin: 0 0 16px !important; text-transform: none !important;
+  .sincep-gov p { margin: 0; }
+  .sincep-gov ul { margin: 0; }
+  .sincep-gov a { color: var(--blue); }
+  .sincep-gov a:focus-visible, .sincep-gov button:focus-visible, .sincep-gov input:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .sincep-gov button { box-shadow: none; text-transform: none; letter-spacing: normal; }
+  .sincep-gov table, .sincep-gov th, .sincep-gov td { border: none; margin: 0; background: none; }
+  .sincep-gov .sr-only {
+    position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
-  .sincep-soon p { font-size: 18px; color: #C2CBDC; max-width: 56ch; margin: 0 0 12px; line-height: 1.6; }
-  .sincep-soon .status {
-    display: inline-flex; align-items: center; gap: 10px; margin: 20px 0 32px;
-    font: 500 13px/1 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #F0B429;
+  .sincep-gov .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== Page header ===== */
+  .sincep-gov .page-head { background: var(--bg); border-bottom: 1px solid var(--line); padding: 20px 0 36px; }
+  .sincep-gov .crumbs { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0 0 22px; padding: 0; font-size: 14px; color: var(--ink-soft); }
+  .sincep-gov .crumbs li { display: flex; align-items: center; gap: 6px; margin: 0; }
+  .sincep-gov .crumbs li + li::before { content: "›"; color: #8A909A; }
+  .sincep-gov .crumbs a { text-decoration: underline; text-underline-offset: 2px; }
+  .sincep-gov .page-head h1 { font-size: 36px !important; font-weight: 700; line-height: 1.2 !important; }
+  .sincep-gov .page-head .lede { margin-top: 12px; max-width: 75ch; font-size: 17px; color: var(--ink-soft); }
+  .sincep-gov .page-head .accent { display: block; width: 48px; height: 4px; background: var(--yellow); margin-top: 18px; }
+  .sincep-gov .facts { display: flex; flex-wrap: wrap; align-items: stretch; margin-top: 26px; border: 1px solid var(--line); background: #fff; width: fit-content; max-width: 100%; }
+  .sincep-gov .fact { padding: 12px 22px; border-left: 1px solid var(--line); }
+  .sincep-gov .fact:first-child { border-left: 0; }
+  .sincep-gov .fact strong { display: block; font-size: 26px; line-height: 1.15; color: var(--blue); }
+  .sincep-gov .fact span { font-size: 14px; font-weight: 600; }
+  .sincep-gov .fact-group { display: flex; align-items: stretch; border-left: 1px solid var(--line); }
+  .sincep-gov .fact-group .fact:first-child { border-left: 0; }
+  .sincep-gov .fact-group .fact { padding-left: 18px; padding-right: 18px; }
+  .sincep-gov .fact-group .fact strong { font-size: 20px; color: var(--ink); }
+  .sincep-gov .fact-group .fact span { font-weight: 500; color: var(--ink-soft); }
+
+  /* ===== Layout: in-page navigation + content ===== */
+  .sincep-gov .layout { display: grid; grid-template-columns: 240px 1fr; gap: 48px; padding: 40px 0 80px; align-items: start; }
+  .sincep-gov .toc { position: sticky; top: 16px; }
+  .sincep-gov .toc h2 { font-size: 13px !important; font-weight: 700; text-transform: uppercase !important; letter-spacing: 0.06em !important; color: var(--ink-soft); margin-bottom: 10px !important; }
+  .sincep-gov .toc ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+  .sincep-gov .toc li { margin: 0; }
+  .sincep-gov .toc a { display: block; padding: 7px 0 7px 14px; margin-left: -2px; border-left: 2px solid transparent; font-size: 15px; text-decoration: none; color: var(--blue); line-height: 1.35; }
+  .sincep-gov .toc a:hover { text-decoration: underline; }
+  .sincep-gov .toc a.active { border-left-color: var(--blue); color: var(--ink); font-weight: 700; }
+
+  .sincep-gov .content > section { padding-bottom: 48px; margin-bottom: 48px; border-bottom: 1px solid var(--line); scroll-margin-top: 24px; }
+  .sincep-gov .content > section:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+  .sincep-gov .sec-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 24px; margin-bottom: 20px; }
+  .sincep-gov .sec-head h2 { font-size: 26px !important; font-weight: 700; line-height: 1.25 !important; }
+  .sincep-gov .sec-head h2::after { content: ""; display: block; width: 48px; height: 4px; background: var(--yellow); margin-top: 10px; }
+  .sincep-gov .count-label { display: inline-block; margin-bottom: 8px; padding: 3px 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--blue-soft); color: var(--blue-dark); border-radius: 2px; }
+  .sincep-gov .intro { color: var(--ink-soft); max-width: 75ch; margin-bottom: 22px; }
+  .sincep-gov .prose p + p { margin-top: 14px; }
+  .sincep-gov .prose p { max-width: 75ch; }
+  .sincep-gov a.link-arrow { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+  .sincep-gov a.link-arrow::after { content: " →"; }
+
+  /* ===== Consortium bodies ===== */
+  .sincep-gov .bodies { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .sincep-gov .bodies li { margin: 0; }
+  .sincep-gov .bodies a { display: block; height: 100%; padding: 18px 20px; border: 1px solid var(--line); border-left: 4px solid var(--blue); text-decoration: none; color: inherit; transition: background 0.15s ease; }
+  .sincep-gov .bodies a:hover { background: var(--blue-soft); }
+  .sincep-gov .bodies h3 { font-size: 17px !important; font-weight: 700; color: var(--blue); }
+  .sincep-gov .bodies p { margin-top: 6px; font-size: 15px; color: var(--ink-soft); }
+
+  /* ===== PSC table ===== */
+  .sincep-gov .search { display: flex; max-width: 360px; margin-bottom: 16px; border: 1px solid #8A909A; background: #fff; }
+  .sincep-gov .search:focus-within { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .sincep-gov .search input,
+  .sincep-gov .search input:focus {
+    flex: 1; min-width: 0; border: 0; outline: none; box-shadow: none; margin: 0;
+    padding: 9px 10px; height: auto; font: inherit; font-size: 15px; color: var(--ink); background: transparent; border-radius: 0;
   }
-  .sincep-soon .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #F0B429; box-shadow: 0 0 0 4px rgba(240,180,41,0.2); }
-  .sincep-soon .actions { display: flex; flex-wrap: wrap; gap: 14px; }
-  .sincep-soon a.btn, .sincep-soon a.btn:visited {
-    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-    font: 600 15px/1.2 Inter, sans-serif; padding: 13px 24px; border-radius: 10px;
+  .sincep-gov .search input::placeholder { color: #6B7280; opacity: 1; }
+  .sincep-gov .search span { display: flex; align-items: center; padding: 0 10px; color: #fff; background: var(--blue); }
+  .sincep-gov .table-wrap { border: 1px solid var(--line); overflow-x: auto; }
+  .sincep-gov table.psc { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .sincep-gov .psc th { text-align: left; padding: 11px 16px; background: var(--bg); border-bottom: 2px solid var(--ink); font-size: 14px; font-weight: 700; white-space: nowrap; }
+  .sincep-gov .psc td { padding: 11px 16px; border-top: 1px solid var(--line); vertical-align: middle; }
+  .sincep-gov .psc tbody tr:first-child td { border-top: 0; }
+  .sincep-gov .psc tbody tr:nth-child(even) td { background: #FAFBFC; }
+  .sincep-gov .psc .name { font-weight: 600; }
+  .sincep-gov .psc a { word-break: break-all; }
+  .sincep-gov .label { display: inline-block; padding: 2px 8px; font-size: 12px; font-weight: 700; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 2px; background: #ECEEF1; color: var(--ink-soft); white-space: nowrap; }
+  .sincep-gov .label.chair { background: var(--blue); color: #fff; }
+  .sincep-gov .org { font-weight: 600; font-size: 13px; letter-spacing: 0.02em; }
+  .sincep-gov .show-email,
+  .sincep-gov .show-email:focus {
+    padding: 0; border: 0; background: none; cursor: pointer;
+    font: inherit; font-size: 14px; font-weight: 600; color: var(--blue);
+    text-decoration: underline; text-underline-offset: 2px;
   }
-  .sincep-soon a.btn-primary, .sincep-soon a.btn-primary:visited { background: var(--teal); color: var(--navy-deep); }
-  .sincep-soon a.btn-primary:hover { background: #45E0B8; color: var(--navy-deep); }
-  .sincep-soon a.btn-ghost, .sincep-soon a.btn-ghost:visited { color: #fff; border: 1px solid rgba(255,255,255,0.28); }
-  .sincep-soon a.btn-ghost:hover { border-color: #fff; color: #fff; }
-  .sincep-soon a:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
-  @media (max-width: 1024px) { .sincep-soon { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); } }
+  .sincep-gov .show-email:hover { color: var(--blue-dark); background: none; }
+  .sincep-gov .bio-link { display: inline-block; margin-left: 8px; font-size: 13px; font-weight: 600; }
+  .sincep-gov .none { padding: 24px 16px; text-align: center; color: var(--ink-soft); }
+  .sincep-gov mark { background: #FFF2A8; color: inherit; padding: 0 1px; }
+
+  /* ===== Coordinator + Scientific Lead ===== */
+  .sincep-gov .leads { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .sincep-gov .lead { border: 1px solid var(--line); border-top: 4px solid var(--blue); padding: 22px 24px; scroll-margin-top: 24px; }
+  .sincep-gov .lead .role { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); }
+  .sincep-gov .lead h3 { margin-top: 6px !important; font-size: 20px !important; font-weight: 700; }
+  .sincep-gov .lead .who { margin-top: 2px; font-size: 15px; color: var(--ink-soft); }
+  .sincep-gov .lead .who a { word-break: break-all; }
+  .sincep-gov .lead p.desc { margin-top: 14px; font-size: 15px; }
+  .sincep-gov .lead ul { margin-top: 8px; padding-left: 20px; font-size: 15px; color: var(--ink-soft); }
+  .sincep-gov .lead li { margin: 6px 0; }
+  .sincep-gov .lead li::marker { color: var(--blue); }
+
+  /* ===== People grids (WPLG, SAB) ===== */
+  .sincep-gov .people { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .sincep-gov .people li { margin: 0; display: flex; align-items: center; gap: 14px; padding: 14px; border: 1px solid var(--line); }
+  .sincep-gov .avatar { flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--blue-soft); color: var(--blue); font-weight: 700; font-size: 17px; }
+  .sincep-gov .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .sincep-gov .people .n { font-weight: 700; line-height: 1.3; }
+  .sincep-gov .people .s { margin-top: 2px; font-size: 14px; color: var(--ink-soft); word-break: break-all; }
+  .sincep-gov .people.sab li { flex-direction: column; text-align: center; padding: 20px 14px; }
+  .sincep-gov .people.sab .avatar { width: 96px; height: 96px; }
+  .sincep-gov .people.sab .s { word-break: normal; }
+  .sincep-gov .sub-head { margin: 30px 0 6px !important; font-size: 19px !important; font-weight: 700; }
+  .sincep-gov .sub-intro { color: var(--ink-soft); margin-bottom: 16px; }
+  .sincep-gov .tagline { font-size: 15px; font-weight: 600; color: var(--blue); margin: -6px 0 18px; }
+
+  /* ===== Organogram ===== */
+  .sincep-gov .og { border: 1px solid var(--line); background: var(--bg); padding: 28px 24px; }
+  .sincep-gov .og-title { text-align: center; font-size: 17px !important; font-weight: 700; margin-bottom: 22px !important; }
+  .sincep-gov .og-row { display: flex; justify-content: center; align-items: stretch; gap: 16px; flex-wrap: wrap; }
+  .sincep-gov .node { flex: 0 1 280px; padding: 12px 16px; text-align: center; background: #fff; border: 1px solid var(--line); font-size: 14px; line-height: 1.4; }
+  .sincep-gov .node b { display: block; font-size: 15px; }
+  .sincep-gov .node small { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 13px; }
+  .sincep-gov .node.ext { background: #ECEEF1; border-style: dashed; border-color: #A3A9B3; }
+  .sincep-gov .node.psc { background: var(--blue); border-color: var(--blue); color: #fff; flex-basis: 340px; }
+  .sincep-gov .node.psc small { color: #D6E2F1; }
+  .sincep-gov .node.exec { background: var(--blue-soft); border-color: #9DB5D6; }
+  .sincep-gov .node.impl { background: var(--green-soft); border-color: #9CC79F; flex-basis: 520px; }
+  .sincep-gov .node.adv { background: var(--yellow-soft); border-color: #E3C200; }
+  .sincep-gov .node.wp { flex: 0 0 auto; padding: 8px 12px; background: #fff; border-color: #9CC79F; font-size: 13px; }
+  .sincep-gov .node.wp b { font-size: 13px; }
+  .sincep-gov .link { display: flex; flex-direction: column; align-items: center; margin: 4px 0; }
+  .sincep-gov .link::before, .sincep-gov .link::after { content: ""; width: 2px; height: 12px; background: #8A909A; }
+  .sincep-gov .link span { padding: 2px 10px; font-size: 12px; font-weight: 600; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 999px; }
+  .sincep-gov .link.plain span { display: none; }
+  .sincep-gov .link.plain::after { display: none; }
+  /* PSC in the centre column (so the lines run through it), SAB to its right */
+  .sincep-gov .psc-row { display: grid; grid-template-columns: 1fr minmax(240px, 340px) 1fr; align-items: center; }
+  .sincep-gov .psc-row .node.psc { grid-column: 2; }
+  .sincep-gov .psc-row .sab-side { grid-column: 3; display: flex; align-items: center; }
+  .sincep-gov .psc-row .sab-side .node { flex: 1 1 auto; max-width: 260px; }
+  .sincep-gov .side-link { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 0 10px; }
+  .sincep-gov .side-link span { font-size: 12px; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
+  .sincep-gov .side-link i { display: block; width: 44px; height: 2px; background: #8A909A; position: relative; }
+  .sincep-gov .side-link i.r::after { content: ""; position: absolute; right: -1px; top: -4px; border: 5px solid transparent; border-left: 7px solid #8A909A; border-right: 0; }
+  .sincep-gov .side-link i.l::after { content: ""; position: absolute; left: -1px; top: -4px; border: 5px solid transparent; border-right: 7px solid #8A909A; border-left: 0; }
+  .sincep-gov .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-soft); list-style: none; padding-left: 0; }
+  .sincep-gov .legend li { display: flex; align-items: center; gap: 8px; margin: 0; }
+  .sincep-gov .legend i { width: 16px; height: 12px; border: 1px solid; display: inline-block; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1024px) {
+    .sincep-gov { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+  }
+  @media (max-width: 900px) {
+    .sincep-gov .layout { grid-template-columns: 1fr; gap: 24px; padding-top: 28px; }
+    .sincep-gov .toc { position: static; border: 1px solid var(--line); padding: 14px 16px; }
+    .sincep-gov .toc ol { columns: 2; column-gap: 20px; border-left: 0; }
+    .sincep-gov .toc a { border-left: 0; padding-left: 0; margin-left: 0; }
+    .sincep-gov .toc a.active { border-left: 0; }
+    .sincep-gov .people { grid-template-columns: repeat(2, 1fr); }
+    .sincep-gov .leads { grid-template-columns: 1fr; }
+  }
   @media (max-width: 600px) {
-    .sincep-soon .wrap { padding: 56px 18px; }
-    .sincep-soon p { font-size: 16.5px; }
-    .sincep-soon .actions { flex-direction: column; }
-    .sincep-soon a.btn { justify-content: center; }
+    .sincep-gov .wrap { padding: 0 18px; }
+    .sincep-gov .page-head h1 { font-size: 28px !important; }
+    .sincep-gov .page-head .lede { font-size: 16px; }
+    .sincep-gov .facts, .sincep-gov .fact-group { flex-wrap: wrap; width: 100%; }
+    .sincep-gov .fact { flex: 1 1 33%; }
+    .sincep-gov .fact-group { flex-basis: 100%; border-left: 0; border-top: 1px solid var(--line); }
+    .sincep-gov .sec-head h2 { font-size: 22px !important; }
+    .sincep-gov .bodies, .sincep-gov .people { grid-template-columns: 1fr; }
+    .sincep-gov .people.sab { grid-template-columns: 1fr 1fr; }
+    .sincep-gov .toc ol { columns: 1; }
+    /* PSC table becomes stacked rows */
+    .sincep-gov .table-wrap { border: 0; }
+    .sincep-gov .psc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .sincep-gov .psc, .sincep-gov .psc tbody, .sincep-gov .psc tr, .sincep-gov .psc td { display: block; width: 100%; }
+    .sincep-gov .psc tr { border: 1px solid var(--line); padding: 12px 14px; margin-bottom: 8px; }
+    .sincep-gov .psc td, .sincep-gov .psc tbody tr:nth-child(even) td { padding: 2px 0; border: 0; background: none; }
+    .sincep-gov .og { padding: 20px 14px; }
+    .sincep-gov .psc-row { grid-template-columns: 1fr; justify-items: center; }
+    .sincep-gov .psc-row .node.psc, .sincep-gov .psc-row .sab-side { grid-column: 1; }
+    .sincep-gov .psc-row .sab-side { flex-direction: column; }
+    .sincep-gov .side-link { flex-direction: row; padding: 6px 0; }
+    .sincep-gov .side-link i { width: 2px; height: 16px; }
+    .sincep-gov .side-link i::after { display: none; }
   }
 </style>
 
-<section class="sincep-soon">
-  <div class="wrap">
-    <span class="eyebrow">● About</span>
-    <h1>Governance</h1>
-    <p>How the consortium is organised and how decisions are made.</p>
-    <div class="status">Redesign coming soon</div>
-    <div class="actions">
-      <a class="btn btn-primary" href="https://sincep-africa.org/governance/" target="_blank" rel="noopener">View the current page →</a>
-      <a class="btn btn-ghost" href="index.html">Back to home</a>
+<div class="sincep-gov" id="sincep-gov">
+  <div class="page-head">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb">
+        <ol class="crumbs">
+          <li><a href="/">Home</a></li>
+          <li>About</li>
+          <li aria-current="page">Governance</li>
+        </ol>
+      </nav>
+      <h1>Governance Structure</h1>
+      <p class="lede">The SINCEP‑Africa consortium is governed through a clear structure of oversight and accountability — from strategic decision‑making at the Project Steering Committee, to day‑to‑day coordination, scientific leadership, and independent scientific advice.</p>
+      <span class="accent" aria-hidden="true"></span>
+      <div class="facts">
+        <div class="fact"><strong>21</strong><span>Institutions</span></div>
+        <div class="fact"><strong>17</strong><span>Countries</span></div>
+        <div class="fact-group" aria-label="Countries by region">
+          <div class="fact"><strong>12</strong><span>African</span></div>
+          <div class="fact"><strong>4</strong><span>European</span></div>
+          <div class="fact"><strong>1</strong><span>USA</span></div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+
+  <div class="wrap layout">
+    <nav class="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <ol>
+        <li><a href="#gov-bodies">Consortium Bodies</a></li>
+        <li><a href="#gov-psc">Project Steering Committee (PSC)</a></li>
+        <li><a href="#gov-leadership">Coordinator</a></li>
+        <li><a href="#gov-scientific-lead">Scientific Lead</a></li>
+        <li><a href="#gov-wplg">Work Package Leaders Group (WPLG)</a></li>
+        <li><a href="#gov-sab">Scientific Advisory Board</a></li>
+        <li><a href="#gov-organogram">Organogram</a></li>
+      </ol>
+    </nav>
+
+    <div class="content">
+      <!-- Consortium bodies -->
+      <section id="gov-bodies">
+        <div class="sec-head">
+          <h2>Consortium Bodies</h2>
+          <a class="link-arrow" href="#gov-organogram">View Organogram</a>
+        </div>
+        <p class="intro">The governance structure of the consortium comprises five bodies, each with distinct roles and responsibilities.</p>
+        <ul class="bodies">
+          <li><a href="#gov-psc"><h3>Project Steering Committee (PSC)</h3><p>The decision‑making body of the consortium, made up of the leader of each partner beneficiary.</p></a></li>
+          <li><a href="#gov-leadership"><h3>Coordinator</h3><p>Legal intermediary between the Parties and the Granting Authority. Co-chairs PSC meetings.</p></a></li>
+          <li><a href="#gov-scientific-lead"><h3>Scientific Leadership</h3><p>Promotes networking and partnership, and provides technical oversight of implementation. Co-chairs PSC meetings.</p></a></li>
+          <li><a href="#gov-wplg"><h3>Work Package Leaders Group (WPLG)</h3><p>An assessment group without formal decision‑making power, reviewing project implementation.</p></a></li>
+          <li><a href="#gov-sab"><h3>Scientific Advisory Board (SAB)</h3><p>Appointed and steered by the PSC to assist and facilitate its decisions.</p></a></li>
+        </ul>
+      </section>
+
+      <!-- PSC -->
+      <section id="gov-psc">
+        <span class="count-label" data-count="psc">21 Members</span>
+        <div class="sec-head"><h2>Project Steering Committee (PSC)</h2></div>
+        <label class="search">
+          <span class="sr-only">Search PSC members</span>
+          <input type="search" class="psc-q" placeholder="Search by name or organization" autocomplete="off">
+          <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+        </label>
+        <div class="table-wrap">
+          <table class="psc">
+            <thead><tr><th scope="col">Name</th><th scope="col">Role</th><th scope="col">Organization</th><th scope="col">Email</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Coordinator + Scientific Lead -->
+      <section id="gov-leadership">
+        <div class="leads">
+          <article class="lead">
+            <div class="role">Coordinator</div>
+            <h3>Dr. Phindile Ximba</h3>
+            <div class="who">EDCTP Association</div>
+            <p class="desc">Acts as the intermediary between the Parties and the Granting Authority, performing all tasks assigned to it in the Grant Agreement and the Consortium Agreement including:</p>
+            <ul>
+              <li>Monitor that the action is implemented properly</li>
+              <li>Request and review any documents or information required and verify their quality and completeness before passing them on to the granting authority</li>
+              <li>Submit the deliverables and reports to the granting authority</li>
+              <li>Distribute payments received from the granting authority to the other beneficiaries without unjustified delay (see Article 22)</li>
+            </ul>
+          </article>
+          <article class="lead" id="gov-scientific-lead">
+            <div class="role">Scientific Lead</div>
+            <h3>Prof. Philip Adongo</h3>
+            <div class="who">INDEPTH Network · <button type="button" class="show-email" data-e="YWRvbmdvcGhpbGlwQHlhaG9vLmNvbQ==">Show email</button></div>
+            <p class="desc">Oversees the project's scientific governance and leadership, including:</p>
+            <ul>
+              <li>Coordinating meetings and drafting the full project proposal</li>
+              <li>Acting as key contact point for Global Health EDCTP3 JU on scientific governance</li>
+              <li>Steering and overseeing development of the scientific actions</li>
+              <li>Reviewing deliverables and reports before submission by the Coordinator</li>
+              <li>Leading work packages related to scientific project leadership</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- WPLG -->
+      <section id="gov-wplg">
+        <span class="count-label" data-count="wplg">9 Members</span>
+        <div class="sec-head"><h2>Work Package Leaders Group (WPLG)</h2></div>
+        <p class="intro">Keeps track of effective implementation of the project, assesses Work Package Leader reports, and supports the Coordinator and Scientific Leadership in periodic reporting to the Granting Authority.</p>
+        <ul class="people wplg"></ul>
+      </section>
+
+      <!-- SAB -->
+      <section id="gov-sab">
+        <div class="sec-head"><h2>Scientific Advisory Board</h2></div>
+        <p class="tagline">Nine‑member board — appointed by the PSC</p>
+        <div class="prose">
+          <p>The Scientific Advisory Board (SAB) will be appointed and steered by the Project Steering Committee. The SAB shall assist and facilitate the decisions made by the PSC.</p>
+          <p>The Scientific Advisory Board will contribute its expertise and knowledge of the health and scientific ecosystem to SINCEP-Africa in order to facilitate the proper coordination of its research and interventions activities, but above all to ensure that they are integrated into the health systems of Africa.</p>
+          <p>The Scientific Advisory Board's contribution ranges from recommendations and advice on operational projects to scientific and/or operational research aimed at providing solutions to people's health problems, thereby helping to reduce morbidity and mortality in Africa.</p>
+          <p>In addition, the Scientific Advisory Board will facilitate connection and networking with African and international institutions, the various ministries of health and industry, thereby contributing to a rapid and appropriate response to the various health emergencies.</p>
+        </div>
+        <h3 class="sub-head">SAB Members</h3>
+        <p class="sub-intro">Nine appointed members bringing regional and scientific expertise to the Board.</p>
+        <ul class="people sab"></ul>
+      </section>
+
+      <!-- Organogram -->
+      <section id="gov-organogram">
+        <div class="sec-head"><h2>Organogram</h2></div>
+        <p class="intro">Complete governance hierarchy, reporting lines and appointments</p>
+        <figure class="og" style="margin:0">
+          <h3 class="og-title">SINCEP‑Africa: Organogram</h3>
+          <div class="og-row">
+            <div class="node ext"><b>Granting Authority</b><small>(Global Health EDCTP3 JU)</small></div>
+            <div class="node ext"><b>Partner Beneficiaries</b><small>(21)</small></div>
+          </div>
+          <div class="link"><span>Appoints</span></div>
+          <div class="psc-row">
+            <div class="node psc"><b>Project Steering Committee (PSC)</b><small>Supreme decision‑making body<br>comprises all beneficiary leaders</small></div>
+            <div class="sab-side">
+              <div class="side-link" aria-hidden="true"><span>Appoints</span><i class="r"></i><i class="l"></i><span>Advises</span></div>
+              <div class="node adv"><b>Scientific Advisory Board (SAB)</b><small>Advises PSC · no voting rights</small></div>
+            </div>
+          </div>
+          <div class="link"><span>co‑chair PSC meetings</span></div>
+          <div class="og-row">
+            <div class="node exec"><b>Coordinator</b><small>Intermediary with Granting Authority</small></div>
+            <div class="node exec"><b>Scientific Project Leader</b><small>Scientific governance</small></div>
+          </div>
+          <div class="link"><span>coordinates · oversees scientific actions</span></div>
+          <div class="og-row">
+            <div class="node impl"><b>Work Package Leaders Group</b><small>Implementation oversight · chaired by Scientific Leadership<br>meets quarterly and also upon request · no formal decision‑making power</small></div>
+          </div>
+          <div class="link plain"></div>
+          <div class="og-row">
+            <div class="node wp"><b>WP Leader</b>WP 1</div>
+            <div class="node wp"><b>WP Leader</b>WP 2</div>
+            <div class="node wp"><b>WP Leader</b>WP 3</div>
+            <div class="node wp"><b>WP Leader</b>WP 4</div>
+            <div class="node wp"><b>WP Leader</b>WP n</div>
+          </div>
+          <ul class="legend">
+            <li><i style="background:#ECEEF1;border-color:#A3A9B3;border-style:dashed"></i>Institutional / External</li>
+            <li><i style="background:#004494;border-color:#004494"></i>Decision‑making (PSC)</li>
+            <li><i style="background:#E6EEF7;border-color:#9DB5D6"></i>Executive / Leadership</li>
+            <li><i style="background:#E7F3E8;border-color:#9CC79F"></i>Implementation</li>
+            <li><i style="background:#FFF8D6;border-color:#E3C200"></i>Advisory</li>
+          </ul>
+        </figure>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('sincep-gov');
+  if (!root || root.dataset.ready) return;
+  root.dataset.ready = '1';
+
+  /* DATA — from the current Governance page.
+     Add a PDF bio link in `bio` and a photo URL in `photo` when available; leave "" until then. */
+  var pscMembers = [
+    { name: "Dr. Phindile Ximba", role: "co-chair", org: "EDCTP-Assoc", email: "", bio: "" },
+    { name: "Carlos Chaccour Diaz", role: "member", org: "UNAV", email: "cchaccour@unav.es", bio: "" },
+    { name: "Adam Roberts", role: "member", org: "LSTM", email: "Adam.Roberts@lstmed.ac.uk", bio: "" },
+    { name: "Emmanuel Sampong", role: "member", org: "UG", email: "easampong@ug.edu.gh", bio: "" },
+    { name: "Sirima Sodioma", role: "member", org: "GRAS", email: "s.sirima@gras.bf", bio: "" },
+    { name: "Ellis Owusu-Dabo", role: "member", org: "KNUST", email: "owusudabo@gmail.com", bio: "" },
+    { name: "Tesfahun Melese", role: "member", org: "UOG", email: "tesfahun.melese@uog.edu.et", bio: "" },
+    { name: "Iwara Arikpo", role: "member", org: "UniCal", email: "iiarikpo@gmail.com", bio: "" },
+    { name: "Oumar Gaye", role: "member", org: "UCAD", email: "oumar.gaye@ucad.edu.sn", bio: "" },
+    { name: "Honorati Masanja", role: "member", org: "IHI", email: "hmasanja@ihi.or.tz", bio: "" },
+    { name: "Daniel Kajungu", role: "member", org: "MAKERERE", email: "dan.kajungu@gmail.com", bio: "" },
+    { name: "Julie Sackou-Kouakou", role: "member", org: "INSP-CI", email: "juliekouakou77@gmail.com", bio: "" },
+    { name: "Patrick Ansah", role: "member", org: "DHRC", email: "lonpoa2@gmail.com", bio: "" },
+    { name: "Innocent Valea", role: "member", org: "CRUN", email: "innocentvalea@crun.bf", bio: "" },
+    { name: "Mahamadou Ali Thera", role: "member", org: "USTTB", email: "mthera@icermali.org", bio: "" },
+    { name: "Hypolite Muhindo", role: "member", org: "UNIKIN", email: "hypolite.muhindo@unikin.ac.cd", bio: "" },
+    { name: "Francisco Saute", role: "member", org: "FM", email: "francisco.saute@manhica.net", bio: "" },
+    { name: "Dr. Bernard Ogutu", role: "member", org: "STRATHMORE", email: "ogutu6@gmail.com", bio: "" },
+    { name: "Prof. Philip Adongo", role: "co-chair", org: "INDEPTH", email: "adongophilip@yahoo.com", bio: "" },
+    { name: "Michael Landau", role: "member", org: "CTI-Life", email: "Michael@ctiafrica.com", bio: "" },
+    { name: "Nathalie Strub-Wourgaft", role: "member", org: "PANTHER", email: "Nstrub-wourgaft@pantherhealth.org", bio: "" }
+  ];
+  var wplgMembers = [
+    { name: "Prof. Philip Adongo", email: "adongophilip@yahoo.com", bio: "", photo: "" },
+    { name: "Dr. Innocent Valea", email: "innocentvalea@crun.bf", bio: "", photo: "" },
+    { name: "Dr. Nathalie Strub-Wourgaft", email: "Nstrub-wourgaft@pantherhealth.org", bio: "", photo: "" },
+    { name: "Dr. Daniel Kajungu", email: "dan.kajungu@gmail.com", bio: "", photo: "" },
+    { name: "Dr. Patrick Ansah", email: "lonpoa2@gmail.com", bio: "", photo: "" },
+    { name: "Prof. Emmanuel Asampong", email: "easampong@ug.edu.gh", bio: "", photo: "" },
+    { name: "Mr. Michael Landau", email: "Michael@ctiafrica.com", bio: "", photo: "" },
+    { name: "Dr. Bernhards Ogutu", email: "ogutu6@gmail.com", bio: "", photo: "" },
+    { name: "Dr. Phindile Ximba", email: "", bio: "", photo: "" }
+  ];
+  var sabMembers = [
+    { name: "Prof. David Ross", country: "England", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Prof.-DAVID.png" },
+    { name: "Prof. John Odhiambo", country: "Kenya", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Prof.-John.png" },
+    { name: "Prof. Alexander Dodoo", country: "Ghana", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Prof.-Dodoo.png" },
+    { name: "Dr. Bruck Teshome", country: "Ethiopia", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Dr.-Bruck.png" },
+    { name: "Dr. Gauther Tougri", country: "Burkina Faso", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Dr.-Tougri.png" },
+    { name: "Professor Halimatou Diop-Ndiaye", country: "Senegal", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Prof.-Halimatou.png" },
+    { name: "Prof. Nilsa de Deus", country: "Mozambique", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Prof.-Nilsa.png" },
+    { name: "Dr. Esperança Sevene", country: "Mozambique", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Dr.-Sevene.png" },
+    { name: "Dr. Oumou Maiga Ascofaré", country: "Mali", bio: "", photo: "https://sincep-africa.org/wp-content/uploads/2026/07/Dr.-Maiga.png" }
+  ];
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fold(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  function hl(text, q) {
+    if (!q) return esc(text);
+    var i = fold(text).indexOf(q);
+    if (i < 0) return esc(text);
+    return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+  }
+  function initials(name) {
+    var w = name.replace(/^(Prof\.?|Professor|Dr\.?|Mr\.?|Mrs\.?|Ms\.?)\s+/i, '').split(/\s+/).filter(Boolean);
+    return ((w[0] || '')[0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase();
+  }
+  function avatar(p) {
+    return '<span class="avatar" aria-hidden="true">' + (p.photo
+      ? '<img src="' + esc(p.photo) + '" alt="" loading="lazy" onerror="this.parentNode.textContent=\'' + initials(p.name) + '\'">'
+      : esc(initials(p.name))) + '</span>';
+  }
+  // Emails are only shown when asked for. The address sits in the page base64-encoded,
+  // so it isn't readable plain text for spam bots until someone clicks "Show email".
+  function emailButton(email) {
+    return email ? '<button type="button" class="show-email" data-e="' + btoa(email) + '">Show email</button>' : '';
+  }
+  root.addEventListener('click', function (e) {
+    var b = e.target.closest('.show-email');
+    if (!b) return;
+    var email = atob(b.getAttribute('data-e'));
+    var a = document.createElement('a');
+    a.href = 'mailto:' + email;
+    a.textContent = email;
+    b.replaceWith(a);
+    a.focus();
+  });
+
+  function bioLink(p) { return p.bio ? '<a class="bio-link" href="' + esc(p.bio) + '" target="_blank" rel="noopener">Bio (PDF)</a>' : ''; }
+
+  // Member counts from the data
+  root.querySelector('[data-count="psc"]').textContent = pscMembers.length + ' Members';
+  root.querySelector('[data-count="wplg"]').textContent = wplgMembers.length + ' Members';
+
+  // ----- PSC table (with search) -----
+  var tbody = root.querySelector('.psc tbody');
+  var q = root.querySelector('.psc-q');
+  function renderPSC() {
+    var term = fold(q.value.trim());
+    var list = pscMembers.filter(function (p) { return !term || fold(p.name + ' ' + p.org).indexOf(term) > -1; });
+    if (!list.length) { tbody.innerHTML = '<tr><td colspan="4" class="none">No members match your search.</td></tr>'; return; }
+    tbody.innerHTML = list.map(function (p) {
+      var chair = p.role === 'co-chair';
+      return '<tr>' +
+        '<td class="name">' + hl(p.name, term) + bioLink(p) + '</td>' +
+        '<td><span class="label' + (chair ? ' chair' : '') + '">' + (chair ? 'Co-Chair' : 'Member') + '</span></td>' +
+        '<td><span class="org">' + hl(p.org, term) + '</span></td>' +
+        '<td>' + (p.email ? emailButton(p.email) : '<span aria-label="No email listed">—</span>') + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+  q.addEventListener('input', renderPSC);
+  renderPSC();
+
+  // ----- WPLG -----
+  root.querySelector('.people.wplg').innerHTML = wplgMembers.map(function (p) {
+    return '<li>' + avatar(p) + '<div><div class="n">' + esc(p.name) + bioLink(p) + '</div>' +
+      (p.email ? '<div class="s">' + emailButton(p.email) + '</div>' : '') + '</div></li>';
+  }).join('');
+
+  // ----- SAB -----
+  root.querySelector('.people.sab').innerHTML = sabMembers.map(function (p) {
+    return '<li>' + avatar(p) + '<div><div class="n">' + esc(p.name) + '</div><div class="s">' + esc(p.country) + '</div>' + bioLink(p) + '</div></li>';
+  }).join('');
+
+  // ----- "On this page": highlight the section in view -----
+  var links = [].slice.call(root.querySelectorAll('.toc a'));
+  function setActive(id) { links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); }); }
+  if ('IntersectionObserver' in window) {
+    var targets = links.map(function (a) { return root.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) setActive(e.target.id); });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    targets.forEach(function (t) { io.observe(t); });
+  }
+  setActive('gov-bodies');
+})();
+</script>
