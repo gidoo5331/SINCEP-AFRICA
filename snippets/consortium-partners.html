@@ -1,30 +1,23 @@
-<!-- SINCEP-Africa — Consortium Partners, in the homepage's design (Space Grotesk, IBM Plex Mono, teal/gold/coral). Elementor HTML-widget snippet. -->
+<!-- SINCEP-Africa — Consortium Partners. Simple style modelled on the European Commission's Funding & Tenders portal,
+     using the wording and partner details from the current Consortium Partners page. Elementor HTML-widget snippet. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   .sincep-cp{
-    --navy: #0B1F3A;
-    --navy-deep: #071527;
-    --teal: #2DD4A7;
-    --teal-ink: #0F766E;
-    --gold: #F0B429;
-    --coral: #FF6F59;
-    --paper: #F7F5F0;
-    --ink: #16202E;
-    --ink-soft: #5F6B80;
-    --line: #E4E0D6;
-    --radius: 16px;
-    --head-font: 'Space Grotesk', system-ui, sans-serif;
-    --mono-font: 'IBM Plex Mono', ui-monospace, monospace;
-    /* Region colours: soft background / text on light / dot */
-    --africa-soft: #E6F9F2; --africa-ink: #0F766E; --africa-dot: #2DD4A7;
-    --europe-soft: #FEF3D7; --europe-ink: #8A5A00; --europe-dot: #F0B429;
-    --na-soft: #FFE8E3;     --na-ink: #B42318;     --na-dot: #FF6F59;
+    --blue: #004494;
+    --blue-dark: #003776;
+    --blue-soft: #E6EEF7;
+    --yellow: #FFD617;
+    --ink: #1A1A1A;
+    --ink-soft: #515560;
+    --line: #D9DCE1;
+    --bg: #F5F6F8;
+    --africa: #2E7D32; --europe: #004494; --na: #B25E09;
 
-    background: var(--paper);
+    background: #fff;
     color: var(--ink);
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 17px;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 16px;
     line-height: 1.6;
     position: relative;
     /* Cancel the Elementor container's padding (defaults to 10px) */
@@ -32,399 +25,170 @@
     margin-left: calc(-1 * var(--padding-left, 10px));
     margin-right: calc(-1 * var(--padding-right, 10px));
   }
-
   .sincep-cp *, .sincep-cp *::before, .sincep-cp *::after { box-sizing: border-box; }
-
   /* Theme heading styles can override ours, hence !important */
   .sincep-cp h1, .sincep-cp h2, .sincep-cp h3 {
-    font-family: var(--head-font) !important;
-    margin: 0 !important;
-    padding: 0;
-    letter-spacing: -0.01em !important;
-    text-transform: none !important;
-    color: var(--ink);
+    font-family: 'Inter', Arial, Helvetica, sans-serif !important;
+    color: var(--ink); margin: 0 !important; padding: 0;
+    letter-spacing: normal !important; text-transform: none !important;
   }
   .sincep-cp p { margin: 0; }
-  .sincep-cp a { color: inherit; text-decoration: none; }
-  .sincep-cp a:focus-visible, .sincep-cp button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
-  .sincep-cp button { box-shadow: none; text-transform: none; letter-spacing: normal; line-height: 1.3; }
+  .sincep-cp a { color: var(--blue); }
+  .sincep-cp a:focus-visible, .sincep-cp button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .sincep-cp button { box-shadow: none; text-transform: none; letter-spacing: normal; }
+  .sincep-cp table, .sincep-cp th, .sincep-cp td { border: none; margin: 0; background: none; }
   .sincep-cp .sr-only {
     position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
+  .sincep-cp .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
 
-  .sincep-cp .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+  /* ===== Page header ===== */
+  .sincep-cp .page-head { background: var(--bg); border-bottom: 1px solid var(--line); padding: 20px 0 36px; }
+  .sincep-cp .crumbs { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0 0 22px; padding: 0; font-size: 14px; color: var(--ink-soft); }
+  .sincep-cp .crumbs li { display: flex; align-items: center; gap: 6px; margin: 0; }
+  .sincep-cp .crumbs li + li::before { content: "›"; color: #8A909A; }
+  .sincep-cp .crumbs a { text-decoration: underline; text-underline-offset: 2px; }
+  .sincep-cp .page-head h1 { font-size: 36px !important; font-weight: 700; line-height: 1.2 !important; }
+  .sincep-cp .page-head .lede { margin-top: 12px; max-width: 75ch; font-size: 17px; color: var(--ink-soft); }
+  .sincep-cp .page-head .accent { display: block; width: 48px; height: 4px; background: var(--yellow); margin-top: 18px; }
 
-  /* Reveal on scroll — only hidden once JS has confirmed it can reveal them */
-  .sincep-cp.js-reveal [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .sincep-cp.js-reveal [data-reveal].in { opacity: 1; transform: none; }
-
-  .sincep-cp .section-label {
-    font-family: var(--mono-font);
-    font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--teal-ink); background: var(--africa-soft);
-    display: inline-block; padding: 6px 12px; border-radius: 999px;
+  /* ===== Filters ===== */
+  .sincep-cp .main { padding: 32px 0 80px; }
+  .sincep-cp .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; padding-bottom: 16px; }
+  .sincep-cp .search { display: flex; flex: 1 1 300px; max-width: 400px; border: 1px solid #8A909A; background: #fff; }
+  .sincep-cp .search:focus-within { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .sincep-cp .search input,
+  .sincep-cp .search input:focus {
+    flex: 1; min-width: 0; border: 0; outline: none; box-shadow: none; margin: 0;
+    padding: 9px 10px; height: auto; font: inherit; font-size: 15px; color: var(--ink); background: transparent; border-radius: 0;
   }
-  .sincep-cp .section-head { max-width: 640px; margin-bottom: 32px; }
-  .sincep-cp .section-head h2 { font-size: 28px !important; font-weight: 600; line-height: 1.2 !important; margin-top: 14px !important; }
-  .sincep-cp .section-head p { color: var(--ink-soft); margin-top: 10px; }
-
-  /* ===== HERO ===== */
-  .sincep-cp .hero {
-    position: relative; overflow: hidden;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(45,212,167,0.16), transparent 45%),
-      radial-gradient(circle at 85% 10%, rgba(240,180,41,0.14), transparent 40%),
-      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
-    color: #fff;
-    padding: 80px 0 60px;
-  }
-  .sincep-cp .hero::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
-    background-size: 26px 26px;
-    -webkit-mask-image: linear-gradient(180deg, black, transparent 85%);
-            mask-image: linear-gradient(180deg, black, transparent 85%);
-  }
-  .sincep-cp .hero .wrap { position: relative; }
-  .sincep-cp .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--mono-font); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--teal); background: rgba(45,212,167,0.1); border: 1px solid rgba(45,212,167,0.35);
-    padding: 7px 14px; border-radius: 999px; margin-bottom: 24px;
-  }
-  .sincep-cp .live-dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
-  .sincep-cp .live-dot::after {
-    content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--teal);
-    animation: cp-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
-  }
-  @keyframes cp-ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
-  .sincep-cp .hero h1 {
-    color: #fff;
-    font-size: clamp(34px, 5vw, 52px) !important; font-weight: 600;
-    line-height: 1.08 !important; max-width: 16ch; margin-bottom: 18px !important;
-  }
-  .sincep-cp .hero h1 em {
-    font-style: normal;
-    background: linear-gradient(90deg, var(--teal), #7FE8CC);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .sincep-cp .hero .lede { font-size: 18.5px; color: #C2CBDC; max-width: 58ch; margin-bottom: 48px; }
-
-  .sincep-cp .stat-row {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px; overflow: hidden;
-  }
-  .sincep-cp .stat-cell { background: rgba(11,31,58,0.92); padding: 22px 20px; }
-  .sincep-cp .stat-cell .num { font-family: var(--head-font); font-size: 30px; font-weight: 600; color: #fff; line-height: 1.2; }
-  .sincep-cp .stat-cell .lbl { font-family: var(--mono-font); font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #8FA0BE; margin-top: 4px; }
-
-  /* ===== Monogram / logo ===== */
-  .sincep-cp .mono {
-    flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--head-font); font-weight: 700; letter-spacing: 0.02em;
-    overflow: hidden;
-  }
-  .sincep-cp .mono.logo { width: 96px; background: #fff; border: 1px solid var(--line); padding: 6px 8px; }
-  .sincep-cp .mono.logo.on-dark { background: var(--navy); border-color: var(--navy); }
-  .sincep-cp .mono.logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
-  .sincep-cp .r-africa { --soft: var(--africa-soft); --ink-c: var(--africa-ink); --dot: var(--africa-dot); }
-  .sincep-cp .r-europe { --soft: var(--europe-soft); --ink-c: var(--europe-ink); --dot: var(--europe-dot); }
-  .sincep-cp .r-na     { --soft: var(--na-soft);     --ink-c: var(--na-ink);     --dot: var(--na-dot); }
-  .sincep-cp .mono:not(.logo) { background: var(--soft); color: var(--ink-c); }
-
-  .sincep-cp .tag {
-    display: inline-block; font-family: var(--mono-font);
-    font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 4px 9px; border-radius: 999px; white-space: nowrap;
-  }
-  .sincep-cp .tag.coord { background: var(--europe-soft); color: #7A4D00; }
-  .sincep-cp .tag.sci { background: var(--africa-soft); color: var(--teal-ink); }
-
-  .sincep-cp a.leads-link, .sincep-cp a.leads-link:visited {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 14px; font-weight: 600; color: var(--teal-ink);
-  }
-  .sincep-cp a.leads-link span { transition: transform 0.15s ease; }
-  .sincep-cp a.leads-link:hover { text-decoration: underline; }
-  .sincep-cp a.leads-link:hover span { transform: translateX(3px); }
-
-  /* ===== LEADERSHIP ===== */
-  .sincep-cp .leaders { padding: 80px 0 24px; }
-  .sincep-cp .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .sincep-cp .lead-card {
-    position: relative; overflow: hidden;
-    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 30px;
-  }
-  .sincep-cp .lead-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--dot); }
-  .sincep-cp .lead-top { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
-  .sincep-cp .lead-card .mono { width: 64px; height: 64px; font-size: 18px; }
-  .sincep-cp .lead-card .mono.logo { width: 150px; height: 64px; }
-  .sincep-cp .lead-card h3 { font-size: 22px !important; font-weight: 600; line-height: 1.25 !important; }
-  .sincep-cp .lead-card .where { font-size: 14.5px; color: var(--ink-soft); margin-top: 4px; }
-  .sincep-cp .lead-card .desc { font-size: 15.5px; color: var(--ink); margin-bottom: 18px; }
-
-  /* ===== DIRECTORY ===== */
-  .sincep-cp .directory { padding: 56px 0 88px; }
-  .sincep-cp .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 24px; }
-  .sincep-cp .search-box {
-    flex: 1 1 260px; max-width: 360px;
-    display: flex; align-items: center; gap: 10px;
-    background: #fff; border: 1px solid #CFC9BC; border-radius: 12px;
-    padding: 0 10px 0 14px; height: 46px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  }
-  .sincep-cp .search-box:focus-within { border-color: var(--teal-ink); box-shadow: 0 0 0 3px rgba(15,118,110,0.18); }
-  .sincep-cp .search-box > svg { flex-shrink: 0; color: var(--ink-soft); }
-  .sincep-cp .search-box input,
-  .sincep-cp .search-box input:focus {
-    border: none; outline: none; box-shadow: none; padding: 0; margin: 0; height: auto; min-height: 0;
-    font-size: 15.5px; font-family: inherit; width: 100%; background: transparent; color: var(--ink); border-radius: 0;
-  }
-  .sincep-cp .search-box input::placeholder { color: var(--ink-soft); opacity: 1; }
-  .sincep-cp .search-box input::-webkit-search-cancel-button { -webkit-appearance: none; }
-  .sincep-cp .clear-btn,
-  .sincep-cp .clear-btn:focus {
-    flex-shrink: 0; display: none; width: 26px; height: 26px; padding: 0; border-radius: 50%;
-    border: none; background: var(--paper); color: var(--ink-soft); cursor: pointer;
-    align-items: center; justify-content: center;
-  }
-  .sincep-cp .search-box.has-value .clear-btn { display: inline-flex; }
-  .sincep-cp .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sincep-cp .search input::placeholder { color: #6B7280; opacity: 1; }
+  .sincep-cp .search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+  .sincep-cp .search span { display: flex; align-items: center; padding: 0 10px; color: #fff; background: var(--blue); }
+  .sincep-cp .chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .sincep-cp .chip,
   .sincep-cp .chip:focus {
-    display: inline-flex; align-items: center; gap: 7px;
-    font-family: inherit; font-size: 14px; font-weight: 500;
-    padding: 0 14px; height: 38px; border-radius: 999px;
-    border: 1px solid #CFC9BC; background: #fff; color: var(--ink);
-    cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    padding: 7px 12px; font: inherit; font-size: 14px; font-weight: 600; line-height: 1.2; cursor: pointer;
+    color: var(--blue); background: #fff; border: 1px solid var(--blue); border-radius: 0;
+    transition: background 0.15s ease, color 0.15s ease;
   }
-  .sincep-cp .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
-  .sincep-cp .chip .n { color: var(--ink-soft); font-family: var(--mono-font); font-size: 12.5px; }
-  .sincep-cp .chip:hover { border-color: var(--navy); color: var(--navy); background: #fff; }
-  .sincep-cp .chip.active,
-  .sincep-cp .chip.active:hover { background: var(--navy); border-color: var(--navy); color: #fff; }
-  .sincep-cp .chip.active .n { color: #A8B2C7; }
-  .sincep-cp .result-count { margin-left: auto; font-family: var(--mono-font); font-size: 13px; color: var(--ink-soft); }
-  .sincep-cp .result-count strong { color: var(--ink); font-weight: 600; }
+  .sincep-cp .chip:hover { background: var(--blue-soft); color: var(--blue-dark); }
+  .sincep-cp .chip[aria-pressed="true"],
+  .sincep-cp .chip[aria-pressed="true"]:hover { background: var(--blue); color: #fff; }
+  .sincep-cp .results-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 0; border-top: 2px solid var(--ink); }
+  .sincep-cp .count { font-size: 15px; }
+  .sincep-cp .count strong { font-size: 18px; }
 
-  /* Directory table (stacks into cards on phones) */
-  .sincep-cp table, .sincep-cp th, .sincep-cp td { border: none; margin: 0; background: none; }
-  .sincep-cp .table-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  /* ===== Table ===== */
+  .sincep-cp .table-wrap { border: 1px solid var(--line); }
   .sincep-cp table.dir { width: 100%; border-collapse: collapse; font-size: 15px; }
-  .sincep-cp .dir th {
-    text-align: left; padding: 0 18px; height: 46px; white-space: nowrap;
-    font-family: var(--mono-font); font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink-soft); background: #FBFAF7; border-bottom: 1px solid var(--line);
-  }
-  .sincep-cp .dir th.col-partner { width: auto; }
-  .sincep-cp .dir td.c-country, .sincep-cp .dir td.c-continent, .sincep-cp .dir td.c-role, .sincep-cp .dir td.c-leads { white-space: nowrap; }
-  .sincep-cp .dir td.c-country { color: var(--ink); }
+  .sincep-cp .dir th { text-align: left; padding: 11px 16px; background: var(--bg); border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 700; white-space: nowrap; }
   .sincep-cp .sort-btn,
-  .sincep-cp .sort-btn:focus {
-    display: inline-flex; align-items: center; gap: 6px;
-    font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
-    background: none; border: none; padding: 0; cursor: pointer;
-  }
-  .sincep-cp .sort-btn:hover { color: var(--navy); background: none; }
-  .sincep-cp .sort-btn svg { opacity: 0.35; transition: transform 0.15s ease, opacity 0.15s ease; }
-  .sincep-cp th[aria-sort] .sort-btn { color: var(--navy); }
-  .sincep-cp th[aria-sort="ascending"] .sort-btn svg { opacity: 1; }
-  .sincep-cp th[aria-sort="descending"] .sort-btn svg { opacity: 1; transform: rotate(180deg); }
-  .sincep-cp .dir td { padding: 14px 18px; vertical-align: middle; border-top: 1px solid var(--line); color: var(--ink); background: transparent; }
-  .sincep-cp .dir tbody tr:first-child td { border-top: none; }
-  .sincep-cp .dir tbody tr { transition: background 0.15s ease; }
-  .sincep-cp .dir tbody tr:hover { background: #FBFAF7; }
-  .sincep-cp .dir tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--dot); }
-  .sincep-cp .dir tbody tr.fade-in { animation: cp-fade 0.35s ease both; }
-  @keyframes cp-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-  .sincep-cp .dir a, .sincep-cp .dir button { scroll-margin-top: 120px; }
+  .sincep-cp .sort-btn:focus { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; color: inherit; }
+  .sincep-cp .sort-btn:hover { color: var(--blue); background: none; text-decoration: underline; }
+  .sincep-cp .sort-btn svg { opacity: 0.35; }
+  .sincep-cp th[aria-sort] .sort-btn { color: var(--blue); }
+  .sincep-cp th[aria-sort] .sort-btn svg { opacity: 1; }
+  .sincep-cp th[aria-sort="descending"] .sort-btn svg { transform: rotate(180deg); }
+  .sincep-cp .dir td { padding: 12px 16px; border-top: 1px solid var(--line); vertical-align: middle; background: transparent; }
+  .sincep-cp .dir tbody tr:first-child td { border-top: 0; }
+  .sincep-cp .dir tbody tr:nth-child(even) td { background: #FAFBFC; }
+  .sincep-cp .dir tbody tr:hover td { background: var(--blue-soft); }
   .sincep-cp .partner { display: flex; align-items: center; gap: 14px; }
-  .sincep-cp .dir .mono { width: 44px; height: 44px; border-radius: 10px; }
-  .sincep-cp .dir .mono { width: 40px; height: 40px; }
-  .sincep-cp .dir .mono.logo { width: 72px; height: 40px; padding: 4px 6px; }
-  .sincep-cp .p-name { font-weight: 600; color: var(--ink); line-height: 1.4; }
-  .sincep-cp .acr { font-family: var(--mono-font); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-soft); margin-top: 2px; }
-  .sincep-cp .cont { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
-  .sincep-cp .cont-pill { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font-size: 14.5px; color: var(--ink); }
-  .sincep-cp .cont-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); flex-shrink: 0; }
-  .sincep-cp .cont { gap: 1px; }
-  .sincep-cp .cont small { font-size: 12.5px; color: var(--ink-soft); padding-left: 16px; }
-  .sincep-cp .role-plain { font-size: 14px; color: var(--ink-soft); }
-  /* Leads: "Area N →" with the area name underneath */
-  .sincep-cp .dir a.leads-link { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 1px; line-height: 1.3; }
-  .sincep-cp .dir a.leads-link .area-no { font-weight: 600; color: var(--teal-ink); }
-  .sincep-cp .dir a.leads-link .area-name { font-size: 12.5px; font-weight: 400; color: var(--ink-soft); }
-  .sincep-cp .dir a.leads-link:hover { text-decoration: none; }
-  .sincep-cp .dir a.leads-link:hover .area-no { text-decoration: underline; }
-  .sincep-cp .muted { color: var(--ink-soft); }
-  .sincep-cp mark { background: #FFE9A8; color: inherit; border-radius: 3px; padding: 0 1px; }
-
-  .sincep-cp .dir td.empty { text-align: center; padding: 56px 20px; color: var(--ink-soft); }
-  .sincep-cp .empty h3 { font-size: 19px !important; margin-bottom: 6px !important; }
-  .sincep-cp .empty button,
-  .sincep-cp .empty button:focus {
-    margin-top: 16px; font-family: inherit; font-size: 14px; font-weight: 600;
-    padding: 9px 16px; border-radius: 10px; border: 1px solid #CFC9BC; background: #fff; color: var(--navy); cursor: pointer;
-  }
-
-  /* ===== WHERE WE ARE ===== */
-  .sincep-cp .regions-band { background: var(--navy-deep); color: #fff; padding: 84px 0; }
-  .sincep-cp .regions-band .section-label { background: rgba(45,212,167,0.12); color: var(--teal); }
-  .sincep-cp .regions-band h2 { color: #fff; }
-  .sincep-cp .regions-band .section-head p { color: #A8B2C7; }
-  .sincep-cp .regions { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 18px; }
-  .sincep-cp .region-card {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius); padding: 24px;
-  }
-  .sincep-cp .region-card h3 { color: #fff; font-size: 19px !important; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-  .sincep-cp .region-card h3::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--dot); }
-  .sincep-cp .region-card .count { font-family: var(--mono-font); font-size: 12.5px; color: #8FA0BE; margin-top: 6px; letter-spacing: 0.03em; }
-  .sincep-cp .subregions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 22px; margin-top: 18px; }
-  .sincep-cp .subregion-name { font-family: var(--mono-font); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #8FA0BE; margin-bottom: 8px; }
-  .sincep-cp .country-list { display: flex; flex-wrap: wrap; gap: 6px; }
-  .sincep-cp .region-card > .country-list { margin-top: 18px; }
-  .sincep-cp .country-btn,
-  .sincep-cp .country-btn:focus {
-    font-family: inherit; font-size: 13.5px; font-weight: 500;
-    padding: 5px 11px; border-radius: 999px; cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); color: #DCE3EE;
-    transition: background 0.15s ease, border-color 0.15s ease;
-  }
-  .sincep-cp .country-btn:hover { border-color: var(--teal); background: rgba(45,212,167,0.1); color: #fff; }
-  .sincep-cp .country-btn .n { font-family: var(--mono-font); font-size: 12px; color: var(--teal); margin-left: 4px; }
-
-  .sincep-cp .tag.ben { background: #EEF0F3; color: var(--ink-soft); }
+  .sincep-cp .logo { flex-shrink: 0; width: 72px; height: 40px; display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid var(--line); padding: 4px 6px; }
+  .sincep-cp .logo.on-dark { background: #0B1F3A; border-color: #0B1F3A; }
+  .sincep-cp .logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .sincep-cp .logo .fb { font-size: 12px; font-weight: 700; color: var(--blue); }
+  .sincep-cp .p-name a { font-weight: 600; text-decoration: none; }
+  .sincep-cp .p-name a:hover { text-decoration: underline; text-underline-offset: 2px; }
+  .sincep-cp .abbr { font-size: 13px; color: var(--ink-soft); }
+  .sincep-cp .dir td.c-country, .sincep-cp .dir td.c-cont, .sincep-cp .dir td.c-role { white-space: nowrap; }
+  .sincep-cp .dir td.c-leads { min-width: 190px; max-width: 240px; }
+  .sincep-cp .cont { display: inline-flex; align-items: center; gap: 8px; }
+  .sincep-cp .cont::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+  .sincep-cp .labels { display: flex; flex-wrap: wrap; gap: 4px; }
+  .sincep-cp .label { display: inline-block; padding: 2px 8px; font-size: 12px; font-weight: 700; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 2px; background: #ECEEF1; color: var(--ink-soft); }
+  .sincep-cp .label.coordinator { background: var(--blue); color: #fff; }
+  .sincep-cp .label.scientific { background: var(--blue-soft); color: var(--blue-dark); }
+  .sincep-cp .leads a { display: inline-flex; flex-direction: column; line-height: 1.3; text-decoration: none; }
+  .sincep-cp .leads a b { font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+  .sincep-cp .leads a small { font-size: 12.5px; color: var(--ink-soft); }
+  .sincep-cp .muted { color: #8A909A; }
+  .sincep-cp mark { background: #FFF2A8; color: inherit; padding: 0 1px; }
+  .sincep-cp .none { padding: 40px 16px; text-align: center; color: var(--ink-soft); }
+  .sincep-cp .none strong { display: block; color: var(--ink); font-size: 17px; margin-bottom: 4px; }
 
   /* ===== Responsive ===== */
   @media (max-width: 1024px) {
     .sincep-cp { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
-    .sincep-cp .regions { grid-template-columns: 1fr 1fr; }
-    .sincep-cp .regions .region-card:first-child { grid-column: 1 / -1; }
   }
   @media (max-width: 760px) {
-    .sincep-cp .stat-row { grid-template-columns: repeat(2, 1fr); }
-    .sincep-cp .lead-grid { grid-template-columns: 1fr; }
-    /* Table becomes stacked cards; headers stay for screen readers (rows carry ARIA roles) */
-    .sincep-cp .table-card { background: none; border: none; border-radius: 0; overflow: visible; }
-    .sincep-cp .dir thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .sincep-cp .table-wrap { border: 0; }
+    .sincep-cp .dir thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
     .sincep-cp .dir, .sincep-cp .dir tbody { display: block; width: 100%; }
-    .sincep-cp .dir tr {
-      display: grid; grid-template-columns: 1fr auto; gap: 10px 12px; align-items: center;
-      background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 16px; margin-bottom: 10px;
-    }
-    .sincep-cp .dir tbody tr:hover { background: #fff; }
-    .sincep-cp .dir tbody tr:hover td:first-child { box-shadow: none; }
-    .sincep-cp .dir td { display: block; border: none; padding: 0; }
-    .sincep-cp .dir tr { grid-template-columns: auto 1fr auto; }
+    .sincep-cp .dir tr { display: grid; grid-template-columns: auto 1fr auto; gap: 8px 12px; align-items: center; border: 1px solid var(--line); padding: 14px; margin-bottom: 10px; }
+    .sincep-cp .dir td, .sincep-cp .dir tbody tr:nth-child(even) td, .sincep-cp .dir tbody tr:hover td { display: block; padding: 0; border: 0; background: none; }
     .sincep-cp .dir td.c-partner { grid-column: 1 / -1; }
-    .sincep-cp .dir td.c-country { grid-column: 1; grid-row: 2; font-size: 14.5px; }
-    .sincep-cp .dir td.c-continent { grid-column: 2; grid-row: 2; }
-    .sincep-cp .cont small { display: none; }
-    .sincep-cp .dir td.c-role { grid-column: 3; grid-row: 2; justify-self: end; }
-    .sincep-cp .dir td.c-leads,
-    .sincep-cp .dir tbody tr:first-child td.c-leads { grid-column: 1 / -1; padding-top: 10px; border-top: 1px dashed var(--line); }
+    .sincep-cp .dir td.c-country { grid-column: 1; }
+    .sincep-cp .dir td.c-cont { grid-column: 2; }
+    .sincep-cp .dir td.c-role { grid-column: 3; justify-self: end; }
+    .sincep-cp .dir td.c-leads { grid-column: 1 / -1; padding-top: 8px; border-top: 1px solid var(--line); }
     .sincep-cp .dir td.c-leads.is-empty { display: none; }
-    .sincep-cp .dir td.empty { background: #fff; border: 1px dashed #CFC9BC; border-radius: var(--radius); }
   }
   @media (max-width: 600px) {
     .sincep-cp .wrap { padding: 0 18px; }
-    .sincep-cp .hero { padding: 52px 0 40px; }
-    .sincep-cp .hero .lede { font-size: 16.5px; margin-bottom: 32px; }
-    .sincep-cp .leaders { padding-top: 56px; }
-    .sincep-cp .lead-card { padding: 22px; }
-    .sincep-cp .section-head h2 { font-size: 24px !important; }
-    .sincep-cp .search-box { max-width: none; flex-basis: 100%; }
-    .sincep-cp .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; flex: 0 0 calc(100% + 36px); margin: 0 -18px; padding: 0 18px; }
-    .sincep-cp .chips::-webkit-scrollbar { display: none; }
-    .sincep-cp .chip { flex-shrink: 0; }
-    .sincep-cp .result-count { margin-left: 0; }
-    .sincep-cp .regions-band { padding: 56px 0; }
-    .sincep-cp .regions, .sincep-cp .subregions { grid-template-columns: 1fr; }
+    .sincep-cp .page-head h1 { font-size: 28px !important; }
+    .sincep-cp .page-head .lede { font-size: 16px; }
+    .sincep-cp .search { max-width: none; flex-basis: 100%; }
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .sincep-cp * { transition: none !important; animation: none !important; }
-    .sincep-cp.js-reveal [data-reveal] { opacity: 1; transform: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { .sincep-cp * { transition: none !important; } }
 </style>
 
 <div class="sincep-cp" id="sincep-cp">
-
-  <header class="hero">
+  <div class="page-head">
     <div class="wrap">
-      <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Our consortium</span>
-      <h1>Consortium <em>Partners</em></h1>
-      <p class="lede">Universities, research institutes and health networks across Africa, Europe and North America, working together to strengthen epidemic preparedness and clinical research capacity in sub-Saharan Africa.</p>
-      <div class="stat-row">
-        <div class="stat-cell"><div class="num" data-stat="partners">21</div><div class="lbl">Partners</div></div>
-        <div class="stat-cell"><div class="num" data-stat="countries">17</div><div class="lbl">Countries</div></div>
-        <div class="stat-cell"><div class="num" data-stat="africa">16</div><div class="lbl">African partners</div></div>
-        <div class="stat-cell"><div class="num" data-stat="leads">9</div><div class="lbl">Work-area leads</div></div>
-      </div>
+      <nav aria-label="Breadcrumb">
+        <ol class="crumbs">
+          <li><a href="/">Home</a></li>
+          <li aria-current="page">Consortium Partners</li>
+        </ol>
+      </nav>
+      <h1>Consortium Partners</h1>
+      <p class="lede">21 partners across 17 countries working together to strengthen epidemiological preparedness and clinical trial capacity in sub-Saharan Africa.</p>
+      <span class="accent" aria-hidden="true"></span>
     </div>
-  </header>
+  </div>
 
-  <section class="leaders">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="section-label">Leadership</span>
-        <h2>Leading the consortium</h2>
-        <p>Two partners steer SINCEP-Africa: one runs the project day to day, the other sets its scientific direction.</p>
-      </div>
-      <div class="lead-grid"></div>
+  <div class="wrap main">
+    <div class="toolbar">
+      <label class="search">
+        <span class="sr-only">Search partners</span>
+        <input type="search" class="cp-q" placeholder="Search partners or countries…" autocomplete="off">
+        <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      </label>
+      <div class="chips" role="group" aria-label="Filter partners"></div>
     </div>
-  </section>
 
-  <section class="directory" id="sincep-cp-all">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="section-label">All partners</span>
-        <h2>21 institutions, one network</h2>
-        <p>Search by name or country, filter by region, or sort by partner, country or continent. Partners that lead one of the nine work areas link straight to it.</p>
-      </div>
-      <div class="toolbar">
-        <label class="search-box" role="search">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="cp-search" type="search" aria-label="Search partners" placeholder="Search by name or country" autocomplete="off">
-          <button type="button" class="clear-btn" aria-label="Clear search"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-        </label>
-        <div class="chips" role="group" aria-label="Filter partners"></div>
-        <div class="result-count" aria-live="polite"></div>
-      </div>
-      <div class="table-card">
-        <table class="dir" role="table" aria-label="Consortium partners">
-          <thead role="rowgroup">
-            <tr role="row">
-              <th role="columnheader" scope="col" class="col-partner" data-sort="name"><button type="button" class="sort-btn">Partner <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
-              <th role="columnheader" scope="col" data-sort="country"><button type="button" class="sort-btn">Country <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
-              <th role="columnheader" scope="col" data-sort="region"><button type="button" class="sort-btn">Continent <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
-              <th role="columnheader" scope="col">Role</th>
-              <th role="columnheader" scope="col">Leads</th>
-            </tr>
-          </thead>
-          <tbody role="rowgroup"></tbody>
-        </table>
-      </div>
+    <div class="results-bar">
+      <div class="count" aria-live="polite"></div>
     </div>
-  </section>
 
-  <section class="regions-band">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="section-label">Where we work</span>
-        <h2>Partners across three continents</h2>
-        <p>Select a country to see the partners based there.</p>
-      </div>
-      <div class="regions"></div>
+    <div class="table-wrap">
+      <table class="dir" aria-label="Consortium partners">
+        <thead>
+          <tr>
+            <th scope="col" data-sort="name"><button type="button" class="sort-btn">Partner <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
+            <th scope="col" data-sort="country"><button type="button" class="sort-btn">Country <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
+            <th scope="col" data-sort="continent"><button type="button" class="sort-btn">Continent <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 2 L9 7 H1 Z" fill="currentColor"/></svg></button></th>
+            <th scope="col">Role</th>
+            <th scope="col">Leads</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
-  </section>
-
+  </div>
 </div>
 
 <script>
@@ -434,147 +198,96 @@
   root.dataset.ready = '1';
 
   var WP_URL = '/work-packages/';
-
-  // Folder the partner logo files live in. Preview: "logos/partners/". In WordPress, upload all the
-  // sincep-partner-*.png/svg/jpg files to the Media Library in one go and set this to their folder,
-  // e.g. "/wp-content/uploads/2026/11/".
+  // Folder the partner logo files live in. In WordPress, set this to the Media Library folder the
+  // sincep-partner-* files were uploaded to, e.g. "/wp-content/uploads/2026/11/".
   var LOGO_BASE = 'logos/partners/';
 
-  // logo: file name in LOGO_BASE ("" = coloured monogram); logoDark: white logo, shown on navy. sub: African sub-region.
+  /* DATA — names, countries, roles and websites as on the current Consortium Partners page.
+     logo: file in LOGO_BASE ("" = abbreviation); dark: true for white logos shown on navy; leads: thematic area(s) led. */
   var partners = [
-    { name: "EDCTP Association", short: "EDCTP-Assoc", country: "Netherlands", region: "Europe", role: "coordinator", leads: [9], logo: "sincep-partner-edctp-assoc.svg" },
-    { name: "INDEPTH Network", short: "INDEPTH", country: "Ghana", region: "Africa", sub: "West Africa", role: "scientific", leads: [1], logo: "sincep-partner-indepth.png" },
-    { name: "University of Navarra", short: "UNAV", country: "Spain", region: "Europe", logo: "sincep-partner-unav.svg" },
-    { name: "Liverpool School of Tropical Medicine", short: "LSTM", country: "United Kingdom", region: "Europe", logo: "sincep-partner-lstm.svg", logoDark: true },
-    { name: "Pandemic Preparedness Platform for Health and Emerging Infections Response", short: "PANTHER", country: "France", region: "Europe", leads: [3], logo: "sincep-partner-panther.svg" },
-    { name: "University of Ghana", short: "UG", country: "Ghana", region: "Africa", sub: "West Africa", leads: [6], logo: "sincep-partner-ug.svg" },
-    { name: "Kwame Nkrumah University of Science and Technology", short: "KNUST", country: "Ghana", region: "Africa", sub: "West Africa", logo: "sincep-partner-knust.png" },
-    { name: "Ghana Health Service", short: "DHRC", country: "Ghana", region: "Africa", sub: "West Africa", leads: [5], logo: "sincep-partner-ghs.png" },
-    { name: "Groupe de Recherche Action en Santé", short: "GRAS", country: "Burkina Faso", region: "Africa", sub: "West Africa", logo: "sincep-partner-gras.png" },
-    { name: "Centre National de Recherche Scientifique et Technologique — IRSS", short: "CRUN", country: "Burkina Faso", region: "Africa", sub: "West Africa", leads: [2], logo: "sincep-partner-crun.png" },
-    { name: "University of Calabar", short: "UniCal", mono: "UCal", country: "Nigeria", region: "Africa", sub: "West Africa", logo: "sincep-partner-unical.png" },
-    { name: "Université Cheikh Anta Diop", short: "UCAD", country: "Senegal", region: "Africa", sub: "West Africa", logo: "sincep-partner-ucad.jpg" },
-    { name: "Université des Sciences, des Techniques et des Technologies de Bamako", short: "USTTB", country: "Mali", region: "Africa", sub: "West Africa", logo: "sincep-partner-usttb.png" },
-    { name: "Institut National de Santé Publique", short: "INSP-CI", country: "Côte d'Ivoire", region: "Africa", sub: "West Africa", logo: "sincep-partner-insp-ci.jpg" },
-    { name: "University of Gondar", short: "UOG", country: "Ethiopia", region: "Africa", sub: "East Africa", logo: "sincep-partner-uog.png" },
-    { name: "Ifakara Health Institute", short: "IHI", country: "Tanzania", region: "Africa", sub: "East Africa", logo: "sincep-partner-ihi.png" },
-    { name: "Makerere University", short: "MAKERERE", country: "Uganda", region: "Africa", sub: "East Africa", leads: [4], logo: "sincep-partner-makerere.png", logoDark: true },
-    { name: "Strathmore University", short: "STRATHMORE", country: "Kenya", region: "Africa", sub: "East Africa", leads: [8], logo: "sincep-partner-strathmore.png" },
-    { name: "Université de Kinshasa", short: "UNIKIN", mono: "UNIK", country: "DR Congo", region: "Africa", sub: "Central Africa", logo: "sincep-partner-unikin.png" },
-    { name: "Fundação Manhiça", short: "FM", country: "Mozambique", region: "Africa", sub: "Southern Africa", logo: "sincep-partner-fm.png" },
-    { name: "CTI Africa LLC — CTI-LifeHealth", short: "CTI", country: "USA / Uganda", region: "North America", leads: [7], logo: "sincep-partner-cti.png" }
+    { name: "EDCTP Association", abbr: "EDCTP-Assoc", country: "Netherlands", continent: "Europe", role: ["coordinator"], url: "https://www.global-health-edctp3.europa.eu", logo: "edctp-assoc.svg", leads: [9] },
+    { name: "University of Navarra", abbr: "UNAV", country: "Spain", continent: "Europe", role: ["beneficiary"], url: "https://en.unav.edu", logo: "unav.svg" },
+    { name: "Liverpool School of Tropical Medicine", abbr: "LSTM", country: "England", continent: "Europe", role: ["beneficiary"], url: "https://lstmed.ac.uk", logo: "lstm.svg", dark: true },
+    { name: "University of Ghana", abbr: "UG", country: "Ghana", continent: "Africa", role: ["beneficiary"], url: "https://ug.edu.gh", logo: "ug.svg", leads: [6] },
+    { name: "Kwame Nkrumah University of Science and Technology", abbr: "KNUST", country: "Ghana", continent: "Africa", role: ["beneficiary"], url: "https://knust.edu.gh", logo: "knust.png" },
+    { name: "Groupe de Recherche Action en Sante SARL", abbr: "GRAS", country: "Burkina Faso", continent: "Africa", role: ["beneficiary"], url: "https://gras.bf", logo: "gras.png" },
+    { name: "University of Gondar", abbr: "UOG", country: "Ethiopia", continent: "Africa", role: ["beneficiary"], url: "https://uog.edu.et", logo: "uog.png" },
+    { name: "University of Calabar", abbr: "UniCal", country: "Nigeria", continent: "Africa", role: ["beneficiary"], url: "https://www.unical.edu.ng", logo: "unical.png" },
+    { name: "Université Cheikh Anta Diop", abbr: "UCAD", country: "Senegal", continent: "Africa", role: ["beneficiary"], url: "https://www.ucad.sn", logo: "ucad.jpg" },
+    { name: "The Registered Trustees of The Ifakara Health Institute", abbr: "IHI", country: "Tanzania", continent: "Africa", role: ["beneficiary"], url: "https://www.ihi.or.tz", logo: "ihi.png" },
+    { name: "Makerere University", abbr: "MAKERERE", country: "Uganda", continent: "Africa", role: ["beneficiary"], url: "https://mak.ac.ug", logo: "makerere.png", dark: true, leads: [4] },
+    { name: "Institut National de Santé Publique", abbr: "INSP-CI", country: "Ivory Coast", continent: "Africa", role: ["beneficiary"], url: "https://healthresearchwebafrica.org.za/en/cote_d_ivoire/keygroups_50", logo: "insp-ci.jpg" },
+    { name: "Ghana Health Service", abbr: "DHRC", country: "Ghana", continent: "Africa", role: ["beneficiary"], url: "https://ghs.gov.gh", logo: "ghs.png", leads: [5] },
+    { name: "Centre National de Recherche Scientifique et Technologique — IRSS", abbr: "CRUN", country: "Burkina Faso", continent: "Africa", role: ["beneficiary"], url: "https://crun.bf", logo: "crun.png", leads: [2] },
+    { name: "Université des Sciences des Techniques et des Technologies de Bamako", abbr: "USTTB", country: "Mali", continent: "Africa", role: ["beneficiary"], url: "http://usttb.edu.ml", logo: "usttb.png" },
+    { name: "Université de Kinshasa", abbr: "UNIKIN", country: "DRC", continent: "Africa", role: ["beneficiary"], url: "https://www.unikin.ac.cd", logo: "unikin.png" },
+    { name: "Fundação Manhiça", abbr: "FM", country: "Mozambique", continent: "Africa", role: ["beneficiary"], url: "https://www.cismmanhica.org", logo: "fm.png" },
+    { name: "Strathmore University", abbr: "STRATHMORE", country: "Kenya", continent: "Africa", role: ["beneficiary"], url: "https://strathmore.edu", logo: "strathmore.png", leads: [8] },
+    { name: "INDEPTH Network", abbr: "INDEPTH", country: "Ghana", continent: "Africa", role: ["scientific", "beneficiary"], url: "https://www.indepth-network.org", logo: "indepth.png", leads: [1] },
+    { name: "CTI Africa LLC — CTI-LifeHealth", abbr: "CTI", country: "USA / Uganda", continent: "North America", role: ["beneficiary"], url: "http://ctiafrica.com", logo: "cti.png", leads: [7] },
+    { name: "Pandemic Preparedness Platform for Health and Emerging Infections Response", abbr: "PANTHER", country: "France", continent: "Europe", role: ["beneficiary"], url: "https://www.pantherhealth.org", logo: "panther.svg", leads: [3] }
   ];
+  partners.forEach(function (p, i) { p.order = i; });
 
+  // Thematic area names as on the current homepage
   var areaNames = {
-    1: "Scientific Leadership", 2: "Site Capacity", 3: "Epidemic Preparedness",
-    4: "Ethics & Regulatory", 5: "Clinical Research", 6: "Social Impact",
-    7: "Data Science & AI", 8: "Capacity Strengthening", 9: "Project Management"
+    1: "Scientific Leadership, Partnership and Networking", 2: "Site Capacity Assessment and Infrastructure Strengthening",
+    3: "Epidemic Preparedness, Disease Surveillance & Population Health", 4: "Ethics, Regulatory, and Pharmacovigilance",
+    5: "Clinical Research and Trial Management", 6: "Social Impact", 7: "Data Science, Artificial Intelligence (AI) & Analytics",
+    8: "Capacity Strengthening & Training", 9: "Project Management & Monitoring"
   };
-  var leadInfo = {
-    coordinator: { label: "Coordinator", cls: "coord", desc: "Manages the project on behalf of the consortium and is the main contact with the funder, Global Health EDCTP3." },
-    scientific: { label: "Scientific lead", cls: "sci", desc: "Sets the project's scientific direction and brings together the network of African research and surveillance sites." }
-  };
-  var regionClass = { "Africa": "r-africa", "Europe": "r-europe", "North America": "r-na" };
-  var regionOrder = ["Africa", "Europe", "North America"];
-  var subOrder = ["West Africa", "East Africa", "Central Africa", "Southern Africa"];
+  var roleLabels = { coordinator: "Coordinator", scientific: "Scientific Lead", beneficiary: "Beneficiary" };
+  var continentColour = { "Africa": "var(--africa)", "Europe": "var(--europe)", "North America": "var(--na)" };
 
+  // Filters, as on the current page
   var filters = [
-    { id: 'all', label: 'All', test: function () { return true; } },
-    { id: 'Africa', label: 'Africa', test: function (p) { return p.region === 'Africa'; } },
-    { id: 'Europe', label: 'Europe', test: function (p) { return p.region === 'Europe'; } },
-    { id: 'North America', label: 'North America', test: function (p) { return p.region === 'North America'; } },
-    { id: 'leads', label: 'Area leads', test: function (p) { return !!p.leads; } }
+    { label: 'All (' + partners.length + ')', test: function () { return true; } },
+    { label: 'Coordinator', test: function (p) { return p.role.indexOf('coordinator') > -1; } },
+    { label: 'Scientific Lead', test: function (p) { return p.role.indexOf('scientific') > -1; } },
+    { label: 'Beneficiary', test: function (p) { return p.role.indexOf('beneficiary') > -1; } },
+    { label: 'Africa', test: function (p) { return p.continent === 'Africa'; } },
+    { label: 'Europe', test: function (p) { return p.continent === 'Europe'; } },
+    { label: 'USA', test: function (p) { return p.continent === 'North America'; } }
   ];
 
-  var tbody = root.querySelector('.dir tbody');
-  var sort = { key: null, dir: 1 };
+  var tbody = root.querySelector('tbody');
+  var q = root.querySelector('.cp-q');
+  var countEl = root.querySelector('.count');
   var chipsEl = root.querySelector('.chips');
-  var searchBox = root.querySelector('.search-box');
-  var searchInput = root.querySelector('.cp-search');
-  var resultCount = root.querySelector('.result-count');
   var active = filters[0];
-
-  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var canObserve = 'IntersectionObserver' in window;
+  var sort = { key: null, dir: 1 };
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
-  // Lower-case and strip accents/curly quotes so "universite" finds "Université" (length is preserved)
-  function fold(s) {
-    return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’‘]/g, "'").toLowerCase();
-  }
-  function hl(text, q) {
-    if (!q) return esc(text);
-    var i = fold(text).indexOf(q);
+  function fold(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  function hl(text, term) {
+    if (!term) return esc(text);
+    var i = fold(text).indexOf(term);
     if (i < 0) return esc(text);
-    return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+    return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + term.length)) + '</mark>' + esc(text.slice(i + term.length));
   }
-  function monogram(p) {
-    var t = p.mono || p.short.split('-')[0];
-    if (t.length > 5) t = t.slice(0, 3);
-    // If a logo file is missing, fall back to the monogram instead of showing a broken image
-    if (p.logo) return '<div class="mono logo' + (p.logoDark ? ' on-dark' : '') + '" data-fb="' + esc(t) + '"><img src="' +
-      esc(/^(https?:)?\/\//.test(p.logo) || p.logo.charAt(0) === '/' ? p.logo : LOGO_BASE + p.logo) +
-      '" alt="" loading="lazy" onerror="var b=this.parentNode;b.className=\'mono\';b.style.fontSize=\'13px\';b.textContent=b.getAttribute(\'data-fb\');"></div>';
-    var size = t.length <= 2 ? 18 : t.length <= 4 ? 14 : 12;
-    return '<div class="mono" aria-hidden="true" style="font-size:' + size + 'px">' + esc(t) + '</div>';
-  }
-  function leadsHTML(p) {
-    return (p.leads || []).map(function (n) {
-      return '<a class="leads-link" href="' + WP_URL + '#area-' + n + '">Leads Area ' + n + ': ' + areaNames[n] + ' <span aria-hidden="true">→</span></a>';
-    }).join('');
-  }
-  function roleTag(p) {
-    return p.role ? '<span class="tag ' + leadInfo[p.role].cls + '">' + leadInfo[p.role].label + '</span>' : '';
+  function logoHTML(p) {
+    if (!p.logo) return '<span class="logo"><span class="fb">' + esc(p.abbr) + '</span></span>';
+    return '<span class="logo' + (p.dark ? ' on-dark' : '') + '"><img src="' + esc(LOGO_BASE + 'sincep-partner-' + p.logo) + '" alt="" loading="lazy" ' +
+      'onerror="this.parentNode.className=\'logo\';this.outerHTML=\'<span class=&quot;fb&quot;>' + esc(p.abbr) + '</span>\'"></span>';
   }
 
-  // Header stats, computed from the data
-  var countries = {};
-  partners.forEach(function (p) { p.country.split(' / ').forEach(function (c) { countries[c] = 1; }); });
-  var stats = {
-    partners: partners.length,
-    countries: Object.keys(countries).length,
-    africa: partners.filter(function (p) { return p.region === 'Africa'; }).length,
-    leads: partners.reduce(function (n, p) { return n + (p.leads ? p.leads.length : 0); }, 0)
-  };
-  root.querySelectorAll('[data-stat]').forEach(function (el) { el.textContent = stats[el.dataset.stat]; });
-
-  // Leadership cards
-  root.querySelector('.lead-grid').innerHTML = partners.filter(function (p) { return p.role; }).map(function (p) {
-    return '<article class="lead-card ' + regionClass[p.region] + '" data-reveal>' +
-      '<div class="lead-top">' + monogram(p) + '<div>' + roleTag(p) + '</div></div>' +
-      '<h3>' + esc(p.name) + '</h3>' +
-      '<div class="where">' + esc(p.short) + ' · ' + esc(p.country) + '</div>' +
-      '<p class="desc" style="margin-top:14px">' + leadInfo[p.role].desc + '</p>' +
-      leadsHTML(p) + '</article>';
+  // Filter buttons
+  chipsEl.innerHTML = filters.map(function (f, i) {
+    return '<button type="button" class="chip" data-i="' + i + '" aria-pressed="' + (f === active) + '">' + esc(f.label) + '</button>';
   }).join('');
-
-  // Filter chips
-  filters.forEach(function (f) {
-    var count = partners.filter(f.test).length;
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'chip' + (regionClass[f.id] ? ' ' + regionClass[f.id] : '') + (f === active ? ' active' : '');
-    b.setAttribute('aria-pressed', f === active);
-    b.setAttribute('aria-label', f.label + ', ' + count + (count === 1 ? ' partner' : ' partners'));
-    b.innerHTML = (regionClass[f.id] ? '<span class="dot"></span>' : '') + f.label + '<span class="n">' + count + '</span>';
-    b.addEventListener('click', function () { setFilter(f); });
-    chipsEl.appendChild(b);
-  });
-  function setFilter(f) {
-    active = f;
-    chipsEl.querySelectorAll('.chip').forEach(function (c, i) {
-      var on = filters[i] === f;
-      c.classList.toggle('active', on);
-      c.setAttribute('aria-pressed', on);
-    });
+  chipsEl.addEventListener('click', function (e) {
+    var b = e.target.closest('.chip');
+    if (!b) return;
+    active = filters[+b.dataset.i];
+    chipsEl.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', c === b); });
     render();
-  }
+  });
 
-  // Sortable headers: ascending → descending → back to the default order
+  // Sortable headers: ascending → descending → original order
   root.querySelectorAll('th[data-sort]').forEach(function (th) {
     th.querySelector('.sort-btn').addEventListener('click', function () {
       var key = th.dataset.sort;
@@ -589,109 +302,38 @@
     });
   });
 
-  // On phones the headers are hidden, so keep their sort buttons out of the tab order
-  var sortBtns = root.querySelectorAll('.sort-btn');
-  var cardsMQ = window.matchMedia ? window.matchMedia('(max-width: 760px)') : null;
-  function syncSortFocus() {
-    sortBtns.forEach(function (b) {
-      if (cardsMQ && cardsMQ.matches) b.setAttribute('tabindex', '-1'); else b.removeAttribute('tabindex');
-    });
-  }
-  if (cardsMQ) {
-    syncSortFocus();
-    if (cardsMQ.addEventListener) cardsMQ.addEventListener('change', syncSortFocus);
-    else if (cardsMQ.addListener) cardsMQ.addListener(syncSortFocus);
-  }
-
-  // Partner table
-  function render(animate) {
-    var q = fold(searchInput.value.trim());
-    searchBox.classList.toggle('has-value', !!searchInput.value);
+  function render() {
+    var term = fold(q.value.trim());
     var list = partners.filter(active.test).filter(function (p) {
-      return !q || [p.name, p.short, p.country, p.region, p.sub || ''].some(function (f) { return fold(f).indexOf(q) > -1; });
+      return !term || fold(p.name + ' ' + p.abbr + ' ' + p.country + ' ' + p.continent).indexOf(term) > -1;
     });
-    if (sort.key) {
-      list.sort(function (a, b) { return a[sort.key].localeCompare(b[sort.key]) * sort.dir || a.name.localeCompare(b.name); });
-    }
-    resultCount.innerHTML = '<strong>' + list.length + '</strong> of ' + partners.length + ' partners';
+    list.sort(function (a, b) {
+      return sort.key ? (a[sort.key].localeCompare(b[sort.key]) * sort.dir || a.order - b.order) : a.order - b.order;
+    });
+    countEl.innerHTML = 'Showing <strong>' + list.length + '</strong> ' + (list.length === 1 ? 'partner' : 'partners');
 
     if (!list.length) {
-      tbody.innerHTML = '<tr role="row"><td role="cell" colspan="5" class="empty"><h3>No partners match</h3>' +
-        '<p>Try a different name or country, or clear the filters.</p>' +
-        '<button type="button" class="reset-btn">Clear filters</button></td></tr>';
-      tbody.querySelector('.reset-btn').addEventListener('click', function () {
-        searchInput.value = ''; setFilter(filters[0]); searchInput.focus();
-      });
+      tbody.innerHTML = '<tr><td colspan="5" class="none"><strong>No partners found</strong>Try a different search term or filter.</td></tr>';
       return;
     }
-
-    var anim = animate && !prefersReduced;
-    tbody.innerHTML = list.map(function (p, i) {
+    tbody.innerHTML = list.map(function (p) {
+      var roles = '<span class="labels">' + p.role.map(function (r) { return '<span class="label ' + r + '">' + roleLabels[r] + '</span>'; }).join('') + '</span>';
       var leads = (p.leads || []).map(function (n) {
-        return '<a class="leads-link" href="' + WP_URL + '#area-' + n + '"><span class="area-no">Area ' + n + ' <span aria-hidden="true">→</span></span>' +
-          '<span class="area-name">' + areaNames[n] + '</span></a>';
+        return '<a href="' + WP_URL + '#area-' + n + '" title="' + esc(areaNames[n]) + '"><b>Area ' + n + ' →</b><small>' + esc(areaNames[n]) + '</small></a>';
       }).join('');
-      return '<tr role="row" class="' + regionClass[p.region] + (anim ? ' fade-in' : '') + '"' + (anim ? ' style="animation-delay:' + Math.min(i, 12) * 25 + 'ms"' : '') + '>' +
-        '<td role="cell" class="c-partner"><div class="partner">' + monogram(p) +
-          '<div><div class="p-name">' + hl(p.name, q) + '</div><div class="acr">' + hl(p.short, q) + '</div></div></div></td>' +
-        '<td role="cell" class="c-country">' + hl(p.country, q) + '</td>' +
-        '<td role="cell" class="c-continent"><div class="cont"><span class="cont-pill">' + hl(p.region, q) + '</span>' +
-          (p.sub ? '<small>' + hl(p.sub, q) + '</small>' : '') + '</div></td>' +
-        '<td role="cell" class="c-role">' + (roleTag(p) || '<span class="role-plain">Beneficiary</span>') + '</td>' +
-        '<td role="cell" class="c-leads' + (leads ? '">' + leads : ' is-empty"><span class="muted" aria-hidden="true">—</span><span class="sr-only">None</span>') + '</td>' +
+      return '<tr>' +
+        '<td class="c-partner"><div class="partner">' + logoHTML(p) +
+          '<div><div class="p-name"><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + hl(p.name, term) + '</a></div>' +
+          '<div class="abbr">' + hl(p.abbr, term) + '</div></div></div></td>' +
+        '<td class="c-country">' + hl(p.country, term) + '</td>' +
+        '<td class="c-cont"><span class="cont" style="--c:' + continentColour[p.continent] + '">' + hl(p.continent, term) + '</span></td>' +
+        '<td class="c-role">' + roles + '</td>' +
+        '<td class="c-leads leads' + (leads ? '">' + leads : ' is-empty"><span class="muted" aria-hidden="true">—</span><span class="sr-only">None</span>') + '</td>' +
         '</tr>';
     }).join('');
   }
-  searchInput.addEventListener('input', function () { render(); });
-  searchInput.addEventListener('keydown', function (e) { if (e.key === 'Escape') { searchInput.value = ''; render(); } });
-  root.querySelector('.clear-btn').addEventListener('click', function (e) {
-    e.preventDefault(); searchInput.value = ''; render(); searchInput.focus();
-  });
 
-  // Where we work
-  function countryCounts(list) {
-    var counts = {}, order = [];
-    list.forEach(function (p) {
-      if (!counts[p.country]) { counts[p.country] = 0; order.push(p.country); }
-      counts[p.country]++;
-    });
-    return order.map(function (c) { return { country: c, n: counts[c] }; });
-  }
-  function countryButtons(list) {
-    return '<div class="country-list">' + countryCounts(list).map(function (c) {
-      return '<button type="button" class="country-btn" data-country="' + esc(c.country) + '">' + esc(c.country) +
-        (c.n > 1 ? '<span class="n">' + c.n + '</span>' : '') + '</button>';
-    }).join('') + '</div>';
-  }
-  root.querySelector('.regions').innerHTML = regionOrder.map(function (r) {
-    var inRegion = partners.filter(function (p) { return p.region === r; });
-    var nC = countryCounts(inRegion).length;
-    var body = r === 'Africa'
-      ? '<div class="subregions">' + subOrder.map(function (s) {
-          return '<div><div class="subregion-name">' + s + '</div>' + countryButtons(inRegion.filter(function (p) { return p.sub === s; })) + '</div>';
-        }).join('') + '</div>'
-      : countryButtons(inRegion);
-    return '<div class="region-card ' + regionClass[r] + '" data-reveal><h3>' + r + '</h3>' +
-      '<div class="count">' + inRegion.length + (inRegion.length === 1 ? ' partner' : ' partners') + ' · ' + nC + (nC === 1 ? ' country' : ' countries') + '</div>' +
-      body + '</div>';
-  }).join('');
-  root.querySelector('.regions').addEventListener('click', function (e) {
-    var btn = e.target.closest('.country-btn');
-    if (!btn) return;
-    searchInput.value = btn.dataset.country;
-    setFilter(filters[0]);
-    root.querySelector('#sincep-cp-all').scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
-  });
-
-  // Reveal on scroll (content stays visible if the browser can't do this)
-  if (canObserve && !prefersReduced) {
-    root.classList.add('js-reveal');
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    root.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
-  }
-
-  render(true);
+  q.addEventListener('input', render);
+  render();
 })();
 </script>
